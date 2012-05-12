@@ -30,6 +30,8 @@ syntax: glob
 obj/
 [Rr]elease*/
 _Resharper.*/
+**/TestResults/*
+**/_ReSharper*/*
 [Tt]est[Rr]esult*
 [Bb]uild[Ll]og.*
 *.[Pp]ublish.xml

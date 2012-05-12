@@ -62,7 +62,12 @@ namespace GalaSoft.MvvmLight.Helpers
             {
                 if (_staticFunc != null)
                 {
+#if PORTABLE45
+                    dynamic sFunc = _staticFunc;
+                    return sFunc.Method.Name;
+#else
                     return _staticFunc.Method.Name;
+#endif
                 }
 
 #if SILVERLIGHT
@@ -130,7 +135,12 @@ namespace GalaSoft.MvvmLight.Helpers
         /// <param name="func">The func that will be associated to this instance.</param>
         public WeakFunc(object target, Func<TResult> func)
         {
+#if PORTABLE45
+            dynamic dFunc = func;
+            if (dFunc.Method.IsStatic)
+#else
             if (func.Method.IsStatic)
+#endif
             {
                 _staticFunc = func;
 
@@ -169,7 +179,11 @@ namespace GalaSoft.MvvmLight.Helpers
                 }
             }
 #else
+#if PORTABLE45
+            Method = dFunc.Method;
+#else
             Method = func.Method;
+#endif
             FuncReference = new WeakReference(func.Target);
 #endif
 

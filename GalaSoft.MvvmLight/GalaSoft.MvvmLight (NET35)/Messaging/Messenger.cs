@@ -18,11 +18,13 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reflection;
+using System.Threading;
 using GalaSoft.MvvmLight.Helpers;
 
 #if SILVERLIGHT
 using System.Windows;
-#else
+#elif !PORTABLE45
 using System.Windows.Threading;
 #endif
 
@@ -47,6 +49,9 @@ namespace GalaSoft.MvvmLight.Messaging
         private Dictionary<Type, List<WeakActionAndToken>> _recipientsOfSubclassesAction;
         private Dictionary<Type, List<WeakActionAndToken>> _recipientsStrictAction;
 
+#if PORTABLE45
+        private SynchronizationContext _context = SynchronizationContext.Current;
+#endif
         /// <summary>
         /// Gets the Messenger's default instance, allowing
         /// to register and send messages in a static manner.
@@ -459,7 +464,11 @@ namespace GalaSoft.MvvmLight.Messaging
                         && item.Action.Target != null
                         && (messageTargetType == null
                             || item.Action.Target.GetType() == messageTargetType
+#if !PORTABLE45
                             || messageTargetType.IsAssignableFrom(item.Action.Target.GetType()))
+#else
+                            || messageTargetType.GetTypeInfo().IsAssignableFrom(item.Action.Target.GetType().GetTypeInfo()))
+#endif
                         && ((item.Token == null && token == null)
                             || item.Token != null && item.Token.Equals(token)))
                     {
@@ -518,10 +527,17 @@ namespace GalaSoft.MvvmLight.Messaging
                 {
                     var weakActionCasted = item.Action as WeakAction<TMessage>;
 
+#if PORTABLE45
+                    dynamic dynamicAction = action;
+#endif
                     if (weakActionCasted != null
                         && recipient == weakActionCasted.Target
                         && (action == null
+#if !PORTABLE45
                             || action.Method.Name == weakActionCasted.MethodName)
+#else
+                        || dynamicAction.Method.Name == weakActionCasted.MethodName)
+#endif
                         && (token == null
                             || token.Equals(item.Token)))
                     {
@@ -551,11 +567,17 @@ namespace GalaSoft.MvvmLight.Messaging
 
 #if SILVERLIGHT                
                 Deployment.Current.Dispatcher.BeginInvoke(cleanupAction);
-#else
+#elif !PORTABLE45
                 Dispatcher.CurrentDispatcher.BeginInvoke(
                     cleanupAction,
                     DispatcherPriority.ApplicationIdle,
                     null);
+#else
+
+                if (_context != null)
+                    _context.Post(_ => cleanupAction(), null);
+                else
+                    cleanupAction(); // run inline w/o a context
 #endif
                 _isCleanupRegistered = true;
             }
@@ -594,7 +616,7 @@ namespace GalaSoft.MvvmLight.Messaging
                 {
                     List<WeakActionAndToken> list = null;
 
-#if WIN8
+#if WIN8 
                     if (messageType == type
                         || type.GetTypeInfo().IsAssignableFrom(messageType.GetTypeInfo())
                         || Implements(messageType, type))
@@ -604,7 +626,7 @@ namespace GalaSoft.MvvmLight.Messaging
                             list = _recipientsOfSubclassesAction[type].Take(_recipientsOfSubclassesAction[type].Count()).ToList();
                         }
                     }
-#else
+#elif !PORTABLE45
                     if (messageType == type
                         || messageType.IsSubclassOf(type)
                         || type.IsAssignableFrom(messageType))
@@ -614,6 +636,18 @@ namespace GalaSoft.MvvmLight.Messaging
                             list = _recipientsOfSubclassesAction[type].Take(_recipientsOfSubclassesAction[type].Count()).ToList();
                         }
                     }
+
+#else
+                    if(messageType == type
+                        || messageType.GetTypeInfo().IsSubclassOf(type)
+                        || type.GetTypeInfo().IsAssignableFrom(messageType.GetTypeInfo()))
+                    {
+                        lock(_recipientsOfSubclassesAction)
+                        {
+                            list = _recipientsOfSubclassesAction[type].Take(_recipientsOfSubclassesAction[type].Count()).ToList();
+                        }
+                    }
+
 #endif
 
                     SendToList(message, list, messageTargetType, token);

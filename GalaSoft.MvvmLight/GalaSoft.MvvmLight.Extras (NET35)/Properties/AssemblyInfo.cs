@@ -19,7 +19,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-#if !NETFX_CORE
+#if !NETFX_CORE && !PORTABLE45
 using System.Windows.Markup;
 #endif
 
@@ -32,7 +32,7 @@ using System.Windows.Markup;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-#if !NETFX_CORE
+#if !NETFX_CORE && !PORTABLE45
 [assembly: XmlnsDefinition("http://www.galasoft.ch/mvvmlight", "GalaSoft.MvvmLight.Command")]
 #endif
 

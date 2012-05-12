@@ -22,6 +22,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
+#if PORTABLE45 || NETFX_CORE
+using System.Reflection.RuntimeExtensions;
+using System.Runtime.CompilerServices;
+
+#endif
+
 namespace GalaSoft.MvvmLight
 {
     /// <summary>
@@ -76,9 +82,9 @@ namespace GalaSoft.MvvmLight
         {
             var myType = this.GetType();
 
-#if NETFX_CORE
+#if NETFX_CORE || PORTABLE45
             if (!string.IsNullOrEmpty(propertyName)
-                && myType.GetTypeInfo().GetDeclaredProperty(propertyName) == null)
+                && !myType.GetRuntimeProperties().Any(prop => prop.Name ==propertyName))
             {
                 throw new ArgumentException("Property not found", propertyName);
             }
@@ -115,7 +121,15 @@ namespace GalaSoft.MvvmLight
         /// changed.</param>
         [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate",
             Justification = "This cannot be an event")]
-        protected virtual void RaisePropertyChanging(string propertyName)
+        protected virtual void RaisePropertyChanging(
+#if NETFX_CORE || PORTABLE45
+            [CallerMemberName]
+#endif
+            string propertyName
+            #if NETFX_CORE || PORTABLE45
+            = null
+#endif
+            )
         {
 #if NETFX_CORE
             if (string.IsNullOrEmpty(propertyName))
@@ -148,7 +162,15 @@ namespace GalaSoft.MvvmLight
         /// changed.</param>
         [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate",
             Justification = "This cannot be an event")]
-        protected virtual void RaisePropertyChanged(string propertyName)
+        protected virtual void RaisePropertyChanged(
+#if NETFX_CORE || PORTABLE45
+[CallerMemberName]
+#endif
+            string propertyName
+#if NETFX_CORE || PORTABLE45
+ = null
+#endif
+            )
         {
             VerifyPropertyName(propertyName);
 
@@ -296,5 +318,26 @@ namespace GalaSoft.MvvmLight
             RaisePropertyChanged(propertyName);
             return true;
         }
+
+#if NETFX_CORE || PORTABLE45
+        /// <summary>
+        /// Assigns a new value to the property. Then, raises the
+        /// PropertyChanged event if needed. 
+        /// </summary>
+        /// <typeparam name="T">The type of the property that
+        /// changed.</typeparam>
+        /// <param name="propertyName">The name of the property that
+        /// changed.</param>
+        /// <param name="field">The field storing the property's value.</param>
+        /// <param name="newValue">The property's value after the change
+        /// occurred.</param>
+        /// <returns>True if the PropertyChanged event has been raised,
+        /// false otherwise. The event is not raised if the old
+        /// value is equal to the new value.</returns>
+        protected bool Set<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        {
+            return Set(propertyName, ref field, newValue);
+        }
+#endif
     }
 }

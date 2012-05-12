@@ -55,7 +55,12 @@ namespace GalaSoft.MvvmLight.Helpers
             {
                 if (_staticAction != null)
                 {
+#if PORTABLE45
+                    dynamic sAction = _staticAction;
+                    return sAction.Method.Name;
+#else
                     return _staticAction.Method.Name;
+#endif
                 }
 
 #if SILVERLIGHT
@@ -136,7 +141,12 @@ namespace GalaSoft.MvvmLight.Helpers
         /// <param name="action">The action that will be associated to this instance.</param>
         public WeakAction(object target, Action action)
         {
+#if PORTABLE45
+            dynamic sAction = action;
+            if(sAction.Method.IsStatic)
+#else
             if (action.Method.IsStatic)
+#endif
             {
                 _staticAction = action;
 
@@ -175,7 +185,11 @@ namespace GalaSoft.MvvmLight.Helpers
                 }
             }
 #else
+#if PORTABLE45
+            Method = sAction.Method;
+#else
             Method = action.Method;
+#endif
             ActionReference = new WeakReference(action.Target);
 #endif
 

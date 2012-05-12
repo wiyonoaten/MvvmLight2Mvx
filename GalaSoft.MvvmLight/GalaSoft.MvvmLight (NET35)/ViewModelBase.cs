@@ -69,6 +69,7 @@ namespace GalaSoft.MvvmLight
             MessengerInstance = messenger;
         }
 
+#if !PORTABLE45
         /// <summary>
         /// Gets a value indicating whether the control is in design mode
         /// (running under Blend or Visual Studio).
@@ -117,6 +118,8 @@ namespace GalaSoft.MvvmLight
                 return _isInDesignMode.Value;
             }
         }
+
+#endif
 
         /// <summary>
         /// Gets or sets an instance of a <see cref="IMessenger" /> used to
