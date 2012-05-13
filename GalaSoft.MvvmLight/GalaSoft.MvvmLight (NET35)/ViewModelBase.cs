@@ -69,7 +69,7 @@ namespace GalaSoft.MvvmLight
             MessengerInstance = messenger;
         }
 
-#if !PORTABLE45
+#if !PORTABLE
         /// <summary>
         /// Gets a value indicating whether the control is in design mode
         /// (running under Blend or Visual Studio).

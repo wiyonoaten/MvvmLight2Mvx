@@ -19,7 +19,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-#if !NETFX_CORE && !PORTABLE45
+#if !NETFX_CORE && !PORTABLE
 using System.Windows.Markup;
 #endif
 
@@ -32,11 +32,11 @@ using System.Windows.Markup;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-#if !NETFX_CORE && !PORTABLE45
+#if !NETFX_CORE && !PORTABLE
 [assembly: XmlnsDefinition("http://www.galasoft.ch/mvvmlight", "GalaSoft.MvvmLight.Command")]
+[assembly: ComVisible(false)]
 #endif
 
-[assembly: ComVisible(false)]
 [assembly: CLSCompliant(true)]
 
 [assembly: AssemblyVersion("4.0.21.*")]

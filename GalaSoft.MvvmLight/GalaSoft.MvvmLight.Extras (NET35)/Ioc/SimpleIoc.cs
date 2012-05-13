@@ -21,7 +21,7 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.Practices.ServiceLocation;
 
-#if !NETFX_CORE && !PORTABLE45
+#if !NETFX_CORE && !PORTABLE
 using GalaSoft.MvvmLight.Properties;
 #endif
 
@@ -231,7 +231,7 @@ namespace GalaSoft.MvvmLight.Ioc
             where TClass : class
         {
             var classType = typeof(TClass);
-#if NETFX_CORE || PORTABLE45
+#if NETFX_CORE
             if (classType.GetTypeInfo().IsInterface)
 #else
             if (classType.IsInterface)
@@ -616,7 +616,7 @@ namespace GalaSoft.MvvmLight.Ioc
                 resolveTo = serviceType;
             }
 
-#if NETFX_CORE || PORTABLE45
+#if NETFX_CORE
             var constructorInfos = resolveTo.GetTypeInfo().DeclaredConstructors.ToArray();
 #else
             var constructorInfos = resolveTo.GetConstructors();
@@ -626,7 +626,7 @@ namespace GalaSoft.MvvmLight.Ioc
             {
                 var preferredConstructorInfo
                     = (from t in constructorInfos
-#if NETFX_CORE || PORTABLE45
+#if NETFX_CORE
                        let attribute = t.GetCustomAttribute(typeof (PreferredConstructorAttribute))
 #else
                        let attribute = Attribute.GetCustomAttribute(t, typeof(PreferredConstructorAttribute))

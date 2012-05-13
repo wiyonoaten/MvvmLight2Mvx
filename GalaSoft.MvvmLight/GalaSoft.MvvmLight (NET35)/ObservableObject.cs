@@ -22,10 +22,11 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-#if PORTABLE45 || NETFX_CORE
+#if NETFX_CORE
 using System.Reflection.RuntimeExtensions;
 using System.Runtime.CompilerServices;
-
+#elif PORTABLE
+using System.Runtime.CompilerServices;
 #endif
 
 namespace GalaSoft.MvvmLight
@@ -36,6 +37,9 @@ namespace GalaSoft.MvvmLight
     //// [ClassInfo(typeof(ViewModelBase))]
     public class ObservableObject : INotifyPropertyChanged, INotifyPropertyChanging
     {
+#if PORTABLE
+        private const string FakePropertyName = @"A property name must be specified if not using C# 5/VB11";
+#endif
         /// <summary>
         /// Occurs after a property value changes.
         /// </summary>
@@ -82,7 +86,7 @@ namespace GalaSoft.MvvmLight
         {
             var myType = this.GetType();
 
-#if NETFX_CORE || PORTABLE45
+#if NETFX_CORE
             if (!string.IsNullOrEmpty(propertyName)
                 && !myType.GetRuntimeProperties().Any(prop => prop.Name ==propertyName))
             {
@@ -92,7 +96,7 @@ namespace GalaSoft.MvvmLight
             if (!string.IsNullOrEmpty(propertyName)
                 && myType.GetProperty(propertyName) == null)
             {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !PORTABLE
                 var descriptor = this as ICustomTypeDescriptor;
 
                 if (descriptor != null)
@@ -122,12 +126,12 @@ namespace GalaSoft.MvvmLight
         [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate",
             Justification = "This cannot be an event")]
         protected virtual void RaisePropertyChanging(
-#if NETFX_CORE || PORTABLE45
+#if NETFX_CORE || PORTABLE
             [CallerMemberName]
 #endif
             string propertyName
-            #if NETFX_CORE || PORTABLE45
-            = null
+            #if NETFX_CORE || PORTABLE
+            = FakePropertyName
 #endif
             )
         {
@@ -163,12 +167,12 @@ namespace GalaSoft.MvvmLight
         [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate",
             Justification = "This cannot be an event")]
         protected virtual void RaisePropertyChanged(
-#if NETFX_CORE || PORTABLE45
+#if NETFX_CORE || PORTABLE
 [CallerMemberName]
 #endif
             string propertyName
-#if NETFX_CORE || PORTABLE45
- = null
+#if NETFX_CORE || PORTABLE
+ = FakePropertyName
 #endif
             )
         {
@@ -319,7 +323,7 @@ namespace GalaSoft.MvvmLight
             return true;
         }
 
-#if NETFX_CORE || PORTABLE45
+#if NETFX_CORE || PORTABLE
         /// <summary>
         /// Assigns a new value to the property. Then, raises the
         /// PropertyChanged event if needed. 
@@ -334,7 +338,7 @@ namespace GalaSoft.MvvmLight
         /// <returns>True if the PropertyChanged event has been raised,
         /// false otherwise. The event is not raised if the old
         /// value is equal to the new value.</returns>
-        protected bool Set<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        protected bool Set<T>(ref T field, T newValue, [CallerMemberName] string propertyName = FakePropertyName)
         {
             return Set(propertyName, ref field, newValue);
         }

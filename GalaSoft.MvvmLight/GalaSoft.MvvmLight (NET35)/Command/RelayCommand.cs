@@ -84,7 +84,7 @@ namespace GalaSoft.MvvmLight.Command
         /// </summary>
         public event EventHandler CanExecuteChanged;
 #else
-#if NETFX_CORE || PORTABLE45
+#if NETFX_CORE || PORTABLE
         /// <summary>
         /// Occurs when changes occur that affect whether the command should execute.
         /// </summary>
@@ -130,7 +130,7 @@ namespace GalaSoft.MvvmLight.Command
                 handler(this, EventArgs.Empty);
             }
 #else
-#if NETFX_CORE || PORTABLE45
+#if NETFX_CORE || PORTABLE
             var handler = CanExecuteChanged;
             if (handler != null)
             {

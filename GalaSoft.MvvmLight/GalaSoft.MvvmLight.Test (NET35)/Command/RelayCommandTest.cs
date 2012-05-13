@@ -71,7 +71,7 @@ namespace GalaSoft.MvvmLight.Test.Command
 
             command.RaiseCanExecuteChanged();
 
-#if SILVERLIGHT || PORTABLE45
+#if SILVERLIGHT || PORTABLE
             Assert.AreEqual(1, canExecuteChangedCalled);
 #else
             // In WPF, cannot trigger the CanExecuteChanged event like this
@@ -81,7 +81,7 @@ namespace GalaSoft.MvvmLight.Test.Command
             command.CanExecuteChanged -= canExecuteChangedEventHandler;
             command.RaiseCanExecuteChanged();
 
-#if SILVERLIGHT || PORTABLE45
+#if SILVERLIGHT || PORTABLE
             Assert.AreEqual(1, canExecuteChangedCalled);
 #else
             // In WPF, cannot trigger the CanExecuteChanged event like this

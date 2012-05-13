@@ -24,7 +24,7 @@ using GalaSoft.MvvmLight.Helpers;
 
 #if SILVERLIGHT
 using System.Windows;
-#elif !PORTABLE45
+#elif !PORTABLE
 using System.Windows.Threading;
 #endif
 
@@ -49,7 +49,7 @@ namespace GalaSoft.MvvmLight.Messaging
         private Dictionary<Type, List<WeakActionAndToken>> _recipientsOfSubclassesAction;
         private Dictionary<Type, List<WeakActionAndToken>> _recipientsStrictAction;
 
-#if PORTABLE45
+#if PORTABLE
         private SynchronizationContext _context = SynchronizationContext.Current;
 #endif
         /// <summary>
@@ -464,11 +464,8 @@ namespace GalaSoft.MvvmLight.Messaging
                         && item.Action.Target != null
                         && (messageTargetType == null
                             || item.Action.Target.GetType() == messageTargetType
-#if !PORTABLE45
                             || messageTargetType.IsAssignableFrom(item.Action.Target.GetType()))
-#else
-                            || messageTargetType.GetTypeInfo().IsAssignableFrom(item.Action.Target.GetType().GetTypeInfo()))
-#endif
+
                         && ((item.Token == null && token == null)
                             || item.Token != null && item.Token.Equals(token)))
                     {
@@ -527,17 +524,11 @@ namespace GalaSoft.MvvmLight.Messaging
                 {
                     var weakActionCasted = item.Action as WeakAction<TMessage>;
 
-#if PORTABLE45
-                    dynamic dynamicAction = action;
-#endif
                     if (weakActionCasted != null
                         && recipient == weakActionCasted.Target
                         && (action == null
-#if !PORTABLE45
-                            || action.Method.Name == weakActionCasted.MethodName)
-#else
-                        || dynamicAction.Method.Name == weakActionCasted.MethodName)
-#endif
+                        || action.Method.Name == weakActionCasted.MethodName)
+
                         && (token == null
                             || token.Equals(item.Token)))
                     {
@@ -567,7 +558,7 @@ namespace GalaSoft.MvvmLight.Messaging
 
 #if SILVERLIGHT                
                 Deployment.Current.Dispatcher.BeginInvoke(cleanupAction);
-#elif !PORTABLE45
+#elif !PORTABLE
                 Dispatcher.CurrentDispatcher.BeginInvoke(
                     cleanupAction,
                     DispatcherPriority.ApplicationIdle,
@@ -626,23 +617,12 @@ namespace GalaSoft.MvvmLight.Messaging
                             list = _recipientsOfSubclassesAction[type].Take(_recipientsOfSubclassesAction[type].Count()).ToList();
                         }
                     }
-#elif !PORTABLE45
+#else
                     if (messageType == type
                         || messageType.IsSubclassOf(type)
                         || type.IsAssignableFrom(messageType))
                     {
                         lock (_recipientsOfSubclassesAction)
-                        {
-                            list = _recipientsOfSubclassesAction[type].Take(_recipientsOfSubclassesAction[type].Count()).ToList();
-                        }
-                    }
-
-#else
-                    if(messageType == type
-                        || messageType.GetTypeInfo().IsSubclassOf(type)
-                        || type.GetTypeInfo().IsAssignableFrom(messageType.GetTypeInfo()))
-                    {
-                        lock(_recipientsOfSubclassesAction)
                         {
                             list = _recipientsOfSubclassesAction[type].Take(_recipientsOfSubclassesAction[type].Count()).ToList();
                         }

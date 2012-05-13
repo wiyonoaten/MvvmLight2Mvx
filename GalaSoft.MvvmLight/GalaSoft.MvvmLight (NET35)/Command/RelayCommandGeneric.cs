@@ -21,7 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Helpers;
 
-#if NETFX_CORE || PORTABLE45
+#if NETFX_CORE || PORTABLE
 using System.Reflection;
 #endif
 
@@ -81,7 +81,7 @@ namespace GalaSoft.MvvmLight.Command
         /// </summary>
         public event EventHandler CanExecuteChanged;
 #else
-#if NETFX_CORE || PORTABLE45
+#if NETFX_CORE || PORTABLE
         /// <summary>
         /// Occurs when changes occur that affect whether the command should execute.
         /// </summary>
@@ -127,7 +127,7 @@ namespace GalaSoft.MvvmLight.Command
                 handler(this, EventArgs.Empty);
             }
 #else
-#if NETFX_CORE || PORTABLE45
+#if NETFX_CORE || PORTABLE
             var handler = CanExecuteChanged;
             if (handler != null)
             {
@@ -155,7 +155,7 @@ namespace GalaSoft.MvvmLight.Command
             if (_canExecute.IsStatic || _canExecute.IsAlive)
             {
                 if (parameter == null
-#if NETFX_CORE || PORTABLE45
+#if NETFX_CORE
                 && typeof(T).GetTypeInfo().IsValueType)
 #else
                     && typeof(T).IsValueType)
@@ -183,12 +183,12 @@ namespace GalaSoft.MvvmLight.Command
             if (parameter != null
                 && parameter.GetType() != typeof(T))
             {
-#if !PORTABLE45
+#if !PORTABLE
                 if (parameter is IConvertible)
                 {
 #endif
                     val = Convert.ChangeType(parameter, typeof (T), null);
-#if !PORTABLE45
+#if !PORTABLE
                 }
 #endif
             }
@@ -200,7 +200,7 @@ namespace GalaSoft.MvvmLight.Command
             {
                 if (val == null)
                 {
-#if NETFX_CORE || PORTABLE45
+#if NETFX_CORE
                     if (typeof(T).GetTypeInfo().IsValueType)
 #else
                     if (typeof(T).IsValueType)

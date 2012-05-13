@@ -28,7 +28,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
+#if !PORTABLE
 [assembly: ComVisible(false)]
+#endif
+
 [assembly: CLSCompliant(true)]
 
 [assembly: AssemblyVersion("4.0.21.*")]
