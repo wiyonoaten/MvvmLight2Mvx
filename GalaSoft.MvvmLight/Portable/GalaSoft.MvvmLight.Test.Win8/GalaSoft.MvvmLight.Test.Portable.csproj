@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;PORTABLE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;PORTABLE;NETFX_CORE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -30,7 +30,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;PORTABLE</DefineConstants>
+    <DefineConstants>TRACE;PORTABLE;NETFX_CORE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -109,11 +109,6 @@
   <PropertyGroup>
     <AppXPackage>True</AppXPackage>
   </PropertyGroup>
-  <ItemGroup>
-    <!--A reference to the entire .Net Framework and Windows SDK are automatically included-->
-    <SDKReference Include="MSTestFramework, Version=11.0" />
-    <SDKReference Include="TestPlatform, Version=11.0" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Command\RelayCommandGenericTest.cs">
       <Link>Command\RelayCommandGenericTest.cs</Link>
@@ -265,12 +260,6 @@
     <None Include="GalaSoft.MvvmLight.Test.Win8_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\External\WIN8\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\GalaSoft.MvvmLight.Extras\GalaSoft.MvvmLight.Extras.csproj">
       <Project>{c0b359a9-4985-435d-8cc1-c1fec405bc2c}</Project>
       <Name>GalaSoft.MvvmLight.Extras</Name>
@@ -279,6 +268,20 @@
       <Project>{fdfc16dc-929d-49dc-8c30-0c697dcd3860}</Project>
       <Name>GalaSoft.MvvmLight</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="MSTestFramework, Version=11.0">
+      <Name>MSTest for Managed Projects</Name>
+    </SDKReference>
+    <SDKReference Include="TestPlatform, Version=11.0">
+      <Name>Microsoft Visual Studio Test Core</Name>
+    </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\External\Portable\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

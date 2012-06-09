@@ -190,7 +190,7 @@ namespace GalaSoft.MvvmLight.Test.Command
             _tempoInstance = null;
             GC.Collect();
 
-#if NETFX_CORE
+#if NETFX_CORE && !PORTABLE
             Assert.IsTrue(_reference.IsAlive);
             TestCommand = null;
             GC.Collect();
@@ -214,7 +214,7 @@ namespace GalaSoft.MvvmLight.Test.Command
             _tempoInstance = null;
             GC.Collect();
 
-#if NETFX_CORE
+#if NETFX_CORE && !PORTABLE
             Assert.IsTrue(_reference.IsAlive);
             TestCommand = null;
             GC.Collect();
