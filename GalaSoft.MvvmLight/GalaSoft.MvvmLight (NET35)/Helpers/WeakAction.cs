@@ -31,7 +31,7 @@ namespace GalaSoft.MvvmLight.Helpers
     ////    Email = "laurent@galasoft.ch")]
     public class WeakAction
     {
-#if SILVERLIGHT
+#if SILVERLIGHT || PORTABLE
         private Action _action;
 #endif
         private Action _staticAction;
@@ -58,18 +58,28 @@ namespace GalaSoft.MvvmLight.Helpers
                     return _staticAction.Method.Name;
                 }
 
-#if SILVERLIGHT
-                if (_action != null)
+#if SILVERLIGHT || PORTABLE
+
+#if PORTABLE
+                if(PlatformHelper.CurrentPlatform == Platform.Silverlight)
                 {
-                    return _action.Method.Name;
+#endif
+                    if (_action != null)
+                    {
+                        return _action.Method.Name;
+                    }
+
+                    if (Method != null)
+                    {
+                        return Method.Name;
+                    }
+
+                    return string.Empty;
+#if PORTABLE
                 }
 
-                if (Method != null)
-                {
-                    return Method.Name;
-                }
-
-                return string.Empty;
+                return Method.Name;
+#endif
 #else
                 return Method.Name;
 #endif
@@ -104,9 +114,19 @@ namespace GalaSoft.MvvmLight.Helpers
         {
             get
             {
-#if SILVERLIGHT
-                return (_action != null && _action.Target == null)
-                    || _staticAction != null;
+#if SILVERLIGHT || PORTABLE
+                
+#if PORTABLE
+                if(PlatformHelper.CurrentPlatform == Platform.Silverlight)
+                {
+#endif
+                    return (_action != null && _action.Target == null)
+                        || _staticAction != null;    
+#if PORTABLE
+                }
+                return _staticAction != null;
+#endif
+                
 #else
                 return _staticAction != null;
 #endif
@@ -150,30 +170,45 @@ namespace GalaSoft.MvvmLight.Helpers
                 return;
             }
 
-#if SILVERLIGHT
-            if (!action.Method.IsPublic
-                || (action.Target != null
-                    && !action.Target.GetType().IsPublic
-                    && !action.Target.GetType().IsNestedPublic))
-            {
-                _action = action;
-            }
-            else
-            {
-                var name = action.Method.Name;
+#if SILVERLIGHT || PORTABLE
 
-                if (name.Contains("<")
-                    && name.Contains(">"))
+#if PORTABLE
+            if (PlatformHelper.CurrentPlatform == Platform.Silverlight)
+            {
+#endif
+                
+                if (!action.Method.IsPublic
+                    || (action.Target != null
+                        && !action.Target.GetType().IsPublic
+                        && !action.Target.GetType().IsNestedPublic))
                 {
-                    // Anonymous method
                     _action = action;
                 }
                 else
                 {
-                    Method = action.Method;
-                    ActionReference = new WeakReference(action.Target);
+                    var name = action.Method.Name;
+
+                    if (name.Contains("<")
+                        && name.Contains(">"))
+                    {
+                        // Anonymous method
+                        _action = action;
+                    }
+                    else
+                    {
+                        Method = action.Method;
+                        ActionReference = new WeakReference(action.Target);
+                    }
                 }
+#if PORTABLE
             }
+            else
+            {
+                Method = action.Method;
+                ActionReference = new WeakReference(action.Target);
+            }
+#endif
+
 #else
             Method = action.Method;
             ActionReference = new WeakReference(action.Target);
@@ -264,12 +299,20 @@ namespace GalaSoft.MvvmLight.Helpers
                     return;
                 }
 
-#if SILVERLIGHT
-                if (_action != null)
+#if SILVERLIGHT || PORTABLE
+
+#if PORTABLE
+                if (PlatformHelper.CurrentPlatform == Platform.Silverlight)
                 {
-                    _action();
-                    return;
+#endif
+                    if (_action != null)
+                    {
+                        _action();
+                        return;
+                    }
+#if PORTABLE
                 }
+#endif
 #endif
             }
         }
@@ -284,7 +327,7 @@ namespace GalaSoft.MvvmLight.Helpers
             Method = null;
             _staticAction = null;
 
-#if SILVERLIGHT
+#if SILVERLIGHT || PORTABLE
             _action = null;
 #endif
         }

@@ -117,6 +117,7 @@
     <Compile Include="..\..\GalaSoft.MvvmLight %28SL4%29\Helpers\PropertyChangingEventHandler.cs">
       <Link>Helpers\PropertyChangingEventHandler.cs</Link>
     </Compile>
+    <Compile Include="Helpers\Platform.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

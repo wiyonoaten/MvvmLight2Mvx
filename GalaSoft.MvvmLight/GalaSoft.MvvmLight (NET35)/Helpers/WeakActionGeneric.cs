@@ -25,7 +25,7 @@ namespace GalaSoft.MvvmLight.Helpers
     ////[ClassInfo(typeof(WeakAction))]
     public class WeakAction<T> : WeakAction, IExecuteWithObject
     {
-#if SILVERLIGHT
+#if SILVERLIGHT || PORTABLE
         private Action<T> _action;
 #endif
         private Action<T> _staticAction;
@@ -42,18 +42,28 @@ namespace GalaSoft.MvvmLight.Helpers
                     return _staticAction.Method.Name;
                 }
 
-#if SILVERLIGHT
-                if (_action != null)
+#if SILVERLIGHT || PORTABLE
+
+#if PORTABLE
+                if (PlatformHelper.CurrentPlatform == Platform.Silverlight)
                 {
-                    return _action.Method.Name;
+#endif
+                    if (_action != null)
+                    {
+                        return _action.Method.Name;
+                    }
+
+                    if (Method != null)
+                    {
+                        return Method.Name;
+                    }
+
+                    return string.Empty;
+#if PORTABLE
                 }
 
-                if (Method != null)
-                {
-                    return Method.Name;
-                }
-
-                return string.Empty;
+                return Method.Name;
+#endif
 #else
                 return Method.Name;
 #endif
@@ -118,29 +128,45 @@ namespace GalaSoft.MvvmLight.Helpers
                 return;
             }
 
-#if SILVERLIGHT
-            if (!action.Method.IsPublic
-                || (target != null
-                    && !target.GetType().IsPublic
-                    && !target.GetType().IsNestedPublic))
-            {
-                _action = action;
-            }
-            else
-            {
-                var name = action.Method.Name;
+#if SILVERLIGHT || PORTABLE
 
-                if (name.Contains("<")
-                    && name.Contains(">"))
+#if PORTABLE
+            if (PlatformHelper.CurrentPlatform == Platform.Silverlight)
+            {
+#endif
+
+                if (!action.Method.IsPublic
+                    || (action.Target != null
+                        && !action.Target.GetType().IsPublic
+                        && !action.Target.GetType().IsNestedPublic))
                 {
                     _action = action;
                 }
                 else
                 {
-                    Method = action.Method;
-                    ActionReference = new WeakReference(action.Target);
+                    var name = action.Method.Name;
+
+                    if (name.Contains("<")
+                        && name.Contains(">"))
+                    {
+                        // Anonymous method
+                        _action = action;
+                    }
+                    else
+                    {
+                        Method = action.Method;
+                        ActionReference = new WeakReference(action.Target);
+                    }
                 }
+#if PORTABLE
             }
+            else
+            {
+                Method = action.Method;
+                ActionReference = new WeakReference(action.Target);
+            }
+#endif
+
 #else
             Method = action.Method;
             ActionReference = new WeakReference(action.Target);
@@ -184,12 +210,20 @@ namespace GalaSoft.MvvmLight.Helpers
                         });
                 }
 
-#if SILVERLIGHT
-                if (_action != null)
+#if SILVERLIGHT || PORTABLE
+
+#if PORTABLE
+                if (PlatformHelper.CurrentPlatform == Platform.Silverlight)
                 {
-                    _action(parameter);
-                    return;
+#endif
+                    if (_action != null)
+                    {
+                        _action(parameter);
+                        return;
+                    }
+#if PORTABLE
                 }
+#endif
 #endif
             }
         }
@@ -215,7 +249,7 @@ namespace GalaSoft.MvvmLight.Helpers
         /// </summary>
         public new void MarkForDeletion()
         {
-#if SILVERLIGHT
+#if SILVERLIGHT || PORTABLE
             _action = null;
 #endif
             _staticAction = null;

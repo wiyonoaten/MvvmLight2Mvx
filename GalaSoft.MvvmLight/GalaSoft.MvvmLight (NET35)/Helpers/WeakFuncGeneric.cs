@@ -26,7 +26,7 @@ namespace GalaSoft.MvvmLight.Helpers
     ////[ClassInfo(typeof(WeakAction))]
     public class WeakFunc<T, TResult> : WeakFunc<TResult>, IExecuteWithObjectAndResult
     {
-#if SILVERLIGHT
+#if SILVERLIGHT || PORTABLE
         private Func<T, TResult> _func;
 #endif
         private Func<T, TResult> _staticFunc;
@@ -43,18 +43,29 @@ namespace GalaSoft.MvvmLight.Helpers
                     return _staticFunc.Method.Name;
                 }
 
-#if SILVERLIGHT
-                if (_func != null)
+#if SILVERLIGHT || PORTABLE
+
+#if PORTABLE
+                if (PlatformHelper.CurrentPlatform == Platform.Silverlight)
                 {
-                    return _func.Method.Name;
+#endif
+                    if (_func != null)
+                    {
+                        return _func.Method.Name;
+                    }
+
+                    if (Method != null)
+                    {
+                        return Method.Name;
+                    }
+
+                    return string.Empty;
+#if PORTABLE
                 }
 
-                if (Method != null)
-                {
-                    return Method.Name;
-                }
+                return Method.Name;
+#endif
 
-                return string.Empty;
 #else
                 return Method.Name;
 #endif
@@ -119,29 +130,45 @@ namespace GalaSoft.MvvmLight.Helpers
                 return;
             }
 
-#if SILVERLIGHT
-            if (!func.Method.IsPublic
-                || (target != null
-                    && !target.GetType().IsPublic
-                    && !target.GetType().IsNestedPublic))
-            {
-                _func = func;
-            }
-            else
-            {
-                var name = func.Method.Name;
+#if SILVERLIGHT || PORTABLE
 
-                if (name.Contains("<")
-                    && name.Contains(">"))
+#if PORTABLE
+            if (PlatformHelper.CurrentPlatform == Platform.Silverlight)
+            {
+#endif
+
+                if (!func.Method.IsPublic
+                    || (func.Target != null
+                        && !func.Target.GetType().IsPublic
+                        && !func.Target.GetType().IsNestedPublic))
                 {
                     _func = func;
                 }
                 else
                 {
-                    Method = func.Method;
-                    FuncReference = new WeakReference(func.Target);
+                    var name = func.Method.Name;
+
+                    if (name.Contains("<")
+                        && name.Contains(">"))
+                    {
+                        // Anonymous method
+                        _func = func;
+                    }
+                    else
+                    {
+                        Method = func.Method;
+                        FuncReference = new WeakReference(func.Target);
+                    }
                 }
+#if PORTABLE
             }
+            else
+            {
+                Method = func.Method;
+                FuncReference = new WeakReference(func.Target);
+            }
+#endif
+
 #else
             Method = func.Method;
             FuncReference = new WeakReference(func.Target);
@@ -184,11 +211,20 @@ namespace GalaSoft.MvvmLight.Helpers
                         });
                 }
 
-#if SILVERLIGHT
-                if (_func != null)
+#if SILVERLIGHT || PORTABLE
+
+#if PORTABLE
+                if (PlatformHelper.CurrentPlatform == Platform.Silverlight)
                 {
-                    return _func(parameter);
+#endif
+                    if (_func != null)
+                    {
+                        return _func(parameter);
+
+                    }
+#if PORTABLE
                 }
+#endif
 #endif
             }
 
@@ -217,7 +253,7 @@ namespace GalaSoft.MvvmLight.Helpers
         /// </summary>
         public new void MarkForDeletion()
         {
-#if SILVERLIGHT
+#if SILVERLIGHT || PORTABLE
             _func = null;
 #endif
             _staticFunc = null;
