@@ -1,7 +1,12 @@
-﻿using System;
+﻿#if PORTABLE
+extern alias mvvm;
+
+using PropertyChangingEventArgs = mvvm::System.ComponentModel.PropertyChangingEventArgs;
+#endif
+
+using System;
 using System.ComponentModel;
 using GalaSoft.MvvmLight.Messaging;
-using GalaSoft.MvvmLight.Test.Stubs;
 using GalaSoft.MvvmLight.Test.ViewModel;
 
 #if NETFX_CORE
@@ -13,7 +18,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 #if NETFX_CORE
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
-#else
+#elif !PORTABLE
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows;
@@ -133,6 +138,16 @@ namespace GalaSoft.MvvmLight.Test
             Assert.AreEqual(now, vm.LastChanged2);
             Assert.AreEqual(now, receivedDateTimeLocal);
             Assert.AreEqual(DateTime.MinValue, receivedDateTimeMessenger);
+        }
+
+        [TestMethod]
+        public void IsInDesignModeIsFalse()
+        {
+            var vmb = new TestViewModel();
+
+            var isDesign = vmb.IsInDesignMode;
+
+            Assert.IsFalse(isDesign);
         }
 
         [TestMethod]
@@ -263,7 +278,7 @@ namespace GalaSoft.MvvmLight.Test
         [TestMethod]
         public void TestRaiseWithEmptyString()
         {
-#if !NETFX_CORE
+#if !NETFX_CORE && !PORTABLE
             var vm = new TestViewModel();
 
             const string value1 = "Hello";
@@ -532,7 +547,7 @@ namespace GalaSoft.MvvmLight.Test
         }
 
 #if !SILVERLIGHT
-#if !NETFX_CORE
+#if !NETFX_CORE && !PORTABLE
         [TestMethod]
         public void TestTypeDescriptor()
         {

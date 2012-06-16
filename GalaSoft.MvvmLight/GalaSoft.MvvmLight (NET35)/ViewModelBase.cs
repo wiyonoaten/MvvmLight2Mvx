@@ -21,6 +21,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using GalaSoft.MvvmLight.Messaging;
+using System.Linq;
 using System.Linq.Expressions;
 
 #if !NETFX_CORE
@@ -69,7 +70,7 @@ namespace GalaSoft.MvvmLight
             MessengerInstance = messenger;
         }
 
-#if !PORTABLE
+
         /// <summary>
         /// Gets a value indicating whether the control is in design mode
         /// (running under Blend or Visual Studio).
@@ -105,12 +106,14 @@ namespace GalaSoft.MvvmLight
 #else
 #if NETFX_CORE
                     _isInDesignMode = Windows.ApplicationModel.DesignMode.DesignModeEnabled;
-#else
+#elif !PORTABLE
                     var prop = DesignerProperties.IsInDesignModeProperty;
                     _isInDesignMode
                         = (bool)DependencyPropertyDescriptor
                                      .FromProperty(prop, typeof(FrameworkElement))
                                      .Metadata.DefaultValue;
+#else
+                    _isInDesignMode = IsInDesignModePortable();
 #endif
 #endif
                 }
@@ -119,6 +122,88 @@ namespace GalaSoft.MvvmLight
             }
         }
 
+#if PORTABLE
+        private static bool IsInDesignModePortable()
+        {
+            // As a portable lib, we need see what framework we're runnign on
+            // and use reflection to get the designer value
+
+            // Check .NET first -- this will fail on SL and WinRT as we're doing private reflection
+            try
+            {
+                var t = typeof(Type);
+                var arr = t.GetProperty("IsSzArray", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(t, null);
+
+                var dm = Type.GetType("System.ComponentModel.DesignerProperties, PresentationFramework, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
+                if (dm != null && arr != null)
+                {
+                    var dmp = dm.GetField("IsInDesignModeProperty", BindingFlags.Public | BindingFlags.Static).GetValue(null);
+
+                    var dpd = Type.GetType("System.ComponentModel.DependencyPropertyDescriptor, WindowsBase, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
+                    var typeFe = Type.GetType("System.Windows.FrameworkElement, PresentationFramework, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
+
+
+                    var fromPropertys = dpd.GetMethods(BindingFlags.Public | BindingFlags.Static);
+                    var fromProperty = fromPropertys.Single(mi => mi.Name == "FromProperty" && mi.GetParameters().Length == 2);
+                    
+                    var descriptor = fromProperty.Invoke(null, new object[] { dmp, typeFe });
+
+                    var metaProp = dpd.GetProperty("Metadata", BindingFlags.Public | BindingFlags.Instance);
+
+                    var metadata = metaProp.GetValue(descriptor, null);
+
+                    var tPropMeta = Type.GetType("System.Windows.PropertyMetadata, WindowsBase, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
+
+                    var dvProp = tPropMeta.GetProperty("DefaultValue", BindingFlags.Public | BindingFlags.Instance);
+
+                    var dv = (bool)dvProp.GetValue(metadata, null);
+
+                    return dv;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Exception while checking WPF + " + ex);
+            }
+            
+            // check WinRT first
+
+            try
+            {
+                var dm = Type.GetType("Windows.ApplicationModel.DesignMode, Windows, ContentType=WindowsRuntime");
+                
+                if(dm != null)
+                {
+                    var dme = dm.GetProperty("DesignModeEnabled", BindingFlags.Static | BindingFlags.Public);
+                    return (bool)dme.GetValue(null, null);
+                }
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine("Exception while checking WinRT + " + ex);
+            }
+
+            // Check Silverlight
+            try
+            {
+                var dm = Type.GetType("System.ComponentModel.DesignerProperties, System.Windows, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e");
+                if(dm != null)
+                {
+                    var dme = dm.GetProperty("IsInDesignTool", BindingFlags.Public | BindingFlags.Static);
+                    return (bool)dme.GetValue(null, null);
+                }
+            }
+            catch(Exception ex)
+            {
+                Debug.WriteLine("Exception while checking Silverlight + " + ex);
+            }
+
+            // Check WPF
+            
+
+
+            return false;
+        }
 #endif
 
         /// <summary>
