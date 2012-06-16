@@ -80,6 +80,177 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Command\RelayCommandGenericTest.cs">
+      <Link>Command\RelayCommandGenericTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Command\RelayCommandTest.cs">
+      <Link>Command\RelayCommandTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Command\TemporaryClass.cs">
+      <Link>Command\TemporaryClass.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\CommonTestClass.cs">
+      <Link>Helpers\CommonTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\InternalTestClass.cs">
+      <Link>Helpers\InternalTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\InternalTestClassGeneric.cs">
+      <Link>Helpers\InternalTestClassGeneric.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\InternalTestClassGenericWithResult.cs">
+      <Link>Helpers\InternalTestClassGenericWithResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\InternalTestClassWithResult.cs">
+      <Link>Helpers\InternalTestClassWithResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\PublicTestClass.cs">
+      <Link>Helpers\PublicTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\PublicTestClassGeneric.cs">
+      <Link>Helpers\PublicTestClassGeneric.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\PublicTestClassGenericWithResult.cs">
+      <Link>Helpers\PublicTestClassGenericWithResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\PublicTestClassWithResult.cs">
+      <Link>Helpers\PublicTestClassWithResult.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\TestCase.cs">
+      <Link>Helpers\TestCase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\WeakActionGenericNestedTest.cs">
+      <Link>Helpers\WeakActionGenericNestedTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\WeakActionGenericTest.cs">
+      <Link>Helpers\WeakActionGenericTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\WeakActionNestedTest.cs">
+      <Link>Helpers\WeakActionNestedTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\WeakActionTest.cs">
+      <Link>Helpers\WeakActionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\WeakFuncGenericNestedTest.cs">
+      <Link>Helpers\WeakFuncGenericNestedTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\WeakFuncGenericTest.cs">
+      <Link>Helpers\WeakFuncGenericTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\WeakFuncNestedTest.cs">
+      <Link>Helpers\WeakFuncNestedTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\WeakFuncTest.cs">
+      <Link>Helpers\WeakFuncTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Ioc\SimpleIocTestAutoCreation.cs">
+      <Link>IoC\SimpleIocTestAutoCreation.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Ioc\SimpleIocTestContains.cs">
+      <Link>IoC\SimpleIocTestContains.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Ioc\SimpleIocTestCreationTime.cs">
+      <Link>IoC\SimpleIocTestCreationTime.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Ioc\SimpleIocTestIsRegistered.cs">
+      <Link>IoC\SimpleIocTestIsRegistered.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Ioc\SimpleIocTestMultipleConstructors.cs">
+      <Link>IoC\SimpleIocTestMultipleConstructors.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Ioc\SimpleIocTestMultipleInstances.cs">
+      <Link>IoC\SimpleIocTestMultipleInstances.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Ioc\SimpleIocTestSingleInstance.cs">
+      <Link>IoC\SimpleIocTestSingleInstance.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Ioc\SimpleIocTestUnregistration.cs">
+      <Link>IoC\SimpleIocTestUnregistration.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\GarbageCollectionTest.cs">
+      <Link>Messaging\GarbageCollectionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\ITestMessage.cs">
+      <Link>Messaging\ITestMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\MessengerBroadcastToAllTest.cs">
+      <Link>Messaging\MessengerBroadcastToAllTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\MessengerCreationDeletionTest.cs">
+      <Link>Messaging\MessengerCreationDeletionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\MessengerMultipleInstancesTest.cs">
+      <Link>Messaging\MessengerMultipleInstancesTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\MessengerOverrideDefaultTest.cs">
+      <Link>Messaging\MessengerOverrideDefaultTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\MessengerRegisterUnregisterTest.cs">
+      <Link>Messaging\MessengerRegisterUnregisterTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\MessengerRegisterWhileSendingTest.cs">
+      <Link>Messaging\MessengerRegisterWhileSendingTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\MessengerSendToAllTest.cs">
+      <Link>Messaging\MessengerSendToAllTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\MessengerSendToTypeTest.cs">
+      <Link>Messaging\MessengerSendToTypeTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\MessengerSendWithTokenTest.cs">
+      <Link>Messaging\MessengerSendWithTokenTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\MessengerTestConstrainingMessages.cs">
+      <Link>Messaging\MessengerTestConstrainingMessages.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\NotificationMessageActionTest.cs">
+      <Link>Messaging\NotificationMessageActionTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\NotificationMessageTest.cs">
+      <Link>Messaging\NotificationMessageTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\PropertyChangedMessageTest.cs">
+      <Link>Messaging\PropertyChangedMessageTest.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\TestMessageBase.cs">
+      <Link>Messaging\TestMessageBase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\TestMessageImpl.cs">
+      <Link>Messaging\TestMessageImpl.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\ITestClass.cs">
+      <Link>Stubs\ITestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestBindingTarget.cs">
+      <Link>Stubs\TestBindingTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClass.cs">
+      <Link>Stubs\TestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClass2.cs">
+      <Link>Stubs\TestClass2.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClass3.cs">
+      <Link>Stubs\TestClass3.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClass4.cs">
+      <Link>Stubs\TestClass4.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClass5.cs">
+      <Link>Stubs\TestClass5.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClass6.cs">
+      <Link>Stubs\TestClass6.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClassForCreationTime.cs">
+      <Link>Stubs\TestClassForCreationTime.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClassWithMultiConstructors.cs">
+      <Link>Stubs\TestClassWithMultiConstructors.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestViewModelWithBooleanSource.cs">
+      <Link>Stubs\TestViewModelWithBooleanSource.cs</Link>
+    </Compile>
     <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\ViewModelBaseTest.cs">
       <Link>ViewModelBaseTest.cs</Link>
     </Compile>
@@ -110,12 +281,17 @@
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GalaSoft.MvvmLight.Extras\GalaSoft.MvvmLight.Extras.csproj">
+      <Project>{c0b359a9-4985-435d-8cc1-c1fec405bc2c}</Project>
+      <Name>GalaSoft.MvvmLight.Extras</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GalaSoft.MvvmLight\GalaSoft.MvvmLight.csproj">
       <Project>{fdfc16dc-929d-49dc-8c30-0c697dcd3860}</Project>
       <Name>GalaSoft.MvvmLight</Name>
       <Aliases>global, mvvm</Aliases>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

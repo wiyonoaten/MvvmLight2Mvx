@@ -50,7 +50,7 @@ namespace GalaSoft.MvvmLight.Messaging
         private Dictionary<Type, List<WeakActionAndToken>> _recipientsStrictAction;
 
 #if PORTABLE
-        private SynchronizationContext _context = SynchronizationContext.Current;
+        private readonly SynchronizationContext _context = SynchronizationContext.Current;
 #endif
         /// <summary>
         /// Gets the Messenger's default instance, allowing
