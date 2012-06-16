@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Reflection;
 
 namespace GalaSoft.MvvmLight.Helpers
 {
@@ -22,28 +21,16 @@ namespace GalaSoft.MvvmLight.Helpers
 
         private static Platform GetCurrentPlatform()
         {
-            // Check .NET first -- this will fail on SL and WinRT as we're doing private reflection
-            try
-            {
-                var t = typeof(Type);
-                var arrProp = t.GetProperty("IsSzArray", BindingFlags.NonPublic | BindingFlags.Instance);
+            // We check .NET first because .NET will load the WinRT library (even though it can't really run it)
+            // When running in Metro, it will not load the PresentationFramework lib
+            // Silverlight will not load either Windows or PresentationFramework
 
-                if (arrProp != null)
-                {
-                    var arr = arrProp.GetValue(t, null);
-                    var cmdm = Type.GetType(
-                        "System.ComponentModel.DesignerProperties, PresentationFramework, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
+            // Check .NET first 
+            var cmdm = Type.GetType("System.ComponentModel.DesignerProperties, PresentationFramework, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
 
-                    if (cmdm != null && arr != null)
-                    {
-                        return Platform.Net;
-                    }
-                }
-            }
-                // ReSharper disable EmptyGeneralCatchClause
-            catch
-                // ReSharper restore EmptyGeneralCatchClause
+            if (cmdm != null) // loaded the assembly, could be .net 
             {
+                return Platform.Net;
             }
 
             // check WinRT next
@@ -54,7 +41,6 @@ namespace GalaSoft.MvvmLight.Helpers
             }
 
             // Check Silverlight
-
             var dm = Type.GetType("System.ComponentModel.DesignerProperties, System.Windows, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e");
             if (dm != null)
             {
