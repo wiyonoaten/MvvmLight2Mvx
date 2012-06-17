@@ -58,16 +58,17 @@ namespace GalaSoft.MvvmLight.Test
         public void TestPropertyChangedSend()
         {
             Messenger.Reset();
-            var receivedDateTimeMessengerOld = DateTime.MaxValue;
-            var receivedDateTimeMessengerNew = DateTime.MinValue;
-            var receivedDateTimeLocal = DateTime.MinValue;
+            var receivedDateTimeMessengerOldChanged = DateTime.MaxValue;
+            var receivedDateTimeMessengerNewChanged = DateTime.MinValue;
+            var receivedDateTimeLocalChanged = DateTime.MinValue;
+            var receivedDateTimeLocalChanging = DateTime.MinValue;
 
             Messenger.Default.Register<PropertyChangedMessage<DateTime>>(this, m =>
                 {
                     if (m.PropertyName == TestViewModel.LastChanged1PropertyName)
                     {
-                        receivedDateTimeMessengerOld = m.OldValue;
-                        receivedDateTimeMessengerNew = m.NewValue;
+                        receivedDateTimeMessengerOldChanged = m.OldValue;
+                        receivedDateTimeMessengerNewChanged = m.NewValue;
                     }
                 });
 
@@ -76,17 +77,26 @@ namespace GalaSoft.MvvmLight.Test
                 {
                     if (e.PropertyName == TestViewModel.LastChanged1PropertyName)
                     {
-                        receivedDateTimeLocal = vm.LastChanged1;
+                        receivedDateTimeLocalChanged = vm.LastChanged1;
                     }
                 };
+
+            vm.PropertyChanging += (s, e) =>
+            {
+                if (e.PropertyName == TestViewModel.LastChanged1PropertyName)
+                {
+                    receivedDateTimeLocalChanging = vm.LastChanged1;
+                }
+            };
 
             var now = DateTime.Now;
             vm.LastChanged1 = now;
 
             Assert.AreEqual(now, vm.LastChanged1);
-            Assert.AreEqual(DateTime.MinValue, receivedDateTimeMessengerOld);
-            Assert.AreEqual(now, receivedDateTimeMessengerNew);
-            Assert.AreEqual(now, receivedDateTimeLocal);
+            Assert.AreEqual(DateTime.MaxValue, receivedDateTimeMessengerOldChanged);
+            Assert.AreEqual(now, receivedDateTimeMessengerNewChanged);
+            Assert.AreEqual(now, receivedDateTimeLocalChanged);
+            Assert.AreEqual(DateTime.MaxValue, receivedDateTimeLocalChanging);
         }
 
         [TestMethod]
@@ -110,10 +120,11 @@ namespace GalaSoft.MvvmLight.Test
         }
 
         [TestMethod]
-        public void TestPropertyChangeNoBroadcast()
+        public void TestPropertyChangedNoBroadcast()
         {
             Messenger.Reset();
-            var receivedDateTimeLocal = DateTime.MinValue;
+            var receivedDateTimeLocalChanged = DateTime.MinValue;
+            var receivedDateTimeLocalChanging = DateTime.MinValue;
             var receivedDateTimeMessenger = DateTime.MinValue;
 
             Messenger.Default.Register<PropertyChangedMessage<DateTime>>(this, m =>
@@ -129,14 +140,23 @@ namespace GalaSoft.MvvmLight.Test
                 {
                     if (e.PropertyName == TestViewModel.LastChanged2PropertyName)
                     {
-                        receivedDateTimeLocal = vm.LastChanged2;
+                        receivedDateTimeLocalChanged = vm.LastChanged2;
                     }
                 };
+
+            vm.PropertyChanging += (s, e) =>
+            {
+                if (e.PropertyName == TestViewModel.LastChanged2PropertyName)
+                {
+                    receivedDateTimeLocalChanging = vm.LastChanged2;
+                }
+            };
 
             var now = DateTime.Now;
             vm.LastChanged2 = now;
             Assert.AreEqual(now, vm.LastChanged2);
-            Assert.AreEqual(now, receivedDateTimeLocal);
+            Assert.AreEqual(now, receivedDateTimeLocalChanged);
+            Assert.AreEqual(DateTime.MaxValue, receivedDateTimeLocalChanging);
             Assert.AreEqual(DateTime.MinValue, receivedDateTimeMessenger);
         }
 
@@ -156,7 +176,8 @@ namespace GalaSoft.MvvmLight.Test
             Messenger.Reset();
             var receivedDateTimeMessengerOld = DateTime.MaxValue;
             var receivedDateTimeMessengerNew = DateTime.MinValue;
-            var receivedDateTimeLocal = DateTime.MinValue;
+            var receivedDateTimeLocalChanged = DateTime.MinValue;
+            var receivedDateTimeLocalChanging = DateTime.MinValue;
 
             Messenger.Default.Register<PropertyChangedMessage<DateTime>>(this, m =>
             {
@@ -172,7 +193,15 @@ namespace GalaSoft.MvvmLight.Test
             {
                 if (e.PropertyName == "LastChanged1")
                 {
-                    receivedDateTimeLocal = vm.LastChanged1;
+                    receivedDateTimeLocalChanged = vm.LastChanged1;
+                }
+            };
+
+            vm.PropertyChanging += (s, e) =>
+            {
+                if (e.PropertyName == "LastChanged1")
+                {
+                    receivedDateTimeLocalChanging = vm.LastChanged1;
                 }
             };
 
@@ -180,9 +209,10 @@ namespace GalaSoft.MvvmLight.Test
             vm.LastChanged1 = now;
 
             Assert.AreEqual(now, vm.LastChanged1);
-            Assert.AreEqual(DateTime.MinValue, receivedDateTimeMessengerOld);
+            Assert.AreEqual(DateTime.MaxValue, receivedDateTimeMessengerOld);
             Assert.AreEqual(now, receivedDateTimeMessengerNew);
-            Assert.AreEqual(now, receivedDateTimeLocal);
+            Assert.AreEqual(now, receivedDateTimeLocalChanged);
+            Assert.AreEqual(DateTime.MaxValue, receivedDateTimeLocalChanging);
         }
 
         [TestMethod]
@@ -206,10 +236,11 @@ namespace GalaSoft.MvvmLight.Test
         }
 
         [TestMethod]
-        public void TestPropertyChangeNoBroadcastNoMagicString()
+        public void TestPropertyChangedNoBroadcastNoMagicString()
         {
             Messenger.Reset();
-            var receivedDateTimeLocal = DateTime.MinValue;
+            var receivedDateTimeLocalChanged = DateTime.MinValue;
+            var receivedDateTimeLocalChanging = DateTime.MinValue;
             var receivedDateTimeMessenger = DateTime.MinValue;
 
             Messenger.Default.Register<PropertyChangedMessage<DateTime>>(this, m =>
@@ -225,14 +256,23 @@ namespace GalaSoft.MvvmLight.Test
             {
                 if (e.PropertyName == "LastChanged2")
                 {
-                    receivedDateTimeLocal = vm.LastChanged2;
+                    receivedDateTimeLocalChanged = vm.LastChanged2;
+                }
+            };
+
+            vm.PropertyChanging += (s, e) =>
+            {
+                if (e.PropertyName == "LastChanged2")
+                {
+                    receivedDateTimeLocalChanging = vm.LastChanged2;
                 }
             };
 
             var now = DateTime.Now;
             vm.LastChanged2 = now;
             Assert.AreEqual(now, vm.LastChanged2);
-            Assert.AreEqual(now, receivedDateTimeLocal);
+            Assert.AreEqual(now, receivedDateTimeLocalChanged);
+            Assert.AreEqual(DateTime.MaxValue, receivedDateTimeLocalChanging);
             Assert.AreEqual(DateTime.MinValue, receivedDateTimeMessenger);
         }
 
@@ -242,7 +282,9 @@ namespace GalaSoft.MvvmLight.Test
             var vm = new ViewModelStub();
 
             var receivedPropertyChanged = false;
-            var invalidPropertyNameReceived = false;
+            var invalidPropertyChangedNameReceived = false;
+            var receivedPropertyChanging = false;
+            var invalidPropertyChangingNameReceived = false;
             vm.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == ViewModelStub.RealPropertyPropertyName)
@@ -251,14 +293,44 @@ namespace GalaSoft.MvvmLight.Test
                 }
                 else
                 {
-                    invalidPropertyNameReceived = true;
+                    invalidPropertyChangedNameReceived = true;
                 }
             };
 
+            vm.PropertyChanging += (s, e) =>
+            {
+                if (e.PropertyName == ViewModelStub.RealPropertyPropertyName)
+                {
+                    receivedPropertyChanging = true;
+                }
+                else
+                {
+                    invalidPropertyChangingNameReceived = true;
+                }
+            };
+
+            vm.RaisePropertyChanging(ViewModelStub.RealPropertyPropertyName);
             vm.RaisePropertyChanged(ViewModelStub.RealPropertyPropertyName);
 
             Assert.IsTrue(receivedPropertyChanged);
-            Assert.IsFalse(invalidPropertyNameReceived);
+            Assert.IsFalse(invalidPropertyChangedNameReceived);
+
+            Assert.IsTrue(receivedPropertyChanging);
+            Assert.IsFalse(invalidPropertyChangingNameReceived);
+
+            try
+            {
+                vm.RaisePropertyChanging(ViewModelStub.RealPropertyPropertyName + "1");
+
+#if DEBUG
+                Assert.Fail("ArgumentException was expected");
+#else
+                Assert.IsTrue(invalidPropertyChangingNameReceived);
+#endif
+            }
+            catch (ArgumentException)
+            {
+            }
 
             try
             {
@@ -267,7 +339,7 @@ namespace GalaSoft.MvvmLight.Test
 #if DEBUG
                 Assert.Fail("ArgumentException was expected");
 #else
-                Assert.IsTrue(invalidPropertyNameReceived);
+                Assert.IsTrue(invalidPropertyChangedNameReceived);
 #endif
             }
             catch (ArgumentException)
@@ -326,6 +398,77 @@ namespace GalaSoft.MvvmLight.Test
         }
 
         [TestMethod]
+        public void TestRaiseWithNullString()
+        {
+#if !NETFX_CORE && !PORTABLE
+            var vm = new TestViewModel();
+
+            const string value1 = "Hello";
+            const string value2 = "World";
+
+            var textBox1 = new TextBox();
+            var textBox2 = new TextBox();
+
+            var binding1 = new Binding
+            {
+                Path = new PropertyPath("TestProperty1"),
+                Source = vm,
+            };
+
+            var binding2 = new Binding
+            {
+                Path = new PropertyPath("TestProperty2"),
+                Source = vm,
+            };
+
+            BindingOperations.SetBinding(textBox1, TextBox.TextProperty, binding1);
+            BindingOperations.SetBinding(textBox2, TextBox.TextProperty, binding2);
+
+            Assert.AreEqual(string.Empty, textBox1.Text);
+            Assert.AreEqual(string.Empty, textBox2.Text);
+
+            vm.RaiseNullPropertyChanged(value1, value2);
+
+            Assert.AreEqual(value1, textBox1.Text);
+            Assert.AreEqual(value2, textBox2.Text);
+#else
+            var vm = new TestViewModel();
+            var raised = false;
+            vm.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == string.Empty)
+                {
+                    raised = true;
+                }
+            };
+
+            vm.RaiseNullPropertyChanged();
+            Assert.IsTrue(raised);
+#endif
+        }
+
+        [TestMethod]
+        public void TestRaiseWithEmptyStringAndBroadcast()
+        {
+            var vm = new TestViewModel();
+
+            const string value1 = "Hello";
+            const string value2 = "World";
+
+            var messengerValue = string.Empty;
+            vm.GetMessengerInstance().Register<string>(this, msg => messengerValue = msg);
+
+            try
+            {
+                vm.RaiseEmptyPropertyChangedWithBroadcast(value1, value2);
+                Assert.Fail("ArgumentException was expected");
+            }
+            catch (ArgumentException)
+            {
+            }
+        }
+
+        [TestMethod]
         public void TestGettingMessengerInstanceWhenNotSet()
         {
             var messenger = new Messenger();
@@ -343,7 +486,8 @@ namespace GalaSoft.MvvmLight.Test
 
             var vm = new ViewModelStub();
             const int expectedValue = 1234;
-            var receivedValue = 0;
+            var receivedValueChanged = 0;
+            var receivedValueChanging = 0;
             var receivedValueWithMessenger = 0;
 
             Messenger.Default.Register<PropertyChangedMessage<int>>(this, msg => receivedValueWithMessenger = msg.NewValue);
@@ -352,12 +496,21 @@ namespace GalaSoft.MvvmLight.Test
             {
                 if (e.PropertyName == ViewModelStub.PropertyWithSetBroadcastPropertyName)
                 {
-                    receivedValue = expectedValue;
+                    receivedValueChanged = vm.PropertyWithSetBroadcast;
+                }
+            };
+
+            vm.PropertyChanging += (s, e) =>
+            {
+                if (e.PropertyName == ViewModelStub.PropertyWithSetBroadcastPropertyName)
+                {
+                    receivedValueChanging = vm.PropertyWithSetBroadcast;
                 }
             };
 
             vm.PropertyWithSetBroadcast = expectedValue;
-            Assert.AreEqual(expectedValue, receivedValue);
+            Assert.AreEqual(expectedValue, receivedValueChanged);
+            Assert.AreEqual(-1, receivedValueChanging);
             Assert.AreEqual(expectedValue, receivedValueWithMessenger);
         }
 
@@ -368,7 +521,8 @@ namespace GalaSoft.MvvmLight.Test
 
             var vm = new ViewModelStub();
             const int expectedValue = 1234;
-            var receivedValue = 0;
+            var receivedValueChanged = 0;
+            var receivedValueChanging = 0;
             var receivedValueWithMessenger = 0;
 
             Messenger.Default.Register<PropertyChangedMessage<int>>(this, msg => receivedValueWithMessenger = msg.NewValue);
@@ -377,12 +531,21 @@ namespace GalaSoft.MvvmLight.Test
             {
                 if (e.PropertyName == ViewModelStub.PropertyWithSetNoBroadcastPropertyName)
                 {
-                    receivedValue = expectedValue;
+                    receivedValueChanged = vm.PropertyWithSetNoBroadcast;
+                }
+            };
+
+            vm.PropertyChanging += (s, e) =>
+            {
+                if (e.PropertyName == ViewModelStub.PropertyWithSetNoBroadcastPropertyName)
+                {
+                    receivedValueChanging = vm.PropertyWithSetNoBroadcast;
                 }
             };
 
             vm.PropertyWithSetNoBroadcast = expectedValue;
-            Assert.AreEqual(expectedValue, receivedValue);
+            Assert.AreEqual(expectedValue, receivedValueChanged);
+            Assert.AreEqual(-1, receivedValueChanging);
             Assert.AreEqual(0, receivedValueWithMessenger);
         }
 
@@ -393,7 +556,8 @@ namespace GalaSoft.MvvmLight.Test
 
             var vm = new ViewModelStub();
             const int expectedValue = 1234;
-            var receivedValue = 0;
+            var receivedValueChanged = 0;
+            var receivedValueChanging = 0;
             var receivedValueWithMessenger = 0;
 
             Messenger.Default.Register<PropertyChangedMessage<int>>(this, msg => receivedValueWithMessenger = msg.NewValue);
@@ -402,12 +566,21 @@ namespace GalaSoft.MvvmLight.Test
             {
                 if (e.PropertyName == ViewModelStub.PropertyWithStringSetBroadcastPropertyName)
                 {
-                    receivedValue = expectedValue;
+                    receivedValueChanged = vm.PropertyWithStringSetBroadcast;
+                }
+            };
+
+            vm.PropertyChanging += (s, e) =>
+            {
+                if (e.PropertyName == ViewModelStub.PropertyWithStringSetBroadcastPropertyName)
+                {
+                    receivedValueChanging = vm.PropertyWithStringSetBroadcast;
                 }
             };
 
             vm.PropertyWithStringSetBroadcast = expectedValue;
-            Assert.AreEqual(expectedValue, receivedValue);
+            Assert.AreEqual(expectedValue, receivedValueChanged);
+            Assert.AreEqual(-1, receivedValueChanging);
             Assert.AreEqual(expectedValue, receivedValueWithMessenger);
         }
 
@@ -418,7 +591,8 @@ namespace GalaSoft.MvvmLight.Test
 
             var vm = new ViewModelStub();
             const int expectedValue = 1234;
-            var receivedValue = 0;
+            var receivedValueChanged = 0;
+            var receivedValueChanging = 0;
             var receivedValueWithMessenger = 0;
 
             Messenger.Default.Register<PropertyChangedMessage<int>>(this, msg => receivedValueWithMessenger = msg.NewValue);
@@ -427,13 +601,182 @@ namespace GalaSoft.MvvmLight.Test
             {
                 if (e.PropertyName == ViewModelStub.PropertyWithStringSetNoBroadcastPropertyName)
                 {
-                    receivedValue = expectedValue;
+                    receivedValueChanged = vm.PropertyWithStringSetNoBroadcast;
+                }
+            };
+
+            vm.PropertyChanging += (s, e) =>
+            {
+                if (e.PropertyName == ViewModelStub.PropertyWithStringSetNoBroadcastPropertyName)
+                {
+                    receivedValueChanging = vm.PropertyWithStringSetNoBroadcast;
                 }
             };
 
             vm.PropertyWithStringSetNoBroadcast = expectedValue;
-            Assert.AreEqual(expectedValue, receivedValue);
+            Assert.AreEqual(expectedValue, receivedValueChanged);
+            Assert.AreEqual(-1, receivedValueChanging);
             Assert.AreEqual(0, receivedValueWithMessenger);
+        }
+
+        [TestMethod]
+        public void TestReturnValueWithSetBroadcast()
+        {
+            var vm = new ViewModelStub();
+            const int firstValue = 1234;
+            var receivedValueChanged = 0;
+            var receivedValueChanging = 0;
+
+            vm.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == ViewModelStub.PropertyWithSetBroadcastPropertyName)
+                {
+                    receivedValueChanged = vm.PropertyWithSetBroadcast;
+                }
+            };
+
+            vm.PropertyChanging += (s, e) =>
+            {
+                if (e.PropertyName == ViewModelStub.PropertyWithSetBroadcastPropertyName)
+                {
+                    receivedValueChanging = vm.PropertyWithSetBroadcast;
+                }
+            };
+
+            vm.PropertyWithSetBroadcast = firstValue;
+            Assert.AreEqual(-1, receivedValueChanging);
+            Assert.AreEqual(firstValue, receivedValueChanged);
+            Assert.IsTrue(vm.SetRaisedPropertyChangedEvent);
+
+            vm.PropertyWithSetBroadcast = firstValue;
+            Assert.AreEqual(-1, receivedValueChanging);
+            Assert.AreEqual(firstValue, receivedValueChanged);
+            Assert.IsFalse(vm.SetRaisedPropertyChangedEvent);
+
+            vm.PropertyWithSetBroadcast = firstValue + 1;
+            Assert.AreEqual(firstValue, receivedValueChanging);
+            Assert.AreEqual(firstValue + 1, receivedValueChanged);
+            Assert.IsTrue(vm.SetRaisedPropertyChangedEvent);
+        }
+
+        [TestMethod]
+        public void TestReturnValueWithStringSetBroadcast()
+        {
+            var vm = new ViewModelStub();
+            const int firstValue = 1234;
+            var receivedValueChanged = 0;
+            var receivedValueChanging = 0;
+
+            vm.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == ViewModelStub.PropertyWithStringSetBroadcastPropertyName)
+                {
+                    receivedValueChanged = vm.PropertyWithStringSetBroadcast;
+                }
+            };
+
+            vm.PropertyChanging += (s, e) =>
+            {
+                if (e.PropertyName == ViewModelStub.PropertyWithStringSetBroadcastPropertyName)
+                {
+                    receivedValueChanging = vm.PropertyWithStringSetBroadcast;
+                }
+            };
+
+            vm.PropertyWithStringSetBroadcast = firstValue;
+            Assert.AreEqual(-1, receivedValueChanging);
+            Assert.AreEqual(firstValue, receivedValueChanged);
+            Assert.IsTrue(vm.SetRaisedPropertyChangedEvent);
+
+            vm.PropertyWithStringSetBroadcast = firstValue;
+            Assert.AreEqual(-1, receivedValueChanging);
+            Assert.AreEqual(firstValue, receivedValueChanged);
+            Assert.IsFalse(vm.SetRaisedPropertyChangedEvent);
+
+            vm.PropertyWithStringSetBroadcast = firstValue + 1;
+            Assert.AreEqual(firstValue, receivedValueChanging);
+            Assert.AreEqual(firstValue + 1, receivedValueChanged);
+            Assert.IsTrue(vm.SetRaisedPropertyChangedEvent);
+        }
+
+        [TestMethod]
+        public void TestReturnValueWithSetNoBroadcast()
+        {
+            var vm = new ViewModelStub();
+            const int firstValue = 1234;
+            var receivedValueChanged = 0;
+            var receivedValueChanging = 0;
+
+            vm.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == ViewModelStub.PropertyWithSetNoBroadcastPropertyName)
+                {
+                    receivedValueChanged = vm.PropertyWithSetNoBroadcast;
+                }
+            };
+
+            vm.PropertyChanging += (s, e) =>
+            {
+                if (e.PropertyName == ViewModelStub.PropertyWithSetNoBroadcastPropertyName)
+                {
+                    receivedValueChanging = vm.PropertyWithSetNoBroadcast;
+                }
+            };
+
+            vm.PropertyWithSetNoBroadcast = firstValue;
+            Assert.AreEqual(-1, receivedValueChanging);
+            Assert.AreEqual(firstValue, receivedValueChanged);
+            Assert.IsTrue(vm.SetRaisedPropertyChangedEvent);
+
+            vm.PropertyWithSetNoBroadcast = firstValue;
+            Assert.AreEqual(-1, receivedValueChanging);
+            Assert.AreEqual(firstValue, receivedValueChanged);
+            Assert.IsFalse(vm.SetRaisedPropertyChangedEvent);
+
+            vm.PropertyWithSetNoBroadcast = firstValue + 1;
+            Assert.AreEqual(firstValue, receivedValueChanging);
+            Assert.AreEqual(firstValue + 1, receivedValueChanged);
+            Assert.IsTrue(vm.SetRaisedPropertyChangedEvent);
+        }
+
+        [TestMethod]
+        public void TestReturnValueWithStringSetNoBroadcast()
+        {
+            var vm = new ViewModelStub();
+            const int firstValue = 1234;
+            var receivedValueChanged = 0;
+            var receivedValueChanging = 0;
+
+            vm.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == ViewModelStub.PropertyWithStringSetNoBroadcastPropertyName)
+                {
+                    receivedValueChanged = vm.PropertyWithStringSetNoBroadcast;
+                }
+            };
+
+            vm.PropertyChanging += (s, e) =>
+            {
+                if (e.PropertyName == ViewModelStub.PropertyWithStringSetNoBroadcastPropertyName)
+                {
+                    receivedValueChanging = vm.PropertyWithStringSetNoBroadcast;
+                }
+            };
+
+            vm.PropertyWithStringSetNoBroadcast = firstValue;
+            Assert.AreEqual(-1, receivedValueChanging);
+            Assert.AreEqual(firstValue, receivedValueChanged);
+            Assert.IsTrue(vm.SetRaisedPropertyChangedEvent);
+
+            vm.PropertyWithStringSetNoBroadcast = firstValue;
+            Assert.AreEqual(-1, receivedValueChanging);
+            Assert.AreEqual(firstValue, receivedValueChanged);
+            Assert.IsFalse(vm.SetRaisedPropertyChangedEvent);
+
+            vm.PropertyWithStringSetNoBroadcast = firstValue + 1;
+            Assert.AreEqual(firstValue, receivedValueChanging);
+            Assert.AreEqual(firstValue + 1, receivedValueChanged);
+            Assert.IsTrue(vm.SetRaisedPropertyChangedEvent);
         }
 
         static void InstancePropertyChanged(object sender, PropertyChangedEventArgs e)

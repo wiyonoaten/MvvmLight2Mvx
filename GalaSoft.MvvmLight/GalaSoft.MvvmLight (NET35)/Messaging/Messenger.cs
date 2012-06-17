@@ -607,17 +607,6 @@ namespace GalaSoft.MvvmLight.Messaging
                 {
                     List<WeakActionAndToken> list = null;
 
-#if WIN8 
-                    if (messageType == type
-                        || type.GetTypeInfo().IsAssignableFrom(messageType.GetTypeInfo())
-                        || Implements(messageType, type))
-                    {
-                        lock (_recipientsOfSubclassesAction)
-                        {
-                            list = _recipientsOfSubclassesAction[type].Take(_recipientsOfSubclassesAction[type].Count()).ToList();
-                        }
-                    }
-#else
                     if (messageType == type
                         || messageType.IsSubclassOf(type)
                         || type.IsAssignableFrom(messageType))
@@ -628,7 +617,6 @@ namespace GalaSoft.MvvmLight.Messaging
                         }
                     }
 
-#endif
 
                     SendToList(message, list, messageTargetType, token);
                 }
