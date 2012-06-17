@@ -299,6 +299,9 @@
     <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\ViewModel\ViewModelStub.cs">
       <Link>ViewModel\ViewModelStub.cs</Link>
     </Compile>
+    <Compile Include="ViewModelBaseDesignerTest.xaml.cs">
+      <DependentUpon>ViewModelBaseDesignerTest.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -347,7 +350,12 @@
       <HintPath>..\..\External\Portable\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Page Include="ViewModelBaseDesignerTest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>

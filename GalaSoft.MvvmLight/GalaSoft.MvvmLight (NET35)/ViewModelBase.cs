@@ -131,65 +131,93 @@ namespace GalaSoft.MvvmLight
 
             var platform = PlatformHelper.CurrentPlatform;
 
-            switch (platform)
+            if (platform == Platform.Metro)
+                return IsInDesignModeMetro();
+
+            if(platform == Platform.Silverlight)
             {
-                case Platform.Net:
-                    return IsInDesignModeNet();
-                    
-                case Platform.Metro:
-                    return IsInDesignModeMetro();
+                var desMode = IsInDesignModeSilverlight();
+                if (!desMode)
+                    desMode = IsInDesignModeNet(); // hard to tell these apart in the designer
 
-                case Platform.Silverlight:
-                    return IsInDesignModeSilverlight();
-
-                default: // something went wrong and we can't detect the platform
-                    return false;
+                return desMode;
             }
+
+            if (platform == Platform.Net)
+                return IsInDesignModeNet();
+
+            return false;
         }
 
         private static bool IsInDesignModeSilverlight()
         {
-            var dm = Type.GetType("System.ComponentModel.DesignerProperties, System.Windows, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e");
+            try
+            {
+                var dm = Type.GetType("System.ComponentModel.DesignerProperties, System.Windows, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e");
 
-            var dme = dm.GetProperty("IsInDesignTool", BindingFlags.Public | BindingFlags.Static);
-            return (bool)dme.GetValue(null, null);
+                var dme = dm.GetProperty("IsInDesignTool", BindingFlags.Public | BindingFlags.Static);
+                return (bool)dme.GetValue(null, null);    
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private static bool IsInDesignModeMetro()
         {
-            var dm = Type.GetType("Windows.ApplicationModel.DesignMode, Windows, ContentType=WindowsRuntime");
+            try
+            {
+                var dm = Type.GetType("Windows.ApplicationModel.DesignMode, Windows, ContentType=WindowsRuntime");
 
-            var dme = dm.GetProperty("DesignModeEnabled", BindingFlags.Static | BindingFlags.Public);
-            return (bool)dme.GetValue(null, null);
+                var dme = dm.GetProperty("DesignModeEnabled", BindingFlags.Static | BindingFlags.Public);
+                return (bool)dme.GetValue(null, null);
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private static bool IsInDesignModeNet()
         {
-            var dm = Type.GetType("System.ComponentModel.DesignerProperties, PresentationFramework, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
+            try
+            {
+                var dm =
+                    Type.GetType(
+                        "System.ComponentModel.DesignerProperties, PresentationFramework, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
 
 
-            var dmp = dm.GetField("IsInDesignModeProperty", BindingFlags.Public | BindingFlags.Static).GetValue(null);
+                var dmp = dm.GetField("IsInDesignModeProperty", BindingFlags.Public | BindingFlags.Static).GetValue(null);
 
-            var dpd = Type.GetType("System.ComponentModel.DependencyPropertyDescriptor, WindowsBase, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
-            var typeFe = Type.GetType("System.Windows.FrameworkElement, PresentationFramework, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
+                var dpd =
+                    Type.GetType(
+                        "System.ComponentModel.DependencyPropertyDescriptor, WindowsBase, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
+                var typeFe =
+                    Type.GetType("System.Windows.FrameworkElement, PresentationFramework, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
 
 
-            var fromPropertys = dpd.GetMethods(BindingFlags.Public | BindingFlags.Static);
-            var fromProperty = fromPropertys.Single(mi => mi.Name == "FromProperty" && mi.GetParameters().Length == 2);
+                var fromPropertys = dpd.GetMethods(BindingFlags.Public | BindingFlags.Static);
+                var fromProperty = fromPropertys.Single(mi => mi.Name == "FromProperty" && mi.GetParameters().Length == 2);
 
-            var descriptor = fromProperty.Invoke(null, new object[] {dmp, typeFe});
+                var descriptor = fromProperty.Invoke(null, new object[] {dmp, typeFe});
 
-            var metaProp = dpd.GetProperty("Metadata", BindingFlags.Public | BindingFlags.Instance);
+                var metaProp = dpd.GetProperty("Metadata", BindingFlags.Public | BindingFlags.Instance);
 
-            var metadata = metaProp.GetValue(descriptor, null);
+                var metadata = metaProp.GetValue(descriptor, null);
 
-            var tPropMeta = Type.GetType("System.Windows.PropertyMetadata, WindowsBase, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
+                var tPropMeta = Type.GetType("System.Windows.PropertyMetadata, WindowsBase, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
 
-            var dvProp = tPropMeta.GetProperty("DefaultValue", BindingFlags.Public | BindingFlags.Instance);
+                var dvProp = tPropMeta.GetProperty("DefaultValue", BindingFlags.Public | BindingFlags.Instance);
 
-            var dv = (bool)dvProp.GetValue(metadata, null);
+                var dv = (bool)dvProp.GetValue(metadata, null);
 
-            return dv;
+                return dv;
+            }
+            catch
+            {
+                return false;
+            }
         }
 #endif
 

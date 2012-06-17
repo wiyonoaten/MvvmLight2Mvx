@@ -21,13 +21,20 @@ namespace GalaSoft.MvvmLight.Helpers
 
         private static Platform GetCurrentPlatform()
         {
-            // We check .NET first because .NET will load the WinRT library (even though it can't really run it)
+            // We check Silverlight first because when in the VS designer, the .NET libraries will resolve
+            // If we can resolve the SL libs, then we're in SL or WP
+            // Then we check .NET because .NET will load the WinRT library (even though it can't really run it)
             // When running in Metro, it will not load the PresentationFramework lib
-            // Silverlight will not load either Windows or PresentationFramework
 
-            // Check .NET first 
+            // Check Silverlight
+            var dm = Type.GetType("System.ComponentModel.DesignerProperties, System.Windows, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e");
+            if (dm != null)
+            {
+                return Platform.Silverlight;
+            }
+
+            // Check .NET 
             var cmdm = Type.GetType("System.ComponentModel.DesignerProperties, PresentationFramework, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
-
             if (cmdm != null) // loaded the assembly, could be .net 
             {
                 return Platform.Net;
@@ -38,13 +45,6 @@ namespace GalaSoft.MvvmLight.Helpers
             if (wadm != null)
             {
                 return Platform.Metro;
-            }
-
-            // Check Silverlight
-            var dm = Type.GetType("System.ComponentModel.DesignerProperties, System.Windows, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e");
-            if (dm != null)
-            {
-                return Platform.Silverlight;
             }
 
             return Platform.Unknown;
