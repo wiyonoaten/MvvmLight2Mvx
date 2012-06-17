@@ -436,7 +436,7 @@ namespace GalaSoft.MvvmLight.Test
             var raised = false;
             vm.PropertyChanged += (s, e) =>
             {
-                if (e.PropertyName == string.Empty)
+                if (string.IsNullOrEmpty(e.PropertyName))
                 {
                     raised = true;
                 }
