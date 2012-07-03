@@ -1,7 +1,7 @@
 ﻿/*
   In App.xaml:
   <Application.Resources>
-      <vm:ViewModelLocatorTemplate xmlns:vm="clr-namespace:$safeprojectname$.ViewModel"
+      <vm:ViewModelLocatorTemplate xmlns:vm="using:ProjectForTemplates.ViewModel"
                                    x:Key="Locator" />
   </Application.Resources>
   
@@ -24,7 +24,7 @@ namespace $safeprojectname$.ViewModel
     /// to this locator.
     /// </para>
     /// <para>
-    /// See http://www.galasoft.ch/mvvm/getstarted
+    /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
     public class ViewModelLocator
