@@ -443,7 +443,7 @@ namespace GalaSoft.MvvmLight.Test
             };
 
             vm.RaiseNullPropertyChanged();
-            Assert.IsFalse(raised); // Doesn't work in WinRT
+            Assert.IsTrue(raised);
 #endif
         }
 
