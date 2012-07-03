@@ -292,12 +292,15 @@ namespace GalaSoft.MvvmLight.Helpers
                 return _staticFunc();
             }
 
+            var target = FuncTarget;
+
             if (IsAlive)
             {
                 if (Method != null
-                    && FuncReference != null)
+                    && FuncReference != null
+                    && target != null)
                 {
-                    return (TResult)Method.Invoke(FuncTarget, null);
+                    return (TResult)Method.Invoke(target, null);
                 }
 
 #if SILVERLIGHT || PORTABLE

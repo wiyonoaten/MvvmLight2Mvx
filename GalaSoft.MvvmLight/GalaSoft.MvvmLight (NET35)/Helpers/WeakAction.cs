@@ -301,7 +301,7 @@ namespace GalaSoft.MvvmLight.Helpers
                     && ActionReference != null
                     && actionTarget != null)
                 {
-                    Method.Invoke(ActionTarget, null);
+                    Method.Invoke(actionTarget, null);
                     return;
                 }
 

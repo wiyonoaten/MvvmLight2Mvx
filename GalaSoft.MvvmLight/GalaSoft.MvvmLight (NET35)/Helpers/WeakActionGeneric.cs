@@ -197,13 +197,16 @@ namespace GalaSoft.MvvmLight.Helpers
                 return;
             }
 
+            var target = ActionTarget;
+
             if (IsAlive)
             {
                 if (Method != null
-                    && ActionReference != null)
+                    && ActionReference != null
+                    && target != null)
                 {
                     Method.Invoke(
-                        ActionTarget,
+                        target,
                         new object[]
                         {
                             parameter
