@@ -40,7 +40,9 @@ namespace GalaSoft.MvvmLight.Helpers
 
         private class ReflectionDetectionClass
         {
+// ReSharper disable UnusedMember.Local
             private void Method()
+// ReSharper restore UnusedMember.Local
             {
 
             }
