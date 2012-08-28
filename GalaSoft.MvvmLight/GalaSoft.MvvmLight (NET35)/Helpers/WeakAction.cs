@@ -61,7 +61,7 @@ namespace GalaSoft.MvvmLight.Helpers
 #if SILVERLIGHT || PORTABLE
 
 #if PORTABLE
-                if(PlatformHelper.CurrentPlatform == Platform.Silverlight)
+                if(!FeatureDetection.IsPrivateReflectionSupported)
                 {
 #endif
                     if (_action != null)
@@ -120,7 +120,7 @@ namespace GalaSoft.MvvmLight.Helpers
 #if SILVERLIGHT || PORTABLE
                 
 #if PORTABLE
-                if(PlatformHelper.CurrentPlatform == Platform.Silverlight)
+                if (!FeatureDetection.IsPrivateReflectionSupported)
                 {
 #endif
                     return (_action != null && _action.Target == null)
@@ -176,7 +176,7 @@ namespace GalaSoft.MvvmLight.Helpers
 #if SILVERLIGHT || PORTABLE
 
 #if PORTABLE
-            if (PlatformHelper.CurrentPlatform == Platform.Silverlight)
+            if (!FeatureDetection.IsPrivateReflectionSupported)
             {
 #endif
                 
@@ -308,7 +308,7 @@ namespace GalaSoft.MvvmLight.Helpers
 #if SILVERLIGHT || PORTABLE
 
 #if PORTABLE
-                if (PlatformHelper.CurrentPlatform == Platform.Silverlight)
+                if (!FeatureDetection.IsPrivateReflectionSupported)
                 {
 #endif
                     if (_action != null)

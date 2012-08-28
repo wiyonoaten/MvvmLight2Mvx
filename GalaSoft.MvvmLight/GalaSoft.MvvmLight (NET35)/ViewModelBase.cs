@@ -129,12 +129,12 @@ namespace GalaSoft.MvvmLight
             // As a portable lib, we need see what framework we're runnign on
             // and use reflection to get the designer value
 
-            var platform = PlatformHelper.CurrentPlatform;
+            var platform = DesignerLibrary.DetectedDesignerLibrary;
 
-            if (platform == Platform.Metro)
+            if (platform == DesignerPlatformLibrary.WinRT)
                 return IsInDesignModeMetro();
 
-            if(platform == Platform.Silverlight)
+            if(platform == DesignerPlatformLibrary.Silverlight)
             {
                 var desMode = IsInDesignModeSilverlight();
                 if (!desMode)
@@ -143,11 +143,13 @@ namespace GalaSoft.MvvmLight
                 return desMode;
             }
 
-            if (platform == Platform.Net)
+            if (platform == DesignerPlatformLibrary.Net)
                 return IsInDesignModeNet();
 
             return false;
         }
+
+
 
         private static bool IsInDesignModeSilverlight()
         {
