@@ -28,9 +28,9 @@ namespace GalaSoft.MvvmLight.Test__WP71_
         {
             SystemTray.IsVisible = false;
 
-            var testPage = (IMobileTestPage)UnitTestSystem.CreateTestPage();
-        //    var testPage = UnitTestSystem.CreateTestPage();
-            BackKeyPress += (x, xe) => xe.Cancel = testPage.NavigateBack();
+         //   var testPage = (IMobileTestPage)UnitTestSystem.CreateTestPage();
+            var testPage = UnitTestSystem.CreateTestPage();
+         //   BackKeyPress += (x, xe) => xe.Cancel = testPage.NavigateBack();
             ((PhoneApplicationFrame)Application.Current.RootVisual).Content = testPage;
         }
     }
