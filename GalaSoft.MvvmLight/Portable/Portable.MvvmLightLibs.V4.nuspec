@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>Portable.MvvmLightLibs</id>
-        <version>4.1.23.1-beta</version>
+        <version>4.1.24-beta2</version>
         <title>MVVM Light libraries only (PCL)</title>
         <authors>Laurent Bugnion (GalaSoft)</authors>
         <owners>onovotny</owners>
@@ -16,24 +16,22 @@
         <language>en-US</language>
         <tags>mvvm mvvmlight silverlight wp7 windows8 winrt win8 wpf wp8 portable pcl</tags>
         <dependencies>
-            <group targetFramework="Silverlight4.0">
+            <group targetFramework="sl4">
                 <dependency id="Unofficial.Blend.Interactivity" version="1.0.0" />
                 <dependency id="Portable.CommonServiceLocator" version="1.2" />
                 <dependency id="Microsoft.Bcl" version="1.0.11-beta" />
             </group>
-            <group targetFramework="Silverlight4.0-WindowsPhone71">
+            <group targetFramework="sl4-wp71">
                 <dependency id="Unofficial.Blend.Interactivity" version="1.0.0" />
                 <dependency id="Portable.CommonServiceLocator" version="1.2" />
                 <dependency id="Microsoft.Bcl" version="1.0.11-beta" />
             </group>
-            <group targetFramework=".NETFramework4.5">
+            <group targetFramework="net45">
                 <dependency id="Unofficial.Blend.Interactivity" version="1.0.0" />
                 <dependency id="Portable.CommonServiceLocator" version="1.2" />
-                <dependency id="Microsoft.Bcl" version="1.0.11-beta" />
             </group>
-            <group targetFramework=".NETCore4.5">
+            <group targetFramework="netcore45">
                 <dependency id="Portable.CommonServiceLocator" version="1.2" />
-                <dependency id="Microsoft.Bcl" version="1.0.11-beta" />
                 <dependency id="Windows.UI.Interactivity" version="1.0.9.0" />
             </group>
         </dependencies>
