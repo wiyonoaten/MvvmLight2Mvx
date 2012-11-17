@@ -23,6 +23,8 @@ using GalaSoft.MvvmLight.Helpers;
 
 #if NETFX_CORE || PORTABLE
 using System.Reflection;
+using GalaSoft.MvvmLight.Internal;
+
 #endif
 
 ////using GalaSoft.Utilities.Attributes;
@@ -42,6 +44,8 @@ namespace GalaSoft.MvvmLight.Command
         private readonly WeakAction<T> _execute;
 
         private readonly WeakFunc<T, bool> _canExecute;
+        private static readonly ICommandManagerHelper _commandManager = PlatformAdapter.Resolve<ICommandManagerHelper>(false);
+        private EventHandler _canExecuteChangedEvent;
 
         /// <summary>
         /// Initializes a new instance of the RelayCommand class that 
@@ -81,11 +85,39 @@ namespace GalaSoft.MvvmLight.Command
         /// </summary>
         public event EventHandler CanExecuteChanged;
 #else
-#if NETFX_CORE || PORTABLE
+#if NETFX_CORE
         /// <summary>
         /// Occurs when changes occur that affect whether the command should execute.
         /// </summary>
         public event EventHandler CanExecuteChanged;
+#elif PORTABLE
+        /// <summary>
+        /// Occurs when changes occur that affect whether the command should execute.
+        /// </summary>
+        public event EventHandler CanExecuteChanged
+        {
+            add
+            {
+                if (_canExecute != null)
+                {
+                    if (_commandManager != null)
+                        _commandManager.RequerySuggested += value;
+                    else
+                        _canExecuteChangedEvent += value;
+                }
+            }
+
+            remove
+            {
+                if (_canExecute != null)
+                {
+                    if (_commandManager != null)
+                        _commandManager.RequerySuggested -= value;
+                    else
+                        _canExecuteChangedEvent -= value;
+                }
+            }
+        }
 #else
         /// <summary>
         /// Occurs when changes occur that affect whether the command should execute.
@@ -127,11 +159,22 @@ namespace GalaSoft.MvvmLight.Command
                 handler(this, EventArgs.Empty);
             }
 #else
-#if NETFX_CORE || PORTABLE
+#if NETFX_CORE
             var handler = CanExecuteChanged;
             if (handler != null)
             {
                 handler(this, EventArgs.Empty);
+            }
+#elif PORTABLE
+            if (_commandManager != null)
+            {
+                _commandManager.InvalidateRequerySuggested();
+            }
+            else
+            {
+                var handler = _canExecuteChangedEvent;
+                if (handler != null)
+                    handler(this, EventArgs.Empty);
             }
 #else
             CommandManager.InvalidateRequerySuggested();

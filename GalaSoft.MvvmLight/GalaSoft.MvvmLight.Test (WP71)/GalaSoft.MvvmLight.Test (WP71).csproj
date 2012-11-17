@@ -50,6 +50,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions, Version=3.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\Portable\packages\Unofficial.Blend.Interactivity.1.0.0\lib\sl4-wp71\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="Microsoft.Practices.ServiceLocation">
@@ -67,7 +70,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
     <Reference Include="System.Windows.Interactivity, Version=3.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\External\WP71\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\Portable\packages\Unofficial.Blend.Interactivity.1.0.0\lib\sl4-wp71\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -303,6 +306,10 @@
     <ProjectReference Include="..\Portable\GalaSoft.MvvmLight.Extras\GalaSoft.MvvmLight.Extras.csproj">
       <Project>{C0B359A9-4985-435D-8CC1-C1FEC405BC2C}</Project>
       <Name>GalaSoft.MvvmLight.Extras</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Portable\GalaSoft.MvvmLight.Platforms.WP75\GalaSoft.MvvmLight.Platforms.WP75.csproj">
+      <Project>{CF41A730-7AA7-40B7-A15A-735EF782CB70}</Project>
+      <Name>GalaSoft.MvvmLight.Platforms.WP75</Name>
     </ProjectReference>
     <ProjectReference Include="..\Portable\GalaSoft.MvvmLight.TestHelpers\GalaSoft.MvvmLight.TestHelpers.csproj">
       <Project>{A406E3C6-51E8-4C53-9039-0C7033738531}</Project>

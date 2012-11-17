@@ -7,7 +7,7 @@
     <ProjectGuid>{C7526745-227A-46DA-855D-897DAC9B511E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GalaSoft.MvvmLight.Platform.Net45</RootNamespace>
+    <RootNamespace>GalaSoft.MvvmLight.Platform</RootNamespace>
     <AssemblyName>GalaSoft.MvvmLight.Platform.Net45</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -54,6 +54,7 @@
     <Compile Include="..\..\GalaSoft.MvvmLight.Extras %28NET4%29\Command\EventToCommandVS10.cs">
       <Link>EventToCommandVS10.cs</Link>
     </Compile>
+    <Compile Include="Internal\CommandManagerHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

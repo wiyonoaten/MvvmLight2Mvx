@@ -325,6 +325,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="GalaSoft.MvvmLight.Test.Win8_TemporaryKey.pfx" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -332,6 +333,10 @@
     <ProjectReference Include="..\GalaSoft.MvvmLight.Extras\GalaSoft.MvvmLight.Extras.csproj">
       <Project>{c0b359a9-4985-435d-8cc1-c1fec405bc2c}</Project>
       <Name>GalaSoft.MvvmLight.Extras</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GalaSoft.MvvmLight.Platforms.NetCore45\GalaSoft.MvvmLight.Platforms.NetCore45.csproj">
+      <Project>{6319b689-fd17-47aa-822f-d537e1971b56}</Project>
+      <Name>GalaSoft.MvvmLight.Platforms.NetCore45</Name>
     </ProjectReference>
     <ProjectReference Include="..\GalaSoft.MvvmLight.TestHelpers\GalaSoft.MvvmLight.TestHelpers.csproj">
       <Project>{A406E3C6-51E8-4C53-9039-0C7033738531}</Project>
@@ -361,6 +366,9 @@
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Portable.CommonServiceLocator.1.2\lib\portable-net4+sl4+wp7+win8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Windows.UI.Interactivity">
+      <HintPath>..\packages\Windows.UI.Interactivity.1.0.9.0\lib\winrt45\Windows.UI.Interactivity.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' ">

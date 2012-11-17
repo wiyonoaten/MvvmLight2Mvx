@@ -17,6 +17,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("GalaSoft.MvvmLight")]
@@ -27,6 +28,11 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCopyright("Copyright © GalaSoft Laurent Bugnion 2009-2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+
+[assembly: InternalsVisibleTo("GalaSoft.MvvmLight.Platform.Net45")]
+[assembly: InternalsVisibleTo("GalaSoft.MvvmLight.Platform.SL4")]
+[assembly: InternalsVisibleTo("GalaSoft.MvvmLight.Platform.NetCore45")]
+[assembly: InternalsVisibleTo("GalaSoft.MvvmLight.Platform.WP75")]
 
 #if !PORTABLE
 [assembly: ComVisible(false)]

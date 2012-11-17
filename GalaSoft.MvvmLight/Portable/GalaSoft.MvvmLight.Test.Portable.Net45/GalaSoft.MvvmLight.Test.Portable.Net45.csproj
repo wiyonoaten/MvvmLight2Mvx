@@ -37,6 +37,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unofficial.Blend.Interactivity.1.0.0\lib\net45\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Portable.CommonServiceLocator.1.2\lib\net35\Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -45,6 +48,9 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unofficial.Blend.Interactivity.1.0.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -253,6 +259,10 @@
     <ProjectReference Include="..\GalaSoft.MvvmLight.Extras\GalaSoft.MvvmLight.Extras.csproj">
       <Project>{c0b359a9-4985-435d-8cc1-c1fec405bc2c}</Project>
       <Name>GalaSoft.MvvmLight.Extras</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GalaSoft.MvvmLight.Platform.Net45\GalaSoft.MvvmLight.Platform.Net45.csproj">
+      <Project>{c7526745-227a-46da-855d-897dac9b511e}</Project>
+      <Name>GalaSoft.MvvmLight.Platform.Net45</Name>
     </ProjectReference>
     <ProjectReference Include="..\GalaSoft.MvvmLight.TestHelpers\GalaSoft.MvvmLight.TestHelpers.csproj">
       <Project>{A406E3C6-51E8-4C53-9039-0C7033738531}</Project>

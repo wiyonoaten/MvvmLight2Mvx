@@ -9,7 +9,7 @@
     <ProjectGuid>{6319B689-FD17-47AA-822F-D537E1971B56}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GalaSoft.MvvmLight.Platforms.NetCore45</RootNamespace>
+    <RootNamespace>GalaSoft.MvvmLight.Platform</RootNamespace>
     <AssemblyName>GalaSoft.MvvmLight.Platforms.NetCore45</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>

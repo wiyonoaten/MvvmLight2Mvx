@@ -113,6 +113,15 @@
     </Compile>
     <Compile Include="Helpers\DesignerPlatformLibrary.cs" />
     <Compile Include="Helpers\FeatureDetection.cs" />
+    <Compile Include="Internal\IAdapterResolver.cs" />
+    <Compile Include="Internal\ICommandManagerHelper.cs" />
+    <Compile Include="Internal\PlatformAdapter.cs" />
+    <Compile Include="Internal\ProbingAdapterResolver.cs" />
+    <Compile Include="Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Runtime">
@@ -121,6 +130,12 @@
     <Reference Include="System.Threading.Tasks">
       <HintPath>..\packages\Microsoft.Bcl.1.0.11-beta\lib\portable-net40+sl4+win8+wp71\System.Threading.Tasks.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.1.0.11-beta\tools\portable-net40+sl4+win8+wp71\Microsoft.Bcl.targets" />

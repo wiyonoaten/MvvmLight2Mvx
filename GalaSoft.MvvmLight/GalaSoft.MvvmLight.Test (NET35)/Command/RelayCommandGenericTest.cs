@@ -41,7 +41,7 @@ namespace GalaSoft.MvvmLight.Test.Command
 
             command.RaiseCanExecuteChanged();
 
-#if SILVERLIGHT || PORTABLE
+#if SILVERLIGHT 
             Assert.AreEqual(1, canExecuteChangedCalled);
 #else
 #if NETFX_CORE
@@ -56,7 +56,7 @@ namespace GalaSoft.MvvmLight.Test.Command
 
             command.RaiseCanExecuteChanged();
 
-#if SILVERLIGHT || PORTABLE
+#if SILVERLIGHT 
             Assert.AreEqual(1, canExecuteChangedCalled);
 #else
 #if NETFX_CORE
