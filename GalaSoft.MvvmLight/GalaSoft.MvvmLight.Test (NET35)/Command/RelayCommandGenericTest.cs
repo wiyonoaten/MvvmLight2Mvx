@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Reflection;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.TestHelpers;
 
 #if NETFX_CORE
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
@@ -88,14 +90,13 @@ namespace GalaSoft.MvvmLight.Test.Command
                 },
                 p => p == "CanExecute");
 
-            try
-            {
-                command.CanExecute(DateTime.Now);
-                Assert.Fail("InvalidCastException was not thrown");
-            }
-            catch (InvalidCastException)
-            {
-            }
+
+            bool? result = null;
+            
+            // Use something bogus that's not IConvertible
+            result = command.CanExecute(new AssemblyVersionAttribute("1.2"));
+
+            Assert.IsFalse(result.Value);
         }
 
         [TestMethod]
@@ -212,6 +213,33 @@ namespace GalaSoft.MvvmLight.Test.Command
             _canExecute = true;
             command.Execute(value2);
             Assert.AreEqual(value2, result);
+        }
+
+        [TestMethod]
+        public void TestIConvertibleImplementation()
+        {
+            string result1 = null;
+            var cmd = new RelayCommand<string>(
+                s => result1 = s);
+
+            // pass in an iconvertible class
+            cmd.Execute(new TestConvertible());
+
+            Assert.AreEqual("STRING", result1);
+        }
+
+        [TestMethod]
+        public void TestPassingDerivedInstanceAsBase()
+        {
+            var type = GetType(); // this will be a RuntimeType : Type
+            Type result = null;
+            
+
+            var command = new RelayCommand<Type>(
+                s => result = s);
+
+            command.Execute(type);
+            Assert.AreEqual(type, result);
         }
 
         [TestMethod]
@@ -341,8 +369,9 @@ namespace GalaSoft.MvvmLight.Test.Command
             Assert.IsTrue(_methodWasExecuted);
         }
 
-#if !NETFX_CORE
+#if !NETFX_CORE || PORTABLE
         // TODO Check if there is a way to do that in WinRT
+        // TODO: YES. Will use Iconvertible if type is in PCL
         [TestMethod]
         public void TestValueTypeConversion()
         {
@@ -370,10 +399,10 @@ namespace GalaSoft.MvvmLight.Test.Command
                 },
                 p => true);
 
-            var commandDouble = new RelayCommand<double>(
+            var commandDouble = new RelayCommand<double?>(
                 p =>
                 {
-                    resultDouble = p;
+                    resultDouble = p.Value;
                 },
                 p => true);
 
@@ -396,4 +425,5 @@ namespace GalaSoft.MvvmLight.Test.Command
             _methodWasExecuted = false;
         }
     }
+
 }

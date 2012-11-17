@@ -152,23 +152,67 @@ namespace GalaSoft.MvvmLight.Command
                 return true;
             }
 
+            bool matches;
+            var val = GetParameterForMethodFromValuePassedIn(parameter, out matches);
+            
+            if(matches)
+                return CanExecute(val);
+
+            return false;
+        }
+
+
+        private bool CanExecute(T parameter)
+        {
+            if (_canExecute == null)
+            {
+                return true;
+            }
+
             if (_canExecute.IsStatic || _canExecute.IsAlive)
             {
-                if (parameter == null
-#if NETFX_CORE
-                && typeof(T).GetTypeInfo().IsValueType)
-#else
-                    && typeof(T).IsValueType)
-#endif
-                {
-                    return _canExecute.Execute(default(T));
-                }
-
-                return _canExecute.Execute((T) parameter);
+                return _canExecute.Execute(parameter);
             }
 
             return false;
         }
+
+        private static T GetParameterForMethodFromValuePassedIn(object parameter, out bool typeMatches)
+        {
+            var val = parameter;
+
+#if !NETFX_CORE
+
+            var underlying = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
+            if (parameter != null
+                && parameter.GetType() != typeof(T) && parameter.GetType() != underlying)
+            {
+
+                if (parameter is IConvertible)
+                {
+                    // internally, even the NetCore 4.5 version  will use IConvertible
+                    val = Convert.ChangeType(parameter, underlying, null);
+                }
+            }
+#endif
+            
+            if (val == null)
+            {
+                typeMatches = true;
+                return default(T);
+            }
+
+
+            // check to see if it's of the same type
+            typeMatches = val is T;
+
+            if(typeMatches)
+                return (T)val;
+
+            // Don't throw, just return default
+            return default(T); 
+        }
+
 
         /// <summary>
         /// Defines the method to be called when the command is invoked. 
@@ -177,46 +221,14 @@ namespace GalaSoft.MvvmLight.Command
         /// to be passed, this object can be set to a null reference</param>
         public virtual void Execute(object parameter)
         {
-            var val = parameter;
+            bool matches;
+            var val = GetParameterForMethodFromValuePassedIn(parameter, out matches);
 
-#if !NETFX_CORE
-            if (parameter != null
-                && parameter.GetType() != typeof(T))
-            {
-#if !PORTABLE
-                if (parameter is IConvertible)
-                {
-#endif
-                    val = Convert.ChangeType(parameter, typeof (T), null);
-#if !PORTABLE
-                }
-#endif
-            }
-#endif
-
-            if (CanExecute(val)
+            if (matches && CanExecute(val)
                 && _execute != null
                 && (_execute.IsStatic || _execute.IsAlive))
             {
-                if (val == null)
-                {
-#if NETFX_CORE
-                    if (typeof(T).GetTypeInfo().IsValueType)
-#else
-                    if (typeof(T).IsValueType)
-#endif
-                    {
-                        _execute.Execute(default(T));
-                    }
-                    else
-                    {
-                        _execute.Execute((T)val);
-                    }
-                }
-                else
-                {
-                    _execute.Execute((T)val);
-                }
+                _execute.Execute(val);
             }
         }
     }

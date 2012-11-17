@@ -304,6 +304,10 @@
       <Project>{C0B359A9-4985-435D-8CC1-C1FEC405BC2C}</Project>
       <Name>GalaSoft.MvvmLight.Extras</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Portable\GalaSoft.MvvmLight.TestHelpers\GalaSoft.MvvmLight.TestHelpers.csproj">
+      <Project>{A406E3C6-51E8-4C53-9039-0C7033738531}</Project>
+      <Name>GalaSoft.MvvmLight.TestHelpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Portable\GalaSoft.MvvmLight\GalaSoft.MvvmLight.csproj">
       <Project>{FDFC16DC-929D-49DC-8C30-0C697DCD3860}</Project>
       <Name>GalaSoft.MvvmLight</Name>
