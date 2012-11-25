@@ -17,6 +17,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -33,6 +34,7 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("GalaSoft.MvvmLight.Platform.SL4")]
 [assembly: InternalsVisibleTo("GalaSoft.MvvmLight.Platform.NetCore45")]
 [assembly: InternalsVisibleTo("GalaSoft.MvvmLight.Platform.WP75")]
+[assembly: NeutralResourcesLanguage("en")]
 
 #if !PORTABLE
 [assembly: ComVisible(false)]

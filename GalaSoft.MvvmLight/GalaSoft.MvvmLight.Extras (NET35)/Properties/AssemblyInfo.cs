@@ -17,6 +17,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
 
 #if !NETFX_CORE && !PORTABLE
@@ -31,6 +32,7 @@ using System.Windows.Markup;
 [assembly: AssemblyCopyright("Copyright © GalaSoft Laurent Bugnion 2009-2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+[assembly: NeutralResourcesLanguage("en")]
 
 #if !NETFX_CORE && !PORTABLE
 [assembly: XmlnsDefinition("http://www.galasoft.ch/mvvmlight", "GalaSoft.MvvmLight.Command")]
