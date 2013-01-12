@@ -5,119 +5,94 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A8574789-3B29-4722-8A54-C9C82C1A5137}</ProjectGuid>
+    <ProjectGuid>{E4E88724-10CB-4964-B8B9-21AF41ABBF35}</ProjectGuid>
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GalaSoft.MvvmLight.Test</RootNamespace>
-    <AssemblyName>GalaSoft.MvvmLight.Test.WP71</AssemblyName>
-    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
-    <SilverlightVersion>
-    </SilverlightVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <AssemblyName>GalaSoft.MvvmLight.Test.WP8</AssemblyName>
     <TargetFrameworkIdentifier>WindowsPhone</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <SilverlightApplication>true</SilverlightApplication>
     <SupportedCultures>
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>GalaSoft.MvvmLight.Test (WP8)_$(Configuration)_$(Platform).xap</XapFilename>
+    <XapFilename>GalaSoft.MvvmLight.Test__WP8__$(Configuration)_$(Platform).xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
-    <SilverlightAppEntry>GalaSoft.MvvmLight.Test__WP71_.App</SilverlightAppEntry>
+    <SilverlightAppEntry>GalaSoft.MvvmLight.Test__WP8_.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
-    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\Portable\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Bin\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS_PHONE;PORTABLE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>Bin\Release</OutputPath>
-    <DefineConstants>TRACE;;WINDOWS_PHONE;PORTABLE</DefineConstants>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
     <OutputPath>Bin\x86\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS_PHONE;PORTABLE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
     <NoStdLib>true</NoStdLib>
-    <DebugType>full</DebugType>
-    <PlatformTarget>
-    </PlatformTarget>
+    <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Optimize>false</Optimize>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
     <OutputPath>Bin\x86\Release</OutputPath>
-    <DefineConstants>TRACE;;WINDOWS_PHONE;PORTABLE</DefineConstants>
-    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
     <NoStdLib>true</NoStdLib>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>
-    </PlatformTarget>
+    <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|ARM' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>Bin\ARM\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;WINDOWS_PHONE;PORTABLE</DefineConstants>
-    <NoStdLib>true</NoStdLib>
     <DebugType>full</DebugType>
-    <PlatformTarget>
-    </PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Optimize>false</Optimize>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
-    <OutputPath>Bin\ARM\Release</OutputPath>
-    <DefineConstants>TRACE;;WINDOWS_PHONE;PORTABLE</DefineConstants>
-    <Optimize>true</Optimize>
+    <OutputPath>Bin\ARM\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
     <NoStdLib>true</NoStdLib>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>
-    </PlatformTarget>
+    <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ARM' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\ARM\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Expression.Interactions, Version=3.9.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\Portable\packages\Unofficial.Blend.Interactivity.1.0.0\lib\wp8\Microsoft.Expression.Interactions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\Portable\packages\Portable.CommonServiceLocator.1.2\lib\portable-net4+sl4+wp7+win8\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Silverlight.Testing">
-      <HintPath>..\External\WP71\Microsoft.Silverlight.Testing.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTesting.Silverlight">
-      <HintPath>..\External\WP71\Microsoft.VisualStudio.QualityTools.UnitTesting.Silverlight.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows.Interactivity, Version=3.9.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\Portable\packages\Unofficial.Blend.Interactivity.1.0.0\lib\wp8\System.Windows.Interactivity.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Command\EventToCommandTest.cs">
+      <Link>Command\EventToCommandTest.cs</Link>
+    </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Command\RelayCommandGenericTest.cs">
       <Link>Command\RelayCommandGenericTest.cs</Link>
     </Compile>
@@ -127,11 +102,26 @@
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Command\TemporaryClass.cs">
       <Link>Command\TemporaryClass.cs</Link>
     </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\CommonTestClass.cs">
+      <Link>Helpers\CommonTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\InternalTestClass.cs">
+      <Link>Helpers\InternalTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\InternalTestClassGeneric.cs">
+      <Link>Helpers\InternalTestClassGeneric.cs</Link>
+    </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\InternalTestClassGenericWithResult.cs">
       <Link>Helpers\InternalTestClassGenericWithResult.cs</Link>
     </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\InternalTestClassWithResult.cs">
       <Link>Helpers\InternalTestClassWithResult.cs</Link>
+    </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\PublicTestClass.cs">
+      <Link>Helpers\PublicTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\PublicTestClassGeneric.cs">
+      <Link>Helpers\PublicTestClassGeneric.cs</Link>
     </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\PublicTestClassGenericWithResult.cs">
       <Link>Helpers\PublicTestClassGenericWithResult.cs</Link>
@@ -139,11 +129,20 @@
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\PublicTestClassWithResult.cs">
       <Link>Helpers\PublicTestClassWithResult.cs</Link>
     </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\TestCase.cs">
+      <Link>Helpers\TestCase.cs</Link>
+    </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\WeakActionGenericNestedTest.cs">
       <Link>Helpers\WeakActionGenericNestedTest.cs</Link>
     </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\WeakActionGenericTest.cs">
+      <Link>Helpers\WeakActionGenericTest.cs</Link>
+    </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\WeakActionNestedTest.cs">
       <Link>Helpers\WeakActionNestedTest.cs</Link>
+    </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\WeakActionTest.cs">
+      <Link>Helpers\WeakActionTest.cs</Link>
     </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\WeakFuncGenericNestedTest.cs">
       <Link>Helpers\WeakFuncGenericNestedTest.cs</Link>
@@ -159,30 +158,6 @@
     </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Ioc\SimpleIocTestAutoCreation.cs">
       <Link>Ioc\SimpleIocTestAutoCreation.cs</Link>
-    </Compile>
-    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\CommonTestClass.cs">
-      <Link>Helpers\CommonTestClass.cs</Link>
-    </Compile>
-    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\InternalTestClass.cs">
-      <Link>Helpers\InternalTestClass.cs</Link>
-    </Compile>
-    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\InternalTestClassGeneric.cs">
-      <Link>Helpers\InternalTestClassGeneric.cs</Link>
-    </Compile>
-    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\PublicTestClass.cs">
-      <Link>Helpers\PublicTestClass.cs</Link>
-    </Compile>
-    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\PublicTestClassGeneric.cs">
-      <Link>Helpers\PublicTestClassGeneric.cs</Link>
-    </Compile>
-    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\TestCase.cs">
-      <Link>Helpers\TestCase.cs</Link>
-    </Compile>
-    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\WeakActionGenericTest.cs">
-      <Link>Helpers\WeakActionGenericTest.cs</Link>
-    </Compile>
-    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\WeakActionTest.cs">
-      <Link>Helpers\WeakActionTest.cs</Link>
     </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Ioc\SimpleIocTestContains.cs">
       <Link>Ioc\SimpleIocTestContains.cs</Link>
@@ -204,6 +179,9 @@
     </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Ioc\SimpleIocTestUnregistration.cs">
       <Link>Ioc\SimpleIocTestUnregistration.cs</Link>
+    </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\DialogMessageTest.cs">
+      <Link>Messaging\DialogMessageTest.cs</Link>
     </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\GarbageCollectionTest.cs">
       <Link>Messaging\GarbageCollectionTest.cs</Link>
@@ -289,6 +267,15 @@
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClass6.cs">
       <Link>Stubs\TestClass6.cs</Link>
     </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClass7.cs">
+      <Link>Stubs\TestClass7.cs</Link>
+    </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClass8.cs">
+      <Link>Stubs\TestClass8.cs</Link>
+    </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClass9.cs">
+      <Link>Stubs\TestClass9.cs</Link>
+    </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClassForCreationTime.cs">
       <Link>Stubs\TestClassForCreationTime.cs</Link>
     </Compile>
@@ -297,6 +284,9 @@
     </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestViewModelWithBooleanSource.cs">
       <Link>Stubs\TestViewModelWithBooleanSource.cs</Link>
+    </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Threading\DispatcherHelperTest.cs">
+      <Link>Threading\DispatcherHelperTest.cs</Link>
     </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\ViewModelBaseTest.cs">
       <Link>ViewModelBaseTest.cs</Link>
@@ -316,10 +306,16 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.Wp71.cs" />
+    <Compile Include="Resources\AppResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Stubs\Class1.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -332,46 +328,74 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ApplicationIcon.png">
+    <Content Include="Assets\AlignmentGrid.png" />
+    <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Background.png">
+    <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="SplashScreenImage.jpg" />
+    <Content Include="Assets\Tiles\FlipCycleTileMedium.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\FlipCycleTileSmall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\IconicTileMediumLarge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Tiles\IconicTileSmall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Toolkit.Content\appbar.feature.email.rest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Toolkit.Content\appbar.save.rest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Toolkit.Content\appbar.transport.play.rest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Portable\GalaSoft.MvvmLight.Extras\GalaSoft.MvvmLight.Extras.csproj">
-      <Project>{C0B359A9-4985-435D-8CC1-C1FEC405BC2C}</Project>
-      <Name>GalaSoft.MvvmLight.Extras</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Portable\GalaSoft.MvvmLight.Platforms.WP75\GalaSoft.MvvmLight.Platforms.WP75.csproj">
-      <Project>{CF41A730-7AA7-40B7-A15A-735EF782CB70}</Project>
-      <Name>GalaSoft.MvvmLight.Platforms.WP75</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Portable\GalaSoft.MvvmLight.TestHelpers\GalaSoft.MvvmLight.TestHelpers.csproj">
-      <Project>{A406E3C6-51E8-4C53-9039-0C7033738531}</Project>
-      <Name>GalaSoft.MvvmLight.TestHelpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Portable\GalaSoft.MvvmLight\GalaSoft.MvvmLight.csproj">
-      <Project>{FDFC16DC-929D-49DC-8C30-0C697DCD3860}</Project>
-      <Name>GalaSoft.MvvmLight</Name>
-      <Aliases>global, mvvm</Aliases>
-    </ProjectReference>
+    <EmbeddedResource Include="Resources\AppResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Threading\" />
+    <Reference Include="Microsoft.Phone.Controls.Toolkit">
+      <HintPath>..\External\WP8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Phone.Toolkit.Testing">
+      <HintPath>..\External\WP8\Microsoft.Phone.Toolkit.Testing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTesting.Phone">
+      <HintPath>..\External\WP8\Microsoft.VisualStudio.QualityTools.UnitTesting.Phone.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=3.9.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GalaSoft.MvvmLight %28WP8%29\GalaSoft.MvvmLight %28WP8%29.csproj">
+      <Project>{9B53BF33-4261-45FD-B170-04139CB8E1F8}</Project>
+      <Name>GalaSoft.MvvmLight %28WP8%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GalaSoft.MvvmLight.Extras %28WP8%29\GalaSoft.MvvmLight.Extras %28WP8%29.csproj">
+      <Project>{B807B4CE-AFE9-49CB-95AD-107BC8C07E70}</Project>
+      <Name>GalaSoft.MvvmLight.Extras %28WP8%29</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
@@ -379,5 +403,4 @@
   </Target>
   -->
   <ProjectExtensions />
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>

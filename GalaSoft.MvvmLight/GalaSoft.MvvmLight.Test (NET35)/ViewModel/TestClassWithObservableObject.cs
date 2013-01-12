@@ -29,12 +29,21 @@ namespace GalaSoft.MvvmLight.Test.ViewModel
                     return;
                 }
 
+#if !WP71
                 RaisePropertyChanging(LastChangedPropertyName);
+#endif
                 _lastChanged = value;
                 RaisePropertyChanged(LastChangedPropertyName);
             }
         }
 
+        public bool SetRaisedPropertyChangedEvent
+        {
+            get;
+            set;
+        }
+
+#if !SL3
         private DateTime _lastChangedNoMagicString = DateTime.MinValue;
 
         /// <summary>
@@ -55,16 +64,12 @@ namespace GalaSoft.MvvmLight.Test.ViewModel
                     return;
                 }
 
+#if !WP71
                 RaisePropertyChanging(() => LastChangedNoMagicString);
+#endif
                 _lastChangedNoMagicString = value;
                 RaisePropertyChanged(() => LastChangedNoMagicString);
             }
-        }
-
-        public bool SetRaisedPropertyChangedEvent
-        {
-            get;
-            set;
         }
 
         public const string PropertyWithSetPropertyName = "PropertyWithSet";
@@ -96,15 +101,18 @@ namespace GalaSoft.MvvmLight.Test.ViewModel
                 SetRaisedPropertyChangedEvent = Set(PropertyWithStringSetPropertyName, ref _propertyWithStringSet, value);
             }
         }
+#endif
 
         public void RaisePropertyChangedPublic(string propertyName)
         {
             RaisePropertyChanged(propertyName);
         }
 
+#if !WP71
         public void RaisePropertyChangingPublic(string propertyName)
         {
             RaisePropertyChanging(propertyName);
         }
+#endif
     }
 }

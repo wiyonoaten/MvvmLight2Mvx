@@ -23,7 +23,10 @@ using System.Reflection;
 using GalaSoft.MvvmLight.Helpers;
 using GalaSoft.MvvmLight.Messaging;
 using System.Linq;
+
+#if !SL3
 using System.Linq.Expressions;
+#endif
 
 #if !NETFX_CORE
 using System.Windows;
@@ -304,6 +307,7 @@ namespace GalaSoft.MvvmLight
             }
         }
 
+#if !SL3
         /// <summary>
         /// Raises the PropertyChanged event if needed, and broadcasts a
         /// PropertyChangedMessage using the Messenger instance (or the
@@ -372,7 +376,9 @@ namespace GalaSoft.MvvmLight
                 return false;
             }
 
+#if !WP71
             RaisePropertyChanging(propertyExpression);
+#endif
             var oldValue = field;
             field = newValue;
             RaisePropertyChanged(propertyExpression, oldValue, field, broadcast);
@@ -405,11 +411,14 @@ namespace GalaSoft.MvvmLight
                 return false;
             }
 
+#if !WP71
             RaisePropertyChanging(propertyName);
+#endif
             var oldValue = field;
             field = newValue;
             RaisePropertyChanged(propertyName, oldValue, field, broadcast);
             return true;
         }
+#endif
     }
 }

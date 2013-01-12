@@ -18,9 +18,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
+
+#if !SL3
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
+#endif
 
 #if NETFX_CORE
 using System.Reflection.RuntimeExtensions;
@@ -35,7 +38,10 @@ namespace GalaSoft.MvvmLight
     /// A base class for objects of which the properties must be observable.
     /// </summary>
     //// [ClassInfo(typeof(ViewModelBase))]
-    public class ObservableObject : INotifyPropertyChanged, INotifyPropertyChanging
+    public class ObservableObject : INotifyPropertyChanged
+#if !WP71
+        , INotifyPropertyChanging
+#endif
     {
 #if PORTABLE
         private const string FakePropertyName = @"A property name must be specified if not using C# 5/VB11";
@@ -44,11 +50,6 @@ namespace GalaSoft.MvvmLight
         /// Occurs after a property value changes.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Occurs before a property value changes.
-        /// </summary>
-        public event PropertyChangingEventHandler PropertyChanging;
 
         /// <summary>
         /// Provides access to the PropertyChanged event handler to derived classes.
@@ -61,6 +62,12 @@ namespace GalaSoft.MvvmLight
             }
         }
 
+#if !WP71
+        /// <summary>
+        /// Occurs before a property value changes.
+        /// </summary>
+        public event PropertyChangingEventHandler PropertyChanging;
+
         /// <summary>
         /// Provides access to the PropertyChanging event handler to derived classes.
         /// </summary>
@@ -71,6 +78,7 @@ namespace GalaSoft.MvvmLight
                 return PropertyChanging;
             }
         }
+#endif
 
         /// <summary>
         /// Verifies that a property name exists in this ViewModel. This method
@@ -84,7 +92,7 @@ namespace GalaSoft.MvvmLight
         [DebuggerStepThrough]
         public void VerifyPropertyName(string propertyName)
         {
-            var myType = this.GetType();
+            var myType = GetType();
 
 #if NETFX_CORE
             if (!string.IsNullOrEmpty(propertyName)
@@ -115,6 +123,7 @@ namespace GalaSoft.MvvmLight
 #endif
         }
 
+#if !WP71
         /// <summary>
         /// Raises the PropertyChanging event if needed.
         /// </summary>
@@ -139,7 +148,7 @@ namespace GalaSoft.MvvmLight
             if (string.IsNullOrEmpty(propertyName))
             {
                 throw new NotSupportedException(
-                    "Raising the PropertyChanged event with an empty string or null is not supported in the Windows 8 developer preview");
+                    "Raising the PropertyChanged event with an empty string or null is not supported in Windows 8");
             }
             else
             {
@@ -155,6 +164,7 @@ namespace GalaSoft.MvvmLight
             }
 #endif
         }
+#endif
 
         /// <summary>
         /// Raises the PropertyChanged event if needed.
@@ -185,6 +195,8 @@ namespace GalaSoft.MvvmLight
             }
         }
 
+#if !SL3
+#if !WP71
         /// <summary>
         /// Raises the PropertyChanging event if needed.
         /// </summary>
@@ -207,6 +219,7 @@ namespace GalaSoft.MvvmLight
                 handler(this, new PropertyChangingEventArgs(propertyName));
             }
         }
+#endif
 
         /// <summary>
         /// Raises the PropertyChanged event if needed.
@@ -287,7 +300,9 @@ namespace GalaSoft.MvvmLight
                 return false;
             }
 
+#if !WP71
             RaisePropertyChanging(propertyExpression);
+#endif
             field = newValue;
             RaisePropertyChanged(propertyExpression);
             return true;
@@ -317,12 +332,14 @@ namespace GalaSoft.MvvmLight
                 return false;
             }
 
+#if !WP71
             RaisePropertyChanging(propertyName);
+#endif
             field = newValue;
             RaisePropertyChanged(propertyName);
             return true;
         }
-
+#endif
 #if NETFX_CORE || PORTABLE
         /// <summary>
         /// Assigns a new value to the property. Then, raises the

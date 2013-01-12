@@ -63,7 +63,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Bin\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;SILVERLIGHT SILVERLIGHT3</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;SL3</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -75,7 +75,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>Bin\Release</OutputPath>
-    <DefineConstants>TRACE;SILVERLIGHT;SILVERLIGHT3</DefineConstants>
+    <DefineConstants>TRACE;SILVERLIGHT;SL3</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -101,6 +101,7 @@
     <Reference Include="System.Windows.Interactivity, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Windows.Browser" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Command\TemporaryClass.cs">
@@ -211,8 +212,14 @@
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\ITestClass.cs">
       <Link>Stubs\ITestClass.cs</Link>
     </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestBaseClass.cs">
+      <Link>Stubs\TestBaseClass.cs</Link>
+    </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestBindingTarget.cs">
       <Link>Stubs\TestBindingTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestChildClass.cs">
+      <Link>Stubs\TestChildClass.cs</Link>
     </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClass.cs">
       <Link>Stubs\TestClass.cs</Link>
@@ -232,6 +239,15 @@
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClass6.cs">
       <Link>Stubs\TestClass6.cs</Link>
     </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClass7.cs">
+      <Link>Stubs\TestClass7.cs</Link>
+    </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClass8.cs">
+      <Link>Stubs\TestClass8.cs</Link>
+    </Compile>
+    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClass9.cs">
+      <Link>Stubs\TestClass9.cs</Link>
+    </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestClassForCreationTime.cs">
       <Link>Stubs\TestClassForCreationTime.cs</Link>
     </Compile>
@@ -249,9 +265,6 @@
     </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\ViewModel\TestViewModel.cs">
       <Link>ViewModels\TestViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\ViewModel\TestViewModelNoMagicString.cs">
-      <Link>ViewModels\TestViewModelNoMagicString.cs</Link>
     </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\ViewModel\ViewModelStub.cs">
       <Link>ViewModels\ViewModelStub.cs</Link>

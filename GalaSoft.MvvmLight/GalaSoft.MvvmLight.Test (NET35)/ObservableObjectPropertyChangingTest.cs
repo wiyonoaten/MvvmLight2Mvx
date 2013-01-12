@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GalaSoft.MvvmLight.Test
 {
+#if !WP71
     [TestClass]
     public class ObservableObjectPropertyChangingTest
     {
@@ -45,6 +46,7 @@ namespace GalaSoft.MvvmLight.Test
             Assert.IsTrue(receivedPropertyChanging);
         }
 
+#if !SL3
         [TestMethod]
         public void TestPropertyChangingNoMagicString()
         {
@@ -77,6 +79,7 @@ namespace GalaSoft.MvvmLight.Test
             Assert.AreEqual(now, receivedDateTimeLocal);
             Assert.IsTrue(receivedPropertyChanging);
         }
+#endif
 
         [TestMethod]
         public void TestRaisePropertyChangingValidInvalidPropertyName()
@@ -117,6 +120,7 @@ namespace GalaSoft.MvvmLight.Test
             }
         }
 
+#if !SL3
         [TestMethod]
         public void TestPropertyChangingWithSet()
         {
@@ -210,5 +214,7 @@ namespace GalaSoft.MvvmLight.Test
             Assert.IsTrue(changingWasRaised);
             Assert.IsTrue(changedWasRaised);
         }
+#endif
     }
+#endif
 }
