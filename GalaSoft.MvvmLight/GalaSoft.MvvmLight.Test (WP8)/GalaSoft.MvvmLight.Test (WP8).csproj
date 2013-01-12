@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E4E88724-10CB-4964-B8B9-21AF41ABBF35}</ProjectGuid>
+    <ProjectGuid>{A8574789-3B29-4722-8A54-C9C82C1A5137}</ProjectGuid>
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -25,13 +25,15 @@
     <ValidateXaml>true</ValidateXaml>
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\Portable\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;PORTABLE;WINDOWS_PHONE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -41,7 +43,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>Bin\Release</OutputPath>
-    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <DefineConstants>TRACE;PORTABLE;WINDOWS_PHONE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -179,9 +181,6 @@
     </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Ioc\SimpleIocTestUnregistration.cs">
       <Link>Ioc\SimpleIocTestUnregistration.cs</Link>
-    </Compile>
-    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\DialogMessageTest.cs">
-      <Link>Messaging\DialogMessageTest.cs</Link>
     </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\GarbageCollectionTest.cs">
       <Link>Messaging\GarbageCollectionTest.cs</Link>
@@ -328,6 +327,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
@@ -370,29 +371,45 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions, Version=3.9.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\Portable\packages\Unofficial.Blend.Interactivity.1.0.0\lib\wp8\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
       <HintPath>..\External\WP8\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Phone.Toolkit.Testing">
       <HintPath>..\External\WP8\Microsoft.Phone.Toolkit.Testing.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Portable\packages\Portable.CommonServiceLocator.1.2.2\lib\portable-net4+sl4+wp7+win8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTesting.Phone">
       <HintPath>..\External\WP8\Microsoft.VisualStudio.QualityTools.UnitTesting.Phone.dll</HintPath>
     </Reference>
-    <Reference Include="System.Windows.Interactivity, Version=3.9.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=3.9.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\Portable\packages\Unofficial.Blend.Interactivity.1.0.0\lib\wp8\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GalaSoft.MvvmLight %28WP8%29\GalaSoft.MvvmLight %28WP8%29.csproj">
-      <Project>{9B53BF33-4261-45FD-B170-04139CB8E1F8}</Project>
-      <Name>GalaSoft.MvvmLight %28WP8%29</Name>
+    <ProjectReference Include="..\Portable\GalaSoft.MvvmLight.Extras\GalaSoft.MvvmLight.Extras.csproj">
+      <Project>{C0B359A9-4985-435D-8CC1-C1FEC405BC2C}</Project>
+      <Name>GalaSoft.MvvmLight.Extras</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GalaSoft.MvvmLight.Extras %28WP8%29\GalaSoft.MvvmLight.Extras %28WP8%29.csproj">
-      <Project>{B807B4CE-AFE9-49CB-95AD-107BC8C07E70}</Project>
-      <Name>GalaSoft.MvvmLight.Extras %28WP8%29</Name>
+    <ProjectReference Include="..\Portable\GalaSoft.MvvmLight.Platforms.WP75\GalaSoft.MvvmLight.Platforms.WP75.csproj">
+      <Project>{CF41A730-7AA7-40B7-A15A-735EF782CB70}</Project>
+      <Name>GalaSoft.MvvmLight.Platforms.WP75</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Portable\GalaSoft.MvvmLight.TestHelpers\GalaSoft.MvvmLight.TestHelpers.csproj">
+      <Project>{A406E3C6-51E8-4C53-9039-0C7033738531}</Project>
+      <Name>GalaSoft.MvvmLight.TestHelpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Portable\GalaSoft.MvvmLight\GalaSoft.MvvmLight.csproj">
+      <Project>{FDFC16DC-929D-49DC-8C30-0C697DCD3860}</Project>
+      <Name>GalaSoft.MvvmLight</Name>
+      <Aliases>global, mvvm</Aliases>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
@@ -403,4 +420,5 @@
   </Target>
   -->
   <ProjectExtensions />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
 </Project>

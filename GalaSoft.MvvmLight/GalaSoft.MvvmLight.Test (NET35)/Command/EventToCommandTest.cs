@@ -260,7 +260,7 @@ namespace GalaSoft.MvvmLight.Test.Command
                 MustToggleIsEnabledValue = true
             };
 
-#if SILVERLIGHT
+#if SILVERLIGHT || PORTABLE
             var rectangle = new Rectangle();
 #else
             var rectangle = new Rectangle
@@ -285,7 +285,7 @@ namespace GalaSoft.MvvmLight.Test.Command
             BindingOperations.SetBinding(trigger, EventToCommand.CommandProperty, binding);
 #endif
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !PORTABLE
             Assert.IsTrue(rectangle.IsEnabled);
 #endif
             trigger.Invoke();
@@ -318,7 +318,7 @@ namespace GalaSoft.MvvmLight.Test.Command
             BindingOperations.SetBinding(trigger, EventToCommand.CommandProperty, binding);
 #endif
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !PORTABLE
             Assert.IsFalse(rectangle.IsEnabled);
 #endif
             trigger.Invoke();

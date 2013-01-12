@@ -39,7 +39,3 @@
     </ScreenResolutions>
   </App>
 </Deployment>
-      <ScreenResolution Name="ID_RESOLUTION_HD720P" />
-    </ScreenResolutions>
-  </App>
-</Deployment>

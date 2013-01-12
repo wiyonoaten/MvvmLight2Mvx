@@ -108,19 +108,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\GalaSoft.MvvmLight %28NET35%29\Threading\DispatcherHelper.cs">
+      <Link>DispatcherHelper.cs</Link>
+    </Compile>
     <Compile Include="..\..\GalaSoft.MvvmLight.Extras %28NET4%29\Command\EventToCommandVS10.cs">
       <Link>EventToCommandVS10.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Windows.UI.Interactivity">
-      <HintPath>..\packages\Windows.UI.Interactivity.1.0.9.0\lib\winrt45\Windows.UI.Interactivity.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Windows.UI.Interactivity, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Windows.UI.Interactivity.1.1.0.0\lib\win\Windows.UI.Interactivity.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

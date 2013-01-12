@@ -20,18 +20,3 @@ namespace GalaSoft.MvvmLight.Test__WP8_
         }
     }
 }
-            InitializeComponent();
-            Loaded += MainPageLoaded;
-        }
-
-        void MainPageLoaded(object sender, RoutedEventArgs e)
-        {
-            SystemTray.IsVisible = false;
-
-         //   var testPage = (IMobileTestPage)UnitTestSystem.CreateTestPage();
-            var testPage = UnitTestSystem.CreateTestPage();
-         //   BackKeyPress += (x, xe) => xe.Cancel = testPage.NavigateBack();
-            ((PhoneApplicationFrame)Application.Current.RootVisual).Content = testPage;
-        }
-    }
-}
