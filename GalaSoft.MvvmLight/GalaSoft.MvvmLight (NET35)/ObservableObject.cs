@@ -30,6 +30,8 @@ using System.Reflection.RuntimeExtensions;
 using System.Runtime.CompilerServices;
 #elif PORTABLE
 using System.Runtime.CompilerServices;
+using JetBrains.Annotations;
+
 #endif
 
 namespace GalaSoft.MvvmLight
@@ -355,6 +357,7 @@ namespace GalaSoft.MvvmLight
         /// <returns>True if the PropertyChanged event has been raised,
         /// false otherwise. The event is not raised if the old
         /// value is equal to the new value.</returns>
+        [NotifyPropertyChangedInvocator]
         protected bool Set<T>(ref T field, T newValue, [CallerMemberName] string propertyName = FakePropertyName)
         {
             return Set(propertyName, ref field, newValue);

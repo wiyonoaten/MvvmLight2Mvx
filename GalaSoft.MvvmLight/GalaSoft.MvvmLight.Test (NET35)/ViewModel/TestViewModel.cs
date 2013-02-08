@@ -34,6 +34,8 @@ namespace GalaSoft.MvvmLight.Test.ViewModel
             }
         }
 
+        public string TestSet { get; set; }
+
         public const string LastChanged1PropertyName = "LastChanged1";
 
         private DateTime _lastChanged1 = DateTime.MaxValue;
