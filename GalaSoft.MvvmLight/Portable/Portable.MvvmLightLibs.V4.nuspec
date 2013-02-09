@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>Portable.MvvmLightLibs</id>
-        <version>4.1.27</version>
+        <version>4.1.27.1</version>
         <title>MVVM Light libraries only (PCL)</title>
         <authors>Laurent Bugnion (GalaSoft),onovotny</authors>
         <owners>onovotny</owners>
@@ -35,6 +35,10 @@
                 <dependency id="Portable.CommonServiceLocator" version="1.2.2" />
                 <dependency id="Windows.UI.Interactivity" version="1.2.0.0" />
             </group>
+            <group targetFramework="WindowsPhone8.0">
+                <dependency id="Unofficial.Blend.Interactivity" version="1.0.0" />
+                <dependency id="Portable.CommonServiceLocator" version="1.2.2" />
+            </group>
         </dependencies>
     </metadata>
     <files>
@@ -43,16 +47,19 @@
         <file src="GalaSoft.MvvmLight.Platform.Net45\bin\Release\GalaSoft.MvvmLight.Platform.Net45.dll" target="lib\net45\GalaSoft.MvvmLight.Platform.Net45.dll" />
         <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.dll" target="lib\netcore45\GalaSoft.MvvmLight.dll" />
         <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\netcore45\GalaSoft.MvvmLight.Extras.dll" />
-        <file src="GalaSoft.MvvmLight.Platforms.NetCore45\bin\Release\GalaSoft.MvvmLight.Platforms.NetCore45.dll" target="lib\netcore45\GalaSoft.MvvmLight.Platforms.NetCore45.dll" />
-        <file src="GalaSoft.MvvmLight.Platforms.NetCore45\bin\Release\GalaSoft.MvvmLight.Platforms.NetCore45.pri" target="lib\netcore45\GalaSoft.MvvmLight.Platforms.NetCore45.pri" />
+        <file src="GalaSoft.MvvmLight.Platforms.NetCore45\bin\Release\GalaSoft.MvvmLight.Platform.NetCore45.dll" target="lib\netcore45\GalaSoft.MvvmLight.Platform.NetCore45.dll" />
+        <file src="GalaSoft.MvvmLight.Platforms.NetCore45\bin\Release\GalaSoft.MvvmLight.Platform.NetCore45.pri" target="lib\netcore45\GalaSoft.MvvmLight.Platform.NetCore45.pri" />
         <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.dll" target="lib\portable-net45+sl4+wp71+win8\GalaSoft.MvvmLight.dll" />
         <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\portable-net45+sl4+wp71+win8\GalaSoft.MvvmLight.Extras.dll" />
-        <file src="GalaSoft.MvvmLight.Platforms.WP75\Bin\Release\GalaSoft.MvvmLight.dll" target="lib\sl4-wp71\GalaSoft.MvvmLight.dll" />
+        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.dll" target="lib\sl4-wp71\GalaSoft.MvvmLight.dll" />
         <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\sl4-wp71\GalaSoft.MvvmLight.Extras.dll" />
-        <file src="GalaSoft.MvvmLight.Platforms.WP75\Bin\Release\GalaSoft.MvvmLight.Platforms.WP75.dll" target="lib\sl4-wp71\GalaSoft.MvvmLight.Platforms.WP75.dll" />
+        <file src="GalaSoft.MvvmLight.Platforms.WP75\Bin\Release\GalaSoft.MvvmLight.Platform.WP75.dll" target="lib\sl4-wp71\GalaSoft.MvvmLight.Platform.WP75.dll" />
         <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.dll" target="lib\sl40\GalaSoft.MvvmLight.dll" />
         <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\sl40\GalaSoft.MvvmLight.Extras.dll" />
         <file src="GalaSoft.MvvmLight.Platform.SL4\Bin\Release\GalaSoft.MvvmLight.Platform.SL4.dll" target="lib\sl40\GalaSoft.MvvmLight.Platform.SL4.dll" />
+        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.dll" target="lib\wp8\GalaSoft.MvvmLight.dll" />
+        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\wp8\GalaSoft.MvvmLight.Extras.dll" />
+        <file src="GalaSoft.MvvmLight.Platform.WP8\Bin\Release\GalaSoft.MvvmLight.Platform.WP8.dll" target="lib\wp8\GalaSoft.MvvmLight.Platform.WP8.dll" />
         <file src="Install.ps1" target="tools\Install.ps1" />
     </files>
 </package>
