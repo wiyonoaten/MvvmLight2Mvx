@@ -64,7 +64,7 @@ namespace GalaSoft.MvvmLight
             }
         }
 
-#if !WP71
+#if !WP71 && !PORTABLE
         /// <summary>
         /// Occurs before a property value changes.
         /// </summary>
@@ -157,11 +157,13 @@ namespace GalaSoft.MvvmLight
 #endif
             VerifyPropertyName(propertyName);
 
+#if !PORTABLE
             var handler = PropertyChanging;
             if (handler != null)
             {
                 handler(this, new PropertyChangingEventArgs(propertyName));
             }
+#endif
 #if NETFX_CORE
             }
 #endif
@@ -214,12 +216,14 @@ namespace GalaSoft.MvvmLight
             Justification = "This syntax is more convenient than other alternatives.")]
         protected virtual void RaisePropertyChanging<T>(Expression<Func<T>> propertyExpression)
         {
+#if !PORTABLE
             var handler = PropertyChanging;
             if (handler != null)
             {
                 var propertyName = GetPropertyName(propertyExpression);
                 handler(this, new PropertyChangingEventArgs(propertyName));
             }
+#endif
         }
 #endif
 

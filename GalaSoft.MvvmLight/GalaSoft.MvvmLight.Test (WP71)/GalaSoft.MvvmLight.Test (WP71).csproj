@@ -217,9 +217,6 @@
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\ObservableObjectPropertyChangedTest.cs">
       <Link>ObservableObjectPropertyChangedTest.cs</Link>
     </Compile>
-    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\ObservableObjectPropertyChangingTest.cs">
-      <Link>ObservableObjectPropertyChangingTest.cs</Link>
-    </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>

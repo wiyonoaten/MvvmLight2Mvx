@@ -104,12 +104,6 @@
     <Compile Include="..\..\GalaSoft.MvvmLight %28NET35%29\ViewModelBase.cs">
       <Link>ViewModelBase.cs</Link>
     </Compile>
-    <Compile Include="..\..\GalaSoft.MvvmLight %28SL4%29\Helpers\PropertyChangingEventArgs.cs">
-      <Link>Helpers\PropertyChangingEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\..\GalaSoft.MvvmLight %28SL4%29\Helpers\PropertyChangingEventHandler.cs">
-      <Link>Helpers\PropertyChangingEventHandler.cs</Link>
-    </Compile>
     <Compile Include="Helpers\DesignerPlatformLibrary.cs" />
     <Compile Include="Helpers\FeatureDetection.cs" />
     <Compile Include="Internal\IAdapterResolver.cs" />
