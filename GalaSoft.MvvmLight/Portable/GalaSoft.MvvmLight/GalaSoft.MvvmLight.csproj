@@ -104,9 +104,6 @@
     <Compile Include="..\..\GalaSoft.MvvmLight %28NET35%29\ViewModelBase.cs">
       <Link>ViewModelBase.cs</Link>
     </Compile>
-    <Compile Include="..\..\GalaSoft.MvvmLight %28SL4%29\Helpers\INotifyPropertyChanging.cs">
-      <Link>Helpers\INotifyPropertyChanging.cs</Link>
-    </Compile>
     <Compile Include="..\..\GalaSoft.MvvmLight %28SL4%29\Helpers\PropertyChangingEventArgs.cs">
       <Link>Helpers\PropertyChangingEventArgs.cs</Link>
     </Compile>

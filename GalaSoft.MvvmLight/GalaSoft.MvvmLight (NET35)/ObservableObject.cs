@@ -41,7 +41,7 @@ namespace GalaSoft.MvvmLight
     /// </summary>
     //// [ClassInfo(typeof(ViewModelBase))]
     public class ObservableObject : INotifyPropertyChanged
-#if !WP71
+#if !WP71 && !PORTABLE
         , INotifyPropertyChanging
 #endif
     {
