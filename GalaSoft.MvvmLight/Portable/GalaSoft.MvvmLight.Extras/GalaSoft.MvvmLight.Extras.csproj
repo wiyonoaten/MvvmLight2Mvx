@@ -42,6 +42,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="..\..\GalaSoft.MvvmLight.Extras %28NET35%29\Ioc\ISimpleIoc.cs">
       <Link>ISimpleIoc.cs</Link>
     </Compile>

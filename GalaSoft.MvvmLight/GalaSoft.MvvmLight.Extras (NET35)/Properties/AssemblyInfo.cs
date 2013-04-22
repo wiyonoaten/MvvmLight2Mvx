@@ -26,23 +26,10 @@ using System.Windows.Markup;
 
 [assembly: AssemblyTitle("GalaSoft.MvvmLight.Extras")]
 [assembly: AssemblyDescription("Extras components to implement Model-View-ViewModel applications in WPF, Silverlight and Windows Phone 7")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("GalaSoft Laurent Bugnion @ http://www.galasoft.ch")]
-[assembly: AssemblyProduct("GalaSoft.MvvmLight.Extras")]
-[assembly: AssemblyCopyright("Copyright © GalaSoft Laurent Bugnion 2009-2013")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-[assembly: NeutralResourcesLanguage("en")]
 
 #if !NETFX_CORE && !PORTABLE
 [assembly: XmlnsDefinition("http://www.galasoft.ch/mvvmlight", "GalaSoft.MvvmLight.Command")]
-[assembly: ComVisible(false)]
 #endif
-
-[assembly: CLSCompliant(true)]
-
-[assembly: AssemblyVersion("4.1.27.*")]
-////[assembly: AssemblyFileVersion("4.1.27.0/BL0027")]
 
 // FxCop
 [module: SuppressMessage("Microsoft.Naming",

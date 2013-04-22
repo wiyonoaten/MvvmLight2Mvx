@@ -23,27 +23,12 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("GalaSoft.MvvmLight")]
 [assembly: AssemblyDescription("A lightweight framework to implement Model-View-ViewModel applications in WPF, Silverlight and Windows Phone 7")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("GalaSoft Laurent Bugnion @ http://www.galasoft.ch")]
-[assembly: AssemblyProduct("GalaSoft.MvvmLight")]
-[assembly: AssemblyCopyright("Copyright © GalaSoft Laurent Bugnion 2009-2013")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
 
 [assembly: InternalsVisibleTo("GalaSoft.MvvmLight.Platform.Net45")]
 [assembly: InternalsVisibleTo("GalaSoft.MvvmLight.Platform.SL4")]
 [assembly: InternalsVisibleTo("GalaSoft.MvvmLight.Platform.NetCore45")]
 [assembly: InternalsVisibleTo("GalaSoft.MvvmLight.Platform.WP75")]
-[assembly: NeutralResourcesLanguage("en")]
 
-#if !PORTABLE
-[assembly: ComVisible(false)]
-#endif
-
-[assembly: CLSCompliant(true)]
-
-[assembly: AssemblyVersion("4.1.27.*")]
-////[assembly: AssemblyFileVersion("4.1.27.0/BL0027")]
 
 // FxCop
 [module: SuppressMessage("Microsoft.Naming",
