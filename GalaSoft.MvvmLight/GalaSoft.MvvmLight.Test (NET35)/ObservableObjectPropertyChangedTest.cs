@@ -1,7 +1,7 @@
 ﻿using System;
 using GalaSoft.MvvmLight.Test.ViewModel;
 
-#if NETFX_CORE
+#if NETFX_CORE || WINDOWS_PHONE
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
 using Microsoft.VisualStudio.TestTools.UnitTesting;

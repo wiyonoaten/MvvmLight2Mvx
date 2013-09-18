@@ -266,6 +266,9 @@ namespace GalaSoft.MvvmLight.Command
         {
             bool matches;
             var val = GetParameterForMethodFromValuePassedIn(parameter, out matches);
+            
+            if (!matches)
+                throw new InvalidCastException("Cannot convert parameter to " + typeof(T));
 
             if (matches && CanExecute(val)
                 && _execute != null
@@ -273,6 +276,7 @@ namespace GalaSoft.MvvmLight.Command
             {
                 _execute.Execute(val);
             }
+            
         }
     }
 }

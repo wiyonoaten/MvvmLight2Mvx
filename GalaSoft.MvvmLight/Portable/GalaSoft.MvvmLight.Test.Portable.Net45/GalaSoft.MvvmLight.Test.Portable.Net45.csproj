@@ -67,6 +67,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Command\EventToCommandTest.cs">
+      <Link>Command\EventToCommandTest.cs</Link>
+    </Compile>
     <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Command\RelayCommandGenericTest.cs">
       <Link>Command\RelayCommandGenericTest.cs</Link>
     </Compile>

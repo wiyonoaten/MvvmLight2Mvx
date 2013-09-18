@@ -1,7 +1,7 @@
 ﻿using System;
 using GalaSoft.MvvmLight.Helpers;
 
-#if NETFX_CORE
+#if NETFX_CORE || WINDOWS_PHONE
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -98,7 +98,7 @@ namespace GalaSoft.MvvmLight.Test.Helpers
             _itemPublic = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             Assert.IsTrue(_reference.IsAlive); // Anonymous, private and internal methods cannot be GCed
             _action = null;
             GC.Collect();
@@ -157,7 +157,7 @@ namespace GalaSoft.MvvmLight.Test.Helpers
             _itemPublic = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             Assert.IsTrue(_reference.IsAlive); // Anonymous, private and internal methods cannot be GCed
             _action = null;
             GC.Collect();
@@ -216,7 +216,7 @@ namespace GalaSoft.MvvmLight.Test.Helpers
             _itemPublic = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             Assert.IsTrue(_reference.IsAlive); // Anonymous, private and internal methods cannot be GCed
             _action = null;
             GC.Collect();
@@ -276,7 +276,7 @@ namespace GalaSoft.MvvmLight.Test.Helpers
             _itemInternal = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             Assert.IsTrue(_reference.IsAlive); // Anonymous, private and internal methods cannot be GCed
             _action = null;
             GC.Collect();
@@ -335,7 +335,7 @@ namespace GalaSoft.MvvmLight.Test.Helpers
             _itemInternal = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             Assert.IsTrue(_reference.IsAlive); // Anonymous, private and internal methods cannot be GCed
             _action = null;
             GC.Collect();
@@ -394,7 +394,7 @@ namespace GalaSoft.MvvmLight.Test.Helpers
             _itemInternal = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             Assert.IsTrue(_reference.IsAlive); // Anonymous, private and internal methods cannot be GCed
             _action = null;
             GC.Collect();
@@ -453,7 +453,7 @@ namespace GalaSoft.MvvmLight.Test.Helpers
             _itemInternal = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             Assert.IsTrue(_reference.IsAlive); // Anonymous, private and internal methods cannot be GCed
             _action = null;
             GC.Collect();

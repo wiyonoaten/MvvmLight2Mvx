@@ -90,6 +90,9 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Command\EventToCommandTest.cs">
+      <Link>Command\EventToCommandTest.cs</Link>
+    </Compile>
     <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Command\RelayCommandGenericTest.cs">
       <Link>Command\RelayCommandGenericTest.cs</Link>
     </Compile>
@@ -317,9 +320,9 @@
       <Project>{c0b359a9-4985-435d-8cc1-c1fec405bc2c}</Project>
       <Name>GalaSoft.MvvmLight.Extras</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GalaSoft.MvvmLight.Platform.SL4\GalaSoft.MvvmLight.Platform.SL4.csproj">
-      <Project>{c8a3a73d-2463-4ae7-a004-1cd66523b97f}</Project>
-      <Name>GalaSoft.MvvmLight.Platform.SL4</Name>
+    <ProjectReference Include="..\GalaSoft.MvvmLight.Platform.SL5\GalaSoft.MvvmLight.Platform.SL5.csproj">
+      <Project>{38191d74-57ae-4e46-85f7-c54059b9f197}</Project>
+      <Name>GalaSoft.MvvmLight.Platform.SL5</Name>
     </ProjectReference>
     <ProjectReference Include="..\GalaSoft.MvvmLight.TestHelpers\GalaSoft.MvvmLight.TestHelpers.csproj">
       <Project>{a406e3c6-51e8-4c53-9039-0c7033738531}</Project>

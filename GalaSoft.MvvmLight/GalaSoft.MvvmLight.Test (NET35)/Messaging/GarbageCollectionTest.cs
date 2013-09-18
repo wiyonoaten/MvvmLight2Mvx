@@ -4,7 +4,12 @@ using System.Linq;
 using System.Text;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Test.Helpers;
+
+#if NETFX_CORE || WINDOWS_PHONE
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
 
 namespace GalaSoft.MvvmLight.Test.Messaging
 {
@@ -83,7 +88,7 @@ namespace GalaSoft.MvvmLight.Test.Messaging
             _recipient = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             // Cannot GC the internal method reference in Silverlight
             Assert.IsTrue(_recipientReference.IsAlive);
 
@@ -141,7 +146,7 @@ namespace GalaSoft.MvvmLight.Test.Messaging
             _recipient = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             // Cannot GC the internal method reference in Silverlight
             Assert.IsTrue(_recipientReference.IsAlive);
 
@@ -200,7 +205,7 @@ namespace GalaSoft.MvvmLight.Test.Messaging
             _recipient = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             // Cannot GC the anonymous method reference in Silverlight
             Assert.IsTrue(_recipientReference.IsAlive);
 
@@ -259,7 +264,7 @@ namespace GalaSoft.MvvmLight.Test.Messaging
             _recipientInternal = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             // Cannot GC the internal method reference in Silverlight
             Assert.IsTrue(_recipientReference.IsAlive);
 
@@ -317,7 +322,7 @@ namespace GalaSoft.MvvmLight.Test.Messaging
             _recipientInternal = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             // Cannot GC the internal method reference in Silverlight
             Assert.IsTrue(_recipientReference.IsAlive);
 
@@ -375,7 +380,7 @@ namespace GalaSoft.MvvmLight.Test.Messaging
             _recipientInternal = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             // Cannot GC the internal method reference in Silverlight
             Assert.IsTrue(_recipientReference.IsAlive);
 
@@ -434,7 +439,7 @@ namespace GalaSoft.MvvmLight.Test.Messaging
             _recipientInternal = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             // Cannot GC the anonymous method reference in Silverlight
             Assert.IsTrue(_recipientReference.IsAlive);
 
@@ -494,7 +499,7 @@ namespace GalaSoft.MvvmLight.Test.Messaging
             _recipientPrivate = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             // Cannot GC the internal method reference in Silverlight
             Assert.IsTrue(_recipientReference.IsAlive);
 
@@ -552,7 +557,7 @@ namespace GalaSoft.MvvmLight.Test.Messaging
             _recipientPrivate = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             // Cannot GC the Private method reference in Silverlight
             Assert.IsTrue(_recipientReference.IsAlive);
 
@@ -610,7 +615,7 @@ namespace GalaSoft.MvvmLight.Test.Messaging
             _recipientPrivate = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             // Cannot GC the Private method reference in Silverlight
             Assert.IsTrue(_recipientReference.IsAlive);
 
@@ -669,7 +674,7 @@ namespace GalaSoft.MvvmLight.Test.Messaging
             _recipientPrivate = null;
             GC.Collect();
 
-#if SILVERLIGHT
+#if SILVERLIGHT && !WINDOWS_PHONE
             // Cannot GC the anonymous method reference in Silverlight
             Assert.IsTrue(_recipientReference.IsAlive);
 
