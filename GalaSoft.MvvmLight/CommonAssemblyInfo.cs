@@ -23,7 +23,7 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("GalaSoft Laurent Bugnion @ http://www.galasoft.ch")]
-[assembly: AssemblyProduct("MVVM Light")]
+[assembly: AssemblyProduct("MVVM Light PCL")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,6 +34,6 @@ using System.Runtime.InteropServices;
 #endif
 
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyVersion("4.1.27.6")]
+[assembly: AssemblyVersion("4.2")]
 ////[assembly: AssemblyFileVersion("4.1.27.0/BL0027")]
 
