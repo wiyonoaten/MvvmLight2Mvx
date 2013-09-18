@@ -19,6 +19,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Shapes;
 using Windows.UI.Interactivity;
 using Windows.UI.Xaml.Data;
+
+using TestMethodAttribute = Microsoft.VisualStudio.TestPlatform.UnitTestFramework.AppContainer.UITestMethodAttribute;
+
 #else
 using System.Windows.Controls;
 using System.Windows.Data;
