@@ -9,8 +9,7 @@ namespace GalaSoft.MvvmLight.Internal
     // Enables types within PclContrib to use platform-specific features in a platform-agnostic way
     internal static class PlatformAdapter
     {
-        private static readonly string[] KnownPlatformNames = new[] { "Net45", "NetCore45", "SL5", "WP8"};
-        private static IAdapterResolver _resolver = new ProbingAdapterResolver(KnownPlatformNames);
+        private static IAdapterResolver _resolver = new ProbingAdapterResolver();
 
         public static T Resolve<T>(bool throwIfNotFound = true)
         {

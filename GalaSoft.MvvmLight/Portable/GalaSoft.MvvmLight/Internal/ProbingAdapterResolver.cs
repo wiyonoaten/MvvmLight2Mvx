@@ -13,24 +13,21 @@ namespace GalaSoft.MvvmLight.Internal
     // looking for concrete types in platform-specific assemblies, such as Portable.Silverlight.
     internal class ProbingAdapterResolver : IAdapterResolver
     {
-        private readonly string[] _platformNames;
         private readonly Func<string, Assembly> _assemblyLoader;
         private readonly object _lock = new object();
         private readonly Dictionary<Type, object> _adapters = new Dictionary<Type, object>();
         private Assembly _assembly;
         private bool _probed;
 
-        public ProbingAdapterResolver(params string[] platformNames)
-            : this(Assembly.Load, platformNames)
+        public ProbingAdapterResolver()
+            : this(Assembly.Load)
         {
         }
 
-        public ProbingAdapterResolver(Func<string, Assembly> assemblyLoader, params string[] platformNames)
+        public ProbingAdapterResolver(Func<string, Assembly> assemblyLoader)
         {
-            Debug.Assert(platformNames != null);
             Debug.Assert(assemblyLoader != null);
 
-            _platformNames = platformNames;
             _assemblyLoader = assemblyLoader;
         }
 
@@ -106,20 +103,8 @@ namespace GalaSoft.MvvmLight.Internal
 
         private Assembly ProbeForPlatformSpecificAssembly()
         {
-            foreach (string platformName in _platformNames)
-            {
-                Assembly assembly = ProbeForPlatformSpecificAssembly(platformName);
-                if (assembly != null)
-                    return assembly;
-            }
-
-            return null;
-        }
-
-        private Assembly ProbeForPlatformSpecificAssembly(string platformName)
-        {
             AssemblyName assemblyName = new AssemblyName(GetType().Assembly.FullName);
-            assemblyName.Name = "GalaSoft.MvvmLight.Platform." + platformName;    // for example, MetroLog.NetCore
+            assemblyName.Name = "GalaSoft.MvvmLight.Platform";// + platformName;    
 
             try
             {

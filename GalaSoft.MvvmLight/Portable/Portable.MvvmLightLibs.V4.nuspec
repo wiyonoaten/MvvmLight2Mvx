@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>Portable.MvvmLightLibs</id>
-        <version>4.2-beta1</version>
+        <version>4.2.0-beta1</version>
         <title>MVVM Light libraries only (PCL)</title>
         <authors>Laurent Bugnion (GalaSoft),onovotny</authors>
         <owners>onovotny</owners>
@@ -10,11 +10,11 @@
         <projectUrl>http://mvvmlight.codeplex.com/SourceControl/network/forks/onovotny/MvvmLightPortable</projectUrl>
         <iconUrl>http://www.galasoft.ch/mvvm/resources/Logo/icon_100x100_transparent.png</iconUrl>
         <requireLicenseAcceptance>true</requireLicenseAcceptance>
-        <description>The MVVM Light Toolkit is a set of components helping people to get started in the Model-View-ViewModel pattern in Silverlight, WPF 4.5, Windows Phone 7/8 and Windows 8. It is a light and pragmatic framework that contains only the essential components needed. This RTM version of V4.0 contains only the libraries!</description>
-        <summary>The MVVM Light Toolkit is a set of components helping people to get started in the Model-View-ViewModel pattern in all versions of Silverlight, WPF 4.5, Windows Phone 7.5+ and Windows 8.</summary>
+        <description>The MVVM Light Toolkit is a set of components helping people to get started in the Model-View-ViewModel pattern in Silverlight 5, WPF 4.5, Windows Phone 8 and Windows 8+. It is a light and pragmatic framework that contains only the essential components needed. This RTM version of V4.2 contains only the libraries!</description>
+        <summary>The MVVM Light Toolkit is a set of components helping people to get started in the Model-View-ViewModel pattern in all versions of Silverlight 5, WPF 4.5, Windows Phone 8 and Windows 8+.</summary>
         <copyright>Copyright 2013 Laurent Bugnion (GalaSoft)</copyright>
         <language>en-US</language>
-        <tags>mvvm mvvmlight silverlight windows8 winrt win8 wpf wp8 portable pcl</tags>
+        <tags>mvvm mvvmlight silverlight windows8 winrt win8 wpf wp8 portable pcl sl5</tags>
         <dependencies>
             <group targetFramework="portable-net45+sl5+wp8+win8">
                 <dependency id="Portable.CommonServiceLocator" version="1.2.2" />
@@ -35,6 +35,10 @@
                 <dependency id="Windows.UI.Interactivity" version="1.3.0.0" />
               <dependency id="Microsoft.Bcl" version="1.1.3" />
             </group>
+          <group targetFramework="win81">
+            <dependency id="Portable.CommonServiceLocator" version="1.2.2" />
+            <dependency id="Microsoft.Bcl" version="1.1.3" />
+          </group>
             <group targetFramework="wp8">
                 <dependency id="Unofficial.Blend.Interactivity" version="1.0.0" />
                 <dependency id="Portable.CommonServiceLocator" version="1.2.2" />
@@ -46,41 +50,71 @@
       
       <!-- .NET 4.5 -->
       <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.dll" target="lib\net45\GalaSoft.MvvmLight.dll" />
-        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\net45\GalaSoft.MvvmLight.Extras.dll" />
-        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.pdb" target="lib\net45\GalaSoft.MvvmLight.Extras.pdb" />
-        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.pdb" target="lib\net45\GalaSoft.MvvmLight.pdb" />
-        <file src="GalaSoft.MvvmLight.Platform.Net45\bin\Release\GalaSoft.MvvmLight.Platform.Net45.dll" target="lib\net45\GalaSoft.MvvmLight.Platform.Net45.dll" />
-        <file src="GalaSoft.MvvmLight.Platform.Net45\bin\Release\GalaSoft.MvvmLight.Platform.Net45.pdb" target="lib\net45\GalaSoft.MvvmLight.Platform.Net45.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.pdb" target="lib\net45\GalaSoft.MvvmLight.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.xml" target="lib\net45\GalaSoft.MvvmLight.xml" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\net45\GalaSoft.MvvmLight.Extras.dll" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.pdb" target="lib\net45\GalaSoft.MvvmLight.Extras.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.xml" target="lib\net45\GalaSoft.MvvmLight.Extras.xml" />
+      <file src="GalaSoft.MvvmLight.Platform.Net45\bin\Release\GalaSoft.MvvmLight.Platform.dll" target="lib\net45\GalaSoft.MvvmLight.Platform.dll" />
+      <file src="GalaSoft.MvvmLight.Platform.Net45\bin\Release\GalaSoft.MvvmLight.Platform.pdb" target="lib\net45\GalaSoft.MvvmLight.Platform.pdb" />
+      <file src="GalaSoft.MvvmLight.Platform.Net45\bin\Release\GalaSoft.MvvmLight.Platform.xml" target="lib\net45\GalaSoft.MvvmLight.Platform.xml" />
         
       <!-- Win8 -->
       <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.dll" target="lib\win8\GalaSoft.MvvmLight.dll" />
-        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\win8\GalaSoft.MvvmLight.Extras.dll" />
-        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.pdb" target="lib\win8\GalaSoft.MvvmLight.Extras.pdb" />
-        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.pdb" target="lib\win8\GalaSoft.MvvmLight.pdb" />
-        <file src="GalaSoft.MvvmLight.Platforms.NetCore45\bin\Release\GalaSoft.MvvmLight.Platform.NetCore45.dll" target="lib\win8\GalaSoft.MvvmLight.Platform.NetCore45.dll" />
-        <file src="GalaSoft.MvvmLight.Platforms.NetCore45\bin\Release\GalaSoft.MvvmLight.Platform.NetCore45.pdb" target="lib\win8\GalaSoft.MvvmLight.Platform.NetCore45.pdb" />
-        <file src="GalaSoft.MvvmLight.Platforms.NetCore45\bin\Release\GalaSoft.MvvmLight.Platform.NetCore45.pri" target="lib\win8\GalaSoft.MvvmLight.Platform.NetCore45.pri" />
-        
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.pdb" target="lib\win8\GalaSoft.MvvmLight.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.xml" target="lib\win8\GalaSoft.MvvmLight.xml" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\win8\GalaSoft.MvvmLight.Extras.dll" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.pdb" target="lib\win8\GalaSoft.MvvmLight.Extras.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.xml" target="lib\win8\GalaSoft.MvvmLight.Extras.xml" />        
+      <file src="GalaSoft.MvvmLight.Platforms.NetCore45\bin\Release\GalaSoft.MvvmLight.Platform.dll" target="lib\win8\GalaSoft.MvvmLight.Platform.dll" />
+      <file src="GalaSoft.MvvmLight.Platforms.NetCore45\bin\Release\GalaSoft.MvvmLight.Platform.pdb" target="lib\win8\GalaSoft.MvvmLight.Platform.pdb" />
+      <file src="GalaSoft.MvvmLight.Platforms.NetCore45\bin\Release\GalaSoft.MvvmLight.Platform.xml" target="lib\win8\GalaSoft.MvvmLight.Platform.xml" />
+      <file src="GalaSoft.MvvmLight.Platforms.NetCore45\bin\Release\GalaSoft.MvvmLight.Platform.pri" target="lib\win8\GalaSoft.MvvmLight.Platform.pri" />
+
+
+      <!-- Win8.1 -->
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.dll" target="lib\win8\GalaSoft.MvvmLight.dll" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.pdb" target="lib\win8\GalaSoft.MvvmLight.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.xml" target="lib\win8\GalaSoft.MvvmLight.xml" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\win8\GalaSoft.MvvmLight.Extras.dll" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.pdb" target="lib\win8\GalaSoft.MvvmLight.Extras.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.xml" target="lib\win8\GalaSoft.MvvmLight.Extras.xml" />
+      <file src="GalaSoft.MvvmLight.Platform.Win81\bin\Release\GalaSoft.MvvmLight.Platform.dll" target="lib\win81\GalaSoft.MvvmLight.Platform.dll" />
+      <file src="GalaSoft.MvvmLight.Platform.Win81\bin\Release\GalaSoft.MvvmLight.Platform.pdb" target="lib\win81\GalaSoft.MvvmLight.Platform.pdb" />
+      <file src="GalaSoft.MvvmLight.Platform.Win81\bin\Release\GalaSoft.MvvmLight.Platform.xml" target="lib\win81\GalaSoft.MvvmLight.Platform.xml" />
+      <file src="GalaSoft.MvvmLight.Platform.Win81\bin\Release\GalaSoft.MvvmLight.Platform.pri" target="lib\win81\GalaSoft.MvvmLight.Platform.pri" />
+
       <!-- PCL -->
       <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.dll" target="lib\portable-net45+sl5+wp8+win8\GalaSoft.MvvmLight.dll" />
-        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\portable-net45+sl5+wp8+win8\GalaSoft.MvvmLight.Extras.dll" />
-        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.pdb" target="lib\portable-net45+sl5+wp8+win8\GalaSoft.MvvmLight.Extras.pdb" />
-        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.pdb" target="lib\portable-net45+sl5+wp8+win8\GalaSoft.MvvmLight.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.pdb" target="lib\portable-net45+sl5+wp8+win8\GalaSoft.MvvmLight.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.xml" target="lib\portable-net45+sl5+wp8+win8\GalaSoft.MvvmLight.xml" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\portable-net45+sl5+wp8+win8\GalaSoft.MvvmLight.Extras.dll" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.pdb" target="lib\portable-net45+sl5+wp8+win8\GalaSoft.MvvmLight.Extras.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.xml" target="lib\portable-net45+sl5+wp8+win8\GalaSoft.MvvmLight.Extras.xml" />
         
       <!-- SL5 -->
-        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.dll" target="lib\sl5\GalaSoft.MvvmLight.dll" />
-        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\sl5\GalaSoft.MvvmLight.Extras.dll" />
-        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.pdb" target="lib\sl5\GalaSoft.MvvmLight.Extras.pdb" />
-        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.pdb" target="lib\sl5\GalaSoft.MvvmLight.pdb" />
-        <file src="GalaSoft.MvvmLight.Platform.SL5\Bin\Release\GalaSoft.MvvmLight.Platform.SL5.dll" target="lib\sl5\GalaSoft.MvvmLight.Platform.SL5.dll" />
-        <file src="GalaSoft.MvvmLight.Platform.SL5\Bin\Release\GalaSoft.MvvmLight.Platform.SL5.pdb" target="lib\sl5\GalaSoft.MvvmLight.Platform.SL5.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.dll" target="lib\sl5\GalaSoft.MvvmLight.dll" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.pdb" target="lib\sl5\GalaSoft.MvvmLight.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.xml" target="lib\sl5\GalaSoft.MvvmLight.xml" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\sl5\GalaSoft.MvvmLight.Extras.dll" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.pdb" target="lib\sl5\GalaSoft.MvvmLight.Extras.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.xml" target="lib\sl5\GalaSoft.MvvmLight.Extras.xml" />
+      <file src="GalaSoft.MvvmLight.Platform.SL5\Bin\Release\GalaSoft.MvvmLight.Platform.dll" target="lib\sl5\GalaSoft.MvvmLight.Platform.dll" />
+      <file src="GalaSoft.MvvmLight.Platform.SL5\Bin\Release\GalaSoft.MvvmLight.Platform.pdb" target="lib\sl5\GalaSoft.MvvmLight.Platform.pdb" />
+      <file src="GalaSoft.MvvmLight.Platform.SL5\Bin\Release\GalaSoft.MvvmLight.Platform.xml" target="lib\sl5\GalaSoft.MvvmLight.Platform.xml" />
         
       <!-- WP8 -->
       <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.dll" target="lib\wp8\GalaSoft.MvvmLight.dll" />
-        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\wp8\GalaSoft.MvvmLight.Extras.dll" />
-        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.pdb" target="lib\wp8\GalaSoft.MvvmLight.Extras.pdb" />
-        <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.pdb" target="lib\wp8\GalaSoft.MvvmLight.pdb" />
-        <file src="GalaSoft.MvvmLight.Platform.WP8\Bin\Release\GalaSoft.MvvmLight.Platform.WP8.dll" target="lib\wp8\GalaSoft.MvvmLight.Platform.WP8.dll" />
-        <file src="GalaSoft.MvvmLight.Platform.WP8\Bin\Release\GalaSoft.MvvmLight.Platform.WP8.pdb" target="lib\wp8\GalaSoft.MvvmLight.Platform.WP8.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.pdb" target="lib\wp8\GalaSoft.MvvmLight.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.xml" target="lib\wp8\GalaSoft.MvvmLight.xml" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\wp8\GalaSoft.MvvmLight.Extras.dll" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.pdb" target="lib\wp8\GalaSoft.MvvmLight.Extras.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.xml" target="lib\wp8\GalaSoft.MvvmLight.Extras.xml" />
+      <file src="GalaSoft.MvvmLight.Platform.WP8\Bin\Release\GalaSoft.MvvmLight.Platform.dll" target="lib\wp8\GalaSoft.MvvmLight.Platform.dll" />
+      <file src="GalaSoft.MvvmLight.Platform.WP8\Bin\Release\GalaSoft.MvvmLight.Platform.pdb" target="lib\wp8\GalaSoft.MvvmLight.Platform.pdb" />
+      <file src="GalaSoft.MvvmLight.Platform.WP8\Bin\Release\GalaSoft.MvvmLight.Platform.xml" target="lib\wp8\GalaSoft.MvvmLight.Platform.xml" />
+      
+      <!-- Source -->
+      <file src="..\**\*.cs" target="src" exclude="..\_ReSharper.*\**\*.*;..\packages\**\*.*;..\**\Debug\**\*.*;..\**\Release\**\*.*"/>
     </files>
 </package>

@@ -24,10 +24,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("GalaSoft.MvvmLight")]
 [assembly: AssemblyDescription("A lightweight framework to implement Model-View-ViewModel applications in WPF, Silverlight and Windows Phone 7")]
 
-[assembly: InternalsVisibleTo("GalaSoft.MvvmLight.Platform.Net45")]
-[assembly: InternalsVisibleTo("GalaSoft.MvvmLight.Platform.SL4")]
-[assembly: InternalsVisibleTo("GalaSoft.MvvmLight.Platform.NetCore45")]
-[assembly: InternalsVisibleTo("GalaSoft.MvvmLight.Platform.WP75")]
+[assembly: InternalsVisibleTo("GalaSoft.MvvmLight.Platform")]
 
 
 // FxCop
