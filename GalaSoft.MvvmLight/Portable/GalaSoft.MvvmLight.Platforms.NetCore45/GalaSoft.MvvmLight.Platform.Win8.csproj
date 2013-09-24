@@ -119,6 +119,9 @@
     <Compile Include="..\..\GalaSoft.MvvmLight %28NET35%29\Threading\DispatcherHelper.cs">
       <Link>DispatcherHelper.cs</Link>
     </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Extras %28NET35%29\Command\IEventArgsConverter.cs">
+      <Link>IEventArgsConverter.cs</Link>
+    </Compile>
     <Compile Include="..\..\GalaSoft.MvvmLight.Extras %28NET4%29\Command\EventToCommandVS10.cs">
       <Link>EventToCommandVS10.cs</Link>
     </Compile>

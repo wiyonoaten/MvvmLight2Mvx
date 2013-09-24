@@ -55,7 +55,11 @@ namespace GalaSoft.MvvmLight.Helpers
             {
                 if (_staticAction != null)
                 {
+#if NETFX_CORE
+                    return _staticAction.GetMethodInfo().Name;
+#else
                     return _staticAction.Method.Name;
+#endif
                 }
 
 #if SILVERLIGHT || PORTABLE
@@ -148,7 +152,7 @@ namespace GalaSoft.MvvmLight.Helpers
         /// </summary>
         /// <param name="action">The action that will be associated to this instance.</param>
         public WeakAction(Action action)
-            : this(action.Target, action)
+            : this(action == null ? null : action.Target, action)
         {
         }
 
@@ -159,7 +163,11 @@ namespace GalaSoft.MvvmLight.Helpers
         /// <param name="action">The action that will be associated to this instance.</param>
         public WeakAction(object target, Action action)
         {
+#if NETFX_CORE
+            if (action.GetMethodInfo().IsStatic)
+#else
             if (action.Method.IsStatic)
+#endif
             {
                 _staticAction = action;
 
@@ -213,7 +221,11 @@ namespace GalaSoft.MvvmLight.Helpers
 #endif
 
 #else
+#if NETFX_CORE
+            Method = action.GetMethodInfo();
+#else
             Method = action.Method;
+#endif
             ActionReference = new WeakReference(action.Target);
 #endif
 
@@ -266,7 +278,7 @@ namespace GalaSoft.MvvmLight.Helpers
         }
 
         /// <summary>
-        /// 
+        /// The target of the weak reference.
         /// </summary>
         protected object ActionTarget
         {

@@ -23,13 +23,13 @@ using System.Reflection;
 #if !SL3
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
+
 #endif
 
 #if NETFX_CORE
 using System.Reflection.RuntimeExtensions;
-using System.Runtime.CompilerServices;
 #elif PORTABLE
-using System.Runtime.CompilerServices;
 using JetBrains.Annotations;
 
 #endif
@@ -41,13 +41,10 @@ namespace GalaSoft.MvvmLight
     /// </summary>
     //// [ClassInfo(typeof(ViewModelBase))]
     public class ObservableObject : INotifyPropertyChanged
-#if !WP71 && !PORTABLE
+#if !PORTABLE
         , INotifyPropertyChanging
 #endif
     {
-#if PORTABLE
-        private const string FakePropertyName = @"A property name must be specified if not using C# 5/VB11";
-#endif
         /// <summary>
         /// Occurs after a property value changes.
         /// </summary>
@@ -63,8 +60,7 @@ namespace GalaSoft.MvvmLight
                 return PropertyChanged;
             }
         }
-
-#if !WP71 && !PORTABLE
+#if !PORTABLE
         /// <summary>
         /// Occurs before a property value changes.
         /// </summary>
@@ -87,9 +83,10 @@ namespace GalaSoft.MvvmLight
         /// can be called before the property is used, for instance before
         /// calling RaisePropertyChanged. It avoids errors when a property name
         /// is changed but some places are missed.
-        /// <para>This method is only active in DEBUG mode.</para>
         /// </summary>
-        /// <param name="propertyName"></param>
+        /// <remarks>This method is only active in DEBUG mode.</remarks>
+        /// <param name="propertyName">The name of the property that will be
+        /// checked.</param>
         [Conditional("DEBUG")]
         [DebuggerStepThrough]
         public void VerifyPropertyName(string propertyName)
@@ -125,7 +122,20 @@ namespace GalaSoft.MvvmLight
 #endif
         }
 
-#if !WP71
+#if CMNATTR
+        /// <summary>
+        /// Raises the PropertyChanging event if needed.
+        /// </summary>
+        /// <remarks>If the propertyName parameter
+        /// does not correspond to an existing property on the current class, an
+        /// exception is thrown in DEBUG configuration only.</remarks>
+        /// <param name="propertyName">(optional) The name of the property that
+        /// changed.</param>
+        [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate",
+            Justification = "This cannot be an event")]
+        protected virtual void RaisePropertyChanging(
+            [CallerMemberName] string propertyName = null)
+#else
         /// <summary>
         /// Raises the PropertyChanging event if needed.
         /// </summary>
@@ -137,24 +147,9 @@ namespace GalaSoft.MvvmLight
         [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate",
             Justification = "This cannot be an event")]
         protected virtual void RaisePropertyChanging(
-#if NETFX_CORE || PORTABLE
-            [CallerMemberName]
+            string propertyName)
 #endif
-            string propertyName
-            #if NETFX_CORE || PORTABLE
-            = FakePropertyName
-#endif
-            )
         {
-#if NETFX_CORE
-            if (string.IsNullOrEmpty(propertyName))
-            {
-                throw new NotSupportedException(
-                    "Raising the PropertyChanged event with an empty string or null is not supported in Windows 8");
-            }
-            else
-            {
-#endif
             VerifyPropertyName(propertyName);
 
 #if !PORTABLE
@@ -164,12 +159,22 @@ namespace GalaSoft.MvvmLight
                 handler(this, new PropertyChangingEventArgs(propertyName));
             }
 #endif
-#if NETFX_CORE
-            }
-#endif
         }
-#endif
 
+#if CMNATTR
+        /// <summary>
+        /// Raises the PropertyChanged event if needed.
+        /// </summary>
+        /// <remarks>If the propertyName parameter
+        /// does not correspond to an existing property on the current class, an
+        /// exception is thrown in DEBUG configuration only.</remarks>
+        /// <param name="propertyName">(optional) The name of the property that
+        /// changed.</param>
+        [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate",
+            Justification = "This cannot be an event")]
+        protected virtual void RaisePropertyChanged(
+            [CallerMemberName] string propertyName = null)
+#else
         /// <summary>
         /// Raises the PropertyChanged event if needed.
         /// </summary>
@@ -181,14 +186,8 @@ namespace GalaSoft.MvvmLight
         [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate",
             Justification = "This cannot be an event")]
         protected virtual void RaisePropertyChanged(
-#if NETFX_CORE || PORTABLE
-[CallerMemberName]
+            string propertyName) 
 #endif
-            string propertyName
-#if NETFX_CORE || PORTABLE
- = FakePropertyName
-#endif
-            )
         {
             VerifyPropertyName(propertyName);
 
@@ -200,7 +199,6 @@ namespace GalaSoft.MvvmLight
         }
 
 #if !SL3
-#if !WP71
         /// <summary>
         /// Raises the PropertyChanging event if needed.
         /// </summary>
@@ -225,7 +223,6 @@ namespace GalaSoft.MvvmLight
             }
 #endif
         }
-#endif
 
         /// <summary>
         /// Raises the PropertyChanged event if needed.
@@ -258,7 +255,11 @@ namespace GalaSoft.MvvmLight
         /// <returns>The name of the property returned by the expression.</returns>
         /// <exception cref="ArgumentNullException">If the expression is null.</exception>
         /// <exception cref="ArgumentException">If the expression does not represent a property.</exception>
-        protected string GetPropertyName<T>(Expression<Func<T>> propertyExpression)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters"), System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Design", 
+            "CA1006:DoNotNestGenericTypesInMemberSignatures", 
+            Justification="This design is better than the alternative.")]
+        protected static string GetPropertyName<T>(Expression<Func<T>> propertyExpression)
         {
             if (propertyExpression == null)
             {
@@ -296,6 +297,13 @@ namespace GalaSoft.MvvmLight
         /// <returns>True if the PropertyChanged event has been raised,
         /// false otherwise. The event is not raised if the old
         /// value is equal to the new value.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Design", 
+            "CA1006:DoNotNestGenericTypesInMemberSignatures"), 
+        System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Design", 
+            "CA1045:DoNotPassTypesByReference", 
+            MessageId = "1#")]
         protected bool Set<T>(
             Expression<Func<T>> propertyExpression,
             ref T field,
@@ -306,9 +314,7 @@ namespace GalaSoft.MvvmLight
                 return false;
             }
 
-#if !WP71
             RaisePropertyChanging(propertyExpression);
-#endif
             field = newValue;
             RaisePropertyChanged(propertyExpression);
             return true;
@@ -328,6 +334,10 @@ namespace GalaSoft.MvvmLight
         /// <returns>True if the PropertyChanged event has been raised,
         /// false otherwise. The event is not raised if the old
         /// value is equal to the new value.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage(
+            "Microsoft.Design", 
+            "CA1045:DoNotPassTypesByReference", 
+            MessageId = "1#")]
         protected bool Set<T>(
             string propertyName,
             ref T field,
@@ -338,31 +348,32 @@ namespace GalaSoft.MvvmLight
                 return false;
             }
 
-#if !WP71
             RaisePropertyChanging(propertyName);
-#endif
             field = newValue;
             RaisePropertyChanged(propertyName);
             return true;
         }
 #endif
-#if NETFX_CORE || PORTABLE
+
+#if CMNATTR
         /// <summary>
         /// Assigns a new value to the property. Then, raises the
         /// PropertyChanged event if needed. 
         /// </summary>
         /// <typeparam name="T">The type of the property that
         /// changed.</typeparam>
-        /// <param name="propertyName">The name of the property that
-        /// changed.</param>
         /// <param name="field">The field storing the property's value.</param>
         /// <param name="newValue">The property's value after the change
         /// occurred.</param>
+        /// <param name="propertyName">(optional) The name of the property that
+        /// changed.</param>
         /// <returns>True if the PropertyChanged event has been raised,
         /// false otherwise. The event is not raised if the old
         /// value is equal to the new value.</returns>
-        [NotifyPropertyChangedInvocator]
-        protected bool Set<T>(ref T field, T newValue, [CallerMemberName] string propertyName = FakePropertyName)
+        protected bool Set<T>(
+            ref T field,
+            T newValue,
+            [CallerMemberName] string propertyName = null)
         {
             return Set(propertyName, ref field, newValue);
         }

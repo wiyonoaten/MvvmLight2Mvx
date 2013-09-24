@@ -14,6 +14,7 @@
 // ****************************************************************************
 
 using System;
+using System.Reflection;
 
 namespace GalaSoft.MvvmLight.Helpers
 {
@@ -39,7 +40,11 @@ namespace GalaSoft.MvvmLight.Helpers
             {
                 if (_staticAction != null)
                 {
+#if NETFX_CORE
+                    return _staticAction.GetMethodInfo().Name;
+#else
                     return _staticAction.Method.Name;
+#endif
                 }
 
 #if SILVERLIGHT || PORTABLE
@@ -103,7 +108,7 @@ namespace GalaSoft.MvvmLight.Helpers
         /// </summary>
         /// <param name="action">The action that will be associated to this instance.</param>
         public WeakAction(Action<T> action)
-            : this(action.Target, action)
+            : this(action == null ? null : action.Target, action)
         {
         }
 
@@ -114,7 +119,11 @@ namespace GalaSoft.MvvmLight.Helpers
         /// <param name="action">The action that will be associated to this instance.</param>
         public WeakAction(object target, Action<T> action)
         {
+#if NETFX_CORE
+            if (action.GetMethodInfo().IsStatic)
+#else
             if (action.Method.IsStatic)
+#endif
             {
                 _staticAction = action;
 
@@ -168,7 +177,11 @@ namespace GalaSoft.MvvmLight.Helpers
 #endif
 
 #else
+#if NETFX_CORE
+            Method = action.GetMethodInfo();
+#else
             Method = action.Method;
+#endif
             ActionReference = new WeakReference(action.Target);
 #endif
 
@@ -197,16 +210,16 @@ namespace GalaSoft.MvvmLight.Helpers
                 return;
             }
 
-            var target = ActionTarget;
+            var actionTarget = ActionTarget;
 
             if (IsAlive)
             {
                 if (Method != null
                     && ActionReference != null
-                    && target != null)
+                    && actionTarget != null)
                 {
                     Method.Invoke(
-                        target,
+                        actionTarget,
                         new object[]
                         {
                             parameter

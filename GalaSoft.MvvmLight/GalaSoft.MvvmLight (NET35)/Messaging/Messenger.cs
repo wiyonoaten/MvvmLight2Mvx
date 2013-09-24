@@ -25,7 +25,14 @@ using GalaSoft.MvvmLight.Helpers;
 #if SILVERLIGHT
 using System.Windows;
 #elif !PORTABLE
+#if !XAMARIN
+#if NETFX_CORE
+using Windows.UI.Xaml;
+using Windows.UI.Core;
+#else
 using System.Windows.Threading;
+#endif
+#endif
 #endif
 
 ////using GalaSoft.Utilities.Attributes;
@@ -398,6 +405,7 @@ namespace GalaSoft.MvvmLight.Messaging
         /// Provides a non-static access to the static <see cref="Reset"/> method.
         /// Sets the Messenger's default (static) instance to null.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
         public void ResetAll()
         {
             Reset();
@@ -459,8 +467,11 @@ namespace GalaSoft.MvvmLight.Messaging
                         && item.Action.Target != null
                         && (messageTargetType == null
                             || item.Action.Target.GetType() == messageTargetType
+#if NETFX_CORE
+                            || messageTargetType.GetTypeInfo().IsAssignableFrom(item.Action.Target.GetType().GetTypeInfo()))
+#else
                             || messageTargetType.IsAssignableFrom(item.Action.Target.GetType()))
-
+#endif
                         && ((item.Token == null && token == null)
                             || item.Token != null && item.Token.Equals(token)))
                     {
@@ -522,8 +533,11 @@ namespace GalaSoft.MvvmLight.Messaging
                     if (weakActionCasted != null
                         && recipient == weakActionCasted.Target
                         && (action == null
+#if NETFX_CORE
+                            || action.GetMethodInfo().Name == weakActionCasted.MethodName)
+#else
                         || action.Method.Name == weakActionCasted.MethodName)
-
+#endif
                         && (token == null
                             || token.Equals(item.Token)))
                     {
@@ -551,9 +565,27 @@ namespace GalaSoft.MvvmLight.Messaging
             {
                 Action cleanupAction = Cleanup;
 
-#if SILVERLIGHT                
+#if SILVERLIGHT
                 Deployment.Current.Dispatcher.BeginInvoke(cleanupAction);
 #elif !PORTABLE
+#if XAMARIN
+                // TODO ANDROID How to dispatch in order to use lower priority
+                cleanupAction();
+#else
+#if NETFX_CORE
+                if (Window.Current != null
+                    && Window.Current.Dispatcher != null)
+                {
+                    Window.Current.Dispatcher.RunAsync(
+                        CoreDispatcherPriority.Normal,
+                        new DispatchedHandler(cleanupAction));
+                }
+                else
+                {
+                    // Runs without a window (unit test)
+                    cleanupAction();
+                }
+#else
                 Dispatcher.CurrentDispatcher.BeginInvoke(
                     cleanupAction,
                     DispatcherPriority.ApplicationIdle,
@@ -564,6 +596,8 @@ namespace GalaSoft.MvvmLight.Messaging
                     _context.Post(_ => cleanupAction(), null);
                 else
                     cleanupAction(); // run inline w/o a context
+#endif
+#endif
 #endif
                 _isCleanupRegistered = true;
             }
@@ -603,8 +637,13 @@ namespace GalaSoft.MvvmLight.Messaging
                     List<WeakActionAndToken> list = null;
 
                     if (messageType == type
+#if NETFX_CORE
+                        || messageType.GetTypeInfo().IsSubclassOf(type)
+                        || type.GetTypeInfo().IsAssignableFrom(messageType.GetTypeInfo()))
+#else
                         || messageType.IsSubclassOf(type)
                         || type.IsAssignableFrom(messageType))
+#endif
                     {
                         lock (_recipientsOfSubclassesAction)
                         {
@@ -619,16 +658,21 @@ namespace GalaSoft.MvvmLight.Messaging
 
             if (_recipientsStrictAction != null)
             {
+                List<WeakActionAndToken> list = null;
+
                 lock (_recipientsStrictAction)
                 {
                     if (_recipientsStrictAction.ContainsKey(messageType))
                     {
-                        var list = _recipientsStrictAction[messageType]
+                        list = _recipientsStrictAction[messageType]
                             .Take(_recipientsStrictAction[messageType].Count())
                             .ToList();
-
-                        SendToList(message, list, messageTargetType, token);
                     }
+                }
+
+                if (list != null)
+                {
+                    SendToList(message, list, messageTargetType, token);
                 }
             }
 

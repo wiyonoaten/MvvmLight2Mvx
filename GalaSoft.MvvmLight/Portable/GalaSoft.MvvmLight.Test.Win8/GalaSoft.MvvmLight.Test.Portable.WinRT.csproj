@@ -25,7 +25,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;PORTABLE;NETFX_CORE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;PORTABLE;NETFX_CORE;CMNATTR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeContractsEnableRuntimeChecking>False</CodeContractsEnableRuntimeChecking>
@@ -66,7 +66,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;PORTABLE;NETFX_CORE</DefineConstants>
+    <DefineConstants>TRACE;PORTABLE;NETFX_CORE;CMNATTR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>219;1684</NoWarn>
@@ -147,8 +147,11 @@
     <AppXPackage>True</AppXPackage>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Command\EventToCommandTest.cs">
-      <Link>Command\EventToCommandTest.cs</Link>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Command\EventArgsConverter.cs">
+      <Link>Command\EventArgsConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Command\EventToCommandStub.cs">
+      <Link>Command\EventToCommandStub.cs</Link>
     </Compile>
     <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Command\RelayCommandGenericTest.cs">
       <Link>Command\RelayCommandGenericTest.cs</Link>
@@ -156,8 +159,14 @@
     <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Command\RelayCommandTest.cs">
       <Link>Command\RelayCommandTest.cs</Link>
     </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Command\StringEventArgs.cs">
+      <Link>Command\StringEventArgs.cs</Link>
+    </Compile>
     <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Command\TemporaryClass.cs">
       <Link>Command\TemporaryClass.cs</Link>
+    </Compile>
+    <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Command\TestViewModel.cs">
+      <Link>Command\TestViewModel.cs</Link>
     </Compile>
     <Compile Include="..\..\GalaSoft.MvvmLight.Test %28NET35%29\Helpers\CommonTestClass.cs">
       <Link>Helpers\CommonTestClass.cs</Link>

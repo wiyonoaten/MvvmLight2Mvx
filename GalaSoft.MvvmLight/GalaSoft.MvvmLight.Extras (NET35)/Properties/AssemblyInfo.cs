@@ -21,14 +21,18 @@ using System.Resources;
 using System.Runtime.InteropServices;
 
 #if !NETFX_CORE && !PORTABLE
+#if !XAMARIN
 using System.Windows.Markup;
+#endif
 #endif
 
 [assembly: AssemblyTitle("GalaSoft.MvvmLight.Extras")]
 [assembly: AssemblyDescription("Extras components to implement Model-View-ViewModel applications in WPF, Silverlight and Windows Phone 7")]
 
 #if !NETFX_CORE && !PORTABLE
+#if !XAMARIN
 [assembly: XmlnsDefinition("http://www.galasoft.ch/mvvmlight", "GalaSoft.MvvmLight.Command")]
+#endif
 #endif
 
 // FxCop
