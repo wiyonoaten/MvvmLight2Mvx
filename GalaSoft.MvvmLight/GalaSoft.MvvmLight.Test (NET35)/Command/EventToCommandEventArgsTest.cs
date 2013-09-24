@@ -28,6 +28,10 @@ using System.Windows.Shapes;
 using TestMethodAttribute = Microsoft.VisualStudio.TestPlatform.UnitTestFramework.UITestMethodAttribute;
 #endif
 
+#if NETFX_CORE
+using TestMethodAttribute = Microsoft.VisualStudio.TestPlatform.UnitTestFramework.AppContainer.UITestMethodAttribute;
+#endif
+
 namespace GalaSoft.MvvmLight.Test.Command
 {
     [TestClass]

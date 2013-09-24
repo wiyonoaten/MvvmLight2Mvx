@@ -132,6 +132,7 @@ Global
 		{3AD0ED75-F579-49AE-A693-B1ED8E8BFF75}.Release|ARM.Build.0 = Release|ARM
 		{3AD0ED75-F579-49AE-A693-B1ED8E8BFF75}.Release|ARM.Deploy.0 = Release|ARM
 		{3AD0ED75-F579-49AE-A693-B1ED8E8BFF75}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3AD0ED75-F579-49AE-A693-B1ED8E8BFF75}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{3AD0ED75-F579-49AE-A693-B1ED8E8BFF75}.Release|Mixed Platforms.Deploy.0 = Release|Any CPU
 		{3AD0ED75-F579-49AE-A693-B1ED8E8BFF75}.Release|x64.ActiveCfg = Release|x64
 		{3AD0ED75-F579-49AE-A693-B1ED8E8BFF75}.Release|x64.Build.0 = Release|x64
