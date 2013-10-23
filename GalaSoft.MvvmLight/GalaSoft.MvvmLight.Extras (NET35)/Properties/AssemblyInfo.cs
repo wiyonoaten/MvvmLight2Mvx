@@ -34,20 +34,3 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("http://www.galasoft.ch/mvvmlight", "GalaSoft.MvvmLight.Command")]
 #endif
 #endif
-
-// FxCop
-[module: SuppressMessage("Microsoft.Naming",
-    "CA1704:IdentifiersShouldBeSpelledCorrectly",
-    MessageId = "Mvvm")]
-
-[module: SuppressMessage("Microsoft.Naming",
-    "CA1704:IdentifiersShouldBeSpelledCorrectly",
-    Scope = "namespace",
-    Target = "GalaSoft.MvvmLight.Command",
-    MessageId = "Mvvm")]
-
-[module: SuppressMessage("Microsoft.Naming",
-    "CA1704:IdentifiersShouldBeSpelledCorrectly",
-    Scope = "namespace",
-    Target = "GalaSoft.MvvmLight.Threading",
-    MessageId = "Mvvm")]

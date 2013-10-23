@@ -15,7 +15,6 @@
 // ****************************************************************************
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Resources;
 using System.Runtime.CompilerServices;
@@ -25,59 +24,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("A lightweight framework to implement Model-View-ViewModel applications in WPF, Silverlight and Windows Phone 7")]
 
 [assembly: InternalsVisibleTo("GalaSoft.MvvmLight.Platform")]
-
-
-// FxCop
-[module: SuppressMessage("Microsoft.Naming",
-    "CA1704:IdentifiersShouldBeSpelledCorrectly",
-    MessageId = "Mvvm")]
-
-[module: SuppressMessage("Microsoft.Naming",
-    "CA1704:IdentifiersShouldBeSpelledCorrectly",
-    Scope = "namespace",
-    Target = "GalaSoft.MvvmLight",
-    MessageId = "Mvvm")]
-
-[module: SuppressMessage("Microsoft.Naming",
-    "CA1704:IdentifiersShouldBeSpelledCorrectly",
-    Scope = "namespace",
-    Target = "GalaSoft.MvvmLight.Messaging",
-    MessageId = "Mvvm")]
-
-[module: SuppressMessage("Microsoft.Naming",
-    "CA1704:IdentifiersShouldBeSpelledCorrectly",
-    Scope = "namespace",
-    Target = "GalaSoft.MvvmLight.Command",
-    MessageId = "Mvvm")]
-
-[module: SuppressMessage("Microsoft.Naming",
-    "CA1704:IdentifiersShouldBeSpelledCorrectly",
-    Scope = "namespace",
-    Target = "GalaSoft.MvvmLight.Helpers",
-    MessageId = "Mvvm")]
-
-[module: SuppressMessage("Microsoft.Naming",
-    "CA1704:IdentifiersShouldBeSpelledCorrectly",
-    Scope = "namespace",
-    Target = "GalaSoft.MvvmLight.Ioc",
-    MessageId = "Mvvm")]
-
-[module: SuppressMessage("Microsoft.Design",
-    "CA1020:AvoidNamespacesWithFewTypes",
-    Scope = "namespace",
-    Target = "GalaSoft.MvvmLight")]
-
-[module: SuppressMessage("Microsoft.Design",
-    "CA1020:AvoidNamespacesWithFewTypes",
-    Scope = "namespace",
-    Target = "GalaSoft.MvvmLight.Command")]
-
-[module: SuppressMessage("Microsoft.Design",
-    "CA1020:AvoidNamespacesWithFewTypes",
-    Scope = "namespace",
-    Target = "GalaSoft.MvvmLight.Helpers")]
-
-[module: SuppressMessage("Microsoft.Design",
-    "CA1020:AvoidNamespacesWithFewTypes",
-    Scope = "namespace",
-    Target = "GalaSoft.MvvmLight.Ioc")]

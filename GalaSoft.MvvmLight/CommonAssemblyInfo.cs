@@ -34,6 +34,7 @@ using System.Runtime.InteropServices;
 #endif
 
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyVersion("4.2")]
-////[assembly: AssemblyFileVersion("4.1.27.0/BL0027")]
+[assembly: AssemblyVersion("4.2.29.*")]
+////[assembly: AssemblyFileVersion("4.2.29.0/BL0029")]
+
 
