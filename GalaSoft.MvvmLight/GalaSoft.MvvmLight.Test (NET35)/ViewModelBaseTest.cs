@@ -1,10 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using GalaSoft.MvvmLight.Messaging;
-using GalaSoft.MvvmLight.Test.Stubs;
 using GalaSoft.MvvmLight.Test.ViewModel;
 
-#if NETFX_CORE
+#if NETFX_CORE || WINDOWS_PHONE
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -13,7 +12,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 #if NETFX_CORE
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
-#else
+#elif !PORTABLE
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows;
@@ -76,6 +75,7 @@ namespace GalaSoft.MvvmLight.Test
                     }
                 };
 
+#if !PORTABLE
             vm.PropertyChanging += (s, e) =>
             {
                 if (e.PropertyName == TestViewModel.LastChanged1PropertyName)
@@ -83,6 +83,7 @@ namespace GalaSoft.MvvmLight.Test
                     receivedDateTimeLocalChanging = vm.LastChanged1;
                 }
             };
+#endif
 
             var now = DateTime.Now;
             vm.LastChanged1 = now;
@@ -91,7 +92,9 @@ namespace GalaSoft.MvvmLight.Test
             Assert.AreEqual(DateTime.MaxValue, receivedDateTimeMessengerOldChanged);
             Assert.AreEqual(now, receivedDateTimeMessengerNewChanged);
             Assert.AreEqual(now, receivedDateTimeLocalChanged);
+#if !PORTABLE
             Assert.AreEqual(DateTime.MaxValue, receivedDateTimeLocalChanging);
+#endif
         }
 
         [TestMethod]
@@ -139,6 +142,7 @@ namespace GalaSoft.MvvmLight.Test
                     }
                 };
 
+#if !PORTABLE
             vm.PropertyChanging += (s, e) =>
             {
                 if (e.PropertyName == TestViewModel.LastChanged2PropertyName)
@@ -146,16 +150,29 @@ namespace GalaSoft.MvvmLight.Test
                     receivedDateTimeLocalChanging = vm.LastChanged2;
                 }
             };
+#endif
 
             var now = DateTime.Now;
             vm.LastChanged2 = now;
             Assert.AreEqual(now, vm.LastChanged2);
             Assert.AreEqual(now, receivedDateTimeLocalChanged);
+#if !PORTABLE
             Assert.AreEqual(DateTime.MaxValue, receivedDateTimeLocalChanging);
+#endif
             Assert.AreEqual(DateTime.MinValue, receivedDateTimeMessenger);
         }
 
 #if !SL3
+        [TestMethod]
+        public void IsInDesignModeIsFalse()
+        {
+            var vmb = new TestViewModel();
+
+            var isDesign = vmb.IsInDesignMode;
+
+            Assert.IsFalse(isDesign);
+        }
+
         [TestMethod]
         public void TestPropertyChangedSendNoMagicString()
         {
@@ -183,6 +200,7 @@ namespace GalaSoft.MvvmLight.Test
                 }
             };
 
+#if !PORTABLE
             vm.PropertyChanging += (s, e) =>
             {
                 if (e.PropertyName == "LastChanged1")
@@ -190,6 +208,7 @@ namespace GalaSoft.MvvmLight.Test
                     receivedDateTimeLocalChanging = vm.LastChanged1;
                 }
             };
+#endif
 
             var now = DateTime.Now;
             vm.LastChanged1 = now;
@@ -198,7 +217,9 @@ namespace GalaSoft.MvvmLight.Test
             Assert.AreEqual(DateTime.MaxValue, receivedDateTimeMessengerOld);
             Assert.AreEqual(now, receivedDateTimeMessengerNew);
             Assert.AreEqual(now, receivedDateTimeLocalChanged);
+#if !PORTABLE
             Assert.AreEqual(DateTime.MaxValue, receivedDateTimeLocalChanging);
+#endif
         }
 
         [TestMethod]
@@ -246,6 +267,7 @@ namespace GalaSoft.MvvmLight.Test
                 }
             };
 
+#if !PORTABLE
             vm.PropertyChanging += (s, e) =>
             {
                 if (e.PropertyName == "LastChanged2")
@@ -253,12 +275,15 @@ namespace GalaSoft.MvvmLight.Test
                     receivedDateTimeLocalChanging = vm.LastChanged2;
                 }
             };
+#endif
 
             var now = DateTime.Now;
             vm.LastChanged2 = now;
             Assert.AreEqual(now, vm.LastChanged2);
             Assert.AreEqual(now, receivedDateTimeLocalChanged);
+#if !PORTABLE
             Assert.AreEqual(DateTime.MaxValue, receivedDateTimeLocalChanging);
+#endif
             Assert.AreEqual(DateTime.MinValue, receivedDateTimeMessenger);
         }
 #endif
@@ -284,6 +309,7 @@ namespace GalaSoft.MvvmLight.Test
                 }
             };
 
+#if !PORTABLE
             vm.PropertyChanging += (s, e) =>
             {
                 if (e.PropertyName == ViewModelStub.RealPropertyPropertyName)
@@ -297,22 +323,29 @@ namespace GalaSoft.MvvmLight.Test
             };
 
             vm.RaisePropertyChanging(ViewModelStub.RealPropertyPropertyName);
+#endif
             vm.RaisePropertyChanged(ViewModelStub.RealPropertyPropertyName);
 
             Assert.IsTrue(receivedPropertyChanged);
             Assert.IsFalse(invalidPropertyChangedNameReceived);
 
+#if !PORTABLE
             Assert.IsTrue(receivedPropertyChanging);
             Assert.IsFalse(invalidPropertyChangingNameReceived);
+#endif
 
             try
             {
+#if !PORTABLE
                 vm.RaisePropertyChanging(ViewModelStub.RealPropertyPropertyName + "1");
+#endif
 
 #if DEBUG
                 Assert.Fail("ArgumentException was expected");
 #else
+#if !PORTABLE
                 Assert.IsTrue(invalidPropertyChangingNameReceived);
+#endif
 #endif
             }
             catch (ArgumentException)
@@ -337,7 +370,7 @@ namespace GalaSoft.MvvmLight.Test
         [TestMethod]
         public void TestRaiseWithEmptyString()
         {
-#if !NETFX_CORE
+#if !NETFX_CORE && !PORTABLE
             var vm = new TestViewModel();
 
             const string value1 = "Hello";
@@ -387,7 +420,7 @@ namespace GalaSoft.MvvmLight.Test
         [TestMethod]
         public void TestRaiseWithNullString()
         {
-#if !NETFX_CORE
+#if !NETFX_CORE && !PORTABLE
             var vm = new TestViewModel();
 
             const string value1 = "Hello";
@@ -423,14 +456,14 @@ namespace GalaSoft.MvvmLight.Test
             var raised = false;
             vm.PropertyChanged += (s, e) =>
             {
-                if (e.PropertyName == string.Empty)
+                if (string.IsNullOrEmpty(e.PropertyName))
                 {
                     raised = true;
                 }
             };
 
             vm.RaiseNullPropertyChanged();
-            Assert.IsFalse(raised); // Doesn't work in WinRT
+            Assert.IsTrue(raised);
 #endif
         }
 
@@ -493,6 +526,7 @@ namespace GalaSoft.MvvmLight.Test
                 }
             };
 
+#if !PORTABLE
             vm.PropertyChanging += (s, e) =>
             {
                 if (e.PropertyName == ViewModelStub.PropertyWithSetBroadcastPropertyName)
@@ -500,10 +534,13 @@ namespace GalaSoft.MvvmLight.Test
                     receivedValueChanging = vm.PropertyWithSetBroadcast;
                 }
             };
+#endif
 
             vm.PropertyWithSetBroadcast = expectedValue;
             Assert.AreEqual(expectedValue, receivedValueChanged);
+#if !PORTABLE
             Assert.AreEqual(-1, receivedValueChanging);
+#endif
             Assert.AreEqual(expectedValue, receivedValueWithMessenger);
         }
 
@@ -528,6 +565,7 @@ namespace GalaSoft.MvvmLight.Test
                 }
             };
 
+#if !PORTABLE
             vm.PropertyChanging += (s, e) =>
             {
                 if (e.PropertyName == ViewModelStub.PropertyWithSetNoBroadcastPropertyName)
@@ -535,10 +573,13 @@ namespace GalaSoft.MvvmLight.Test
                     receivedValueChanging = vm.PropertyWithSetNoBroadcast;
                 }
             };
+#endif
 
             vm.PropertyWithSetNoBroadcast = expectedValue;
             Assert.AreEqual(expectedValue, receivedValueChanged);
+#if !PORTABLE
             Assert.AreEqual(-1, receivedValueChanging);
+#endif
             Assert.AreEqual(0, receivedValueWithMessenger);
         }
 
@@ -563,6 +604,7 @@ namespace GalaSoft.MvvmLight.Test
                 }
             };
 
+#if !PORTABLE
             vm.PropertyChanging += (s, e) =>
             {
                 if (e.PropertyName == ViewModelStub.PropertyWithStringSetBroadcastPropertyName)
@@ -570,10 +612,13 @@ namespace GalaSoft.MvvmLight.Test
                     receivedValueChanging = vm.PropertyWithStringSetBroadcast;
                 }
             };
+#endif
 
             vm.PropertyWithStringSetBroadcast = expectedValue;
             Assert.AreEqual(expectedValue, receivedValueChanged);
+#if !PORTABLE
             Assert.AreEqual(-1, receivedValueChanging);
+#endif
             Assert.AreEqual(expectedValue, receivedValueWithMessenger);
         }
 
@@ -598,6 +643,8 @@ namespace GalaSoft.MvvmLight.Test
                 }
             };
 
+#if !PORTABLE
+            
             vm.PropertyChanging += (s, e) =>
             {
                 if (e.PropertyName == ViewModelStub.PropertyWithStringSetNoBroadcastPropertyName)
@@ -605,10 +652,13 @@ namespace GalaSoft.MvvmLight.Test
                     receivedValueChanging = vm.PropertyWithStringSetNoBroadcast;
                 }
             };
+#endif
 
             vm.PropertyWithStringSetNoBroadcast = expectedValue;
             Assert.AreEqual(expectedValue, receivedValueChanged);
+#if !PORTABLE
             Assert.AreEqual(-1, receivedValueChanging);
+#endif
             Assert.AreEqual(0, receivedValueWithMessenger);
         }
 
@@ -628,6 +678,7 @@ namespace GalaSoft.MvvmLight.Test
                 }
             };
 
+#if !PORTABLE
             vm.PropertyChanging += (s, e) =>
             {
                 if (e.PropertyName == ViewModelStub.PropertyWithSetBroadcastPropertyName)
@@ -635,19 +686,26 @@ namespace GalaSoft.MvvmLight.Test
                     receivedValueChanging = vm.PropertyWithSetBroadcast;
                 }
             };
+#endif
 
             vm.PropertyWithSetBroadcast = firstValue;
+#if !PORTABLE
             Assert.AreEqual(-1, receivedValueChanging);
+#endif
             Assert.AreEqual(firstValue, receivedValueChanged);
             Assert.IsTrue(vm.SetRaisedPropertyChangedEvent);
 
             vm.PropertyWithSetBroadcast = firstValue;
+#if !PORTABLE
             Assert.AreEqual(-1, receivedValueChanging);
+#endif
             Assert.AreEqual(firstValue, receivedValueChanged);
             Assert.IsFalse(vm.SetRaisedPropertyChangedEvent);
 
             vm.PropertyWithSetBroadcast = firstValue + 1;
+#if !PORTABLE
             Assert.AreEqual(firstValue, receivedValueChanging);
+#endif
             Assert.AreEqual(firstValue + 1, receivedValueChanged);
             Assert.IsTrue(vm.SetRaisedPropertyChangedEvent);
         }
@@ -668,6 +726,7 @@ namespace GalaSoft.MvvmLight.Test
                 }
             };
 
+#if !PORTABLE
             vm.PropertyChanging += (s, e) =>
             {
                 if (e.PropertyName == ViewModelStub.PropertyWithStringSetBroadcastPropertyName)
@@ -675,19 +734,26 @@ namespace GalaSoft.MvvmLight.Test
                     receivedValueChanging = vm.PropertyWithStringSetBroadcast;
                 }
             };
+#endif
 
             vm.PropertyWithStringSetBroadcast = firstValue;
+#if !PORTABLE
             Assert.AreEqual(-1, receivedValueChanging);
+#endif
             Assert.AreEqual(firstValue, receivedValueChanged);
             Assert.IsTrue(vm.SetRaisedPropertyChangedEvent);
 
             vm.PropertyWithStringSetBroadcast = firstValue;
+#if !PORTABLE
             Assert.AreEqual(-1, receivedValueChanging);
+#endif
             Assert.AreEqual(firstValue, receivedValueChanged);
             Assert.IsFalse(vm.SetRaisedPropertyChangedEvent);
 
             vm.PropertyWithStringSetBroadcast = firstValue + 1;
+#if !PORTABLE
             Assert.AreEqual(firstValue, receivedValueChanging);
+#endif
             Assert.AreEqual(firstValue + 1, receivedValueChanged);
             Assert.IsTrue(vm.SetRaisedPropertyChangedEvent);
         }
@@ -708,6 +774,7 @@ namespace GalaSoft.MvvmLight.Test
                 }
             };
 
+#if !PORTABLE
             vm.PropertyChanging += (s, e) =>
             {
                 if (e.PropertyName == ViewModelStub.PropertyWithSetNoBroadcastPropertyName)
@@ -715,19 +782,26 @@ namespace GalaSoft.MvvmLight.Test
                     receivedValueChanging = vm.PropertyWithSetNoBroadcast;
                 }
             };
+#endif
 
             vm.PropertyWithSetNoBroadcast = firstValue;
+#if !PORTABLE
             Assert.AreEqual(-1, receivedValueChanging);
+#endif
             Assert.AreEqual(firstValue, receivedValueChanged);
             Assert.IsTrue(vm.SetRaisedPropertyChangedEvent);
 
             vm.PropertyWithSetNoBroadcast = firstValue;
+#if !PORTABLE
             Assert.AreEqual(-1, receivedValueChanging);
+#endif
             Assert.AreEqual(firstValue, receivedValueChanged);
             Assert.IsFalse(vm.SetRaisedPropertyChangedEvent);
 
             vm.PropertyWithSetNoBroadcast = firstValue + 1;
+#if !PORTABLE
             Assert.AreEqual(firstValue, receivedValueChanging);
+#endif
             Assert.AreEqual(firstValue + 1, receivedValueChanged);
             Assert.IsTrue(vm.SetRaisedPropertyChangedEvent);
         }
@@ -748,6 +822,7 @@ namespace GalaSoft.MvvmLight.Test
                 }
             };
 
+#if !PORTABLE
             vm.PropertyChanging += (s, e) =>
             {
                 if (e.PropertyName == ViewModelStub.PropertyWithStringSetNoBroadcastPropertyName)
@@ -755,19 +830,26 @@ namespace GalaSoft.MvvmLight.Test
                     receivedValueChanging = vm.PropertyWithStringSetNoBroadcast;
                 }
             };
+#endif
 
             vm.PropertyWithStringSetNoBroadcast = firstValue;
+#if !PORTABLE
             Assert.AreEqual(-1, receivedValueChanging);
+#endif
             Assert.AreEqual(firstValue, receivedValueChanged);
             Assert.IsTrue(vm.SetRaisedPropertyChangedEvent);
 
             vm.PropertyWithStringSetNoBroadcast = firstValue;
+#if !PORTABLE
             Assert.AreEqual(-1, receivedValueChanging);
+#endif
             Assert.AreEqual(firstValue, receivedValueChanged);
             Assert.IsFalse(vm.SetRaisedPropertyChangedEvent);
 
             vm.PropertyWithStringSetNoBroadcast = firstValue + 1;
+#if !PORTABLE
             Assert.AreEqual(firstValue, receivedValueChanging);
+#endif
             Assert.AreEqual(firstValue + 1, receivedValueChanged);
             Assert.IsTrue(vm.SetRaisedPropertyChangedEvent);
         }
@@ -836,6 +918,7 @@ namespace GalaSoft.MvvmLight.Test
             }
         }
 
+#if !PORTABLE
         [TestMethod]
         public void TestRaisePropertyChangingNoMagicStringNullExpression()
         {
@@ -872,6 +955,7 @@ namespace GalaSoft.MvvmLight.Test
             }
         }
 #endif
+#endif
 
         private static string DummyStringMethod()
         {
@@ -879,7 +963,7 @@ namespace GalaSoft.MvvmLight.Test
         }
 
 #if !SILVERLIGHT
-#if !NETFX_CORE
+#if !NETFX_CORE && !PORTABLE
         [TestMethod]
         public void TestTypeDescriptor()
         {

@@ -1,7 +1,7 @@
 ﻿using System;
 using GalaSoft.MvvmLight.Command;
 
-#if NETFX_CORE
+#if NETFX_CORE || WINDOWS_PHONE
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -76,8 +76,8 @@ namespace GalaSoft.MvvmLight.Test.Command
 
             command.RaiseCanExecuteChanged();
 
-#if SILVERLIGHT
-             Assert.AreEqual(1, canExecuteChangedCalled);
+#if SILVERLIGHT 
+            Assert.AreEqual(1, canExecuteChangedCalled);
 #else
 #if NETFX_CORE
             Assert.AreEqual(1, canExecuteChangedCalled);
@@ -91,7 +91,7 @@ namespace GalaSoft.MvvmLight.Test.Command
             command.RaiseCanExecuteChanged();
 
 #if SILVERLIGHT
-             Assert.AreEqual(1, canExecuteChangedCalled);
+            Assert.AreEqual(1, canExecuteChangedCalled);
 #else
 #if NETFX_CORE
             Assert.AreEqual(1, canExecuteChangedCalled);

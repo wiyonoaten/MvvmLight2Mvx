@@ -25,13 +25,15 @@
     <SilverlightAppEntry>GalaSoft.MvvmLight.Test__WP71_.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\Portable\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Bin\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE;PORTABLE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -41,17 +43,21 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>Bin\Release</OutputPath>
-    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE;WP71</DefineConstants>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE;PORTABLE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions, Version=3.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\Portable\packages\Unofficial.Blend.Interactivity.1.0.0\lib\sl4-wp71\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Interop" />
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\External\WP71\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Portable\packages\Portable.CommonServiceLocator.1.2.2\lib\portable-net4+sl4+wp7+win8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Silverlight.Testing">
       <HintPath>..\External\WP71\Microsoft.Silverlight.Testing.dll</HintPath>
@@ -65,7 +71,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
     <Reference Include="System.Windows.Interactivity, Version=3.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\External\WP71\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\Portable\packages\Unofficial.Blend.Interactivity.1.0.0\lib\sl4-wp71\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -78,9 +84,6 @@
     </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Command\EventToCommandStub.cs">
       <Link>Command\EventToCommandStub.cs</Link>
-    </Compile>
-    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Command\EventToCommandTest.cs">
-      <Link>Command\EventToCommandTest.cs</Link>
     </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Command\RelayCommandGenericTest.cs">
       <Link>Command\RelayCommandGenericTest.cs</Link>
@@ -175,9 +178,6 @@
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Ioc\SimpleIocTestUnregistration.cs">
       <Link>Ioc\SimpleIocTestUnregistration.cs</Link>
     </Compile>
-    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\DialogMessageTest.cs">
-      <Link>Messaging\DialogMessageTest.cs</Link>
-    </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Messaging\GarbageCollectionTest.cs">
       <Link>Messaging\GarbageCollectionTest.cs</Link>
     </Compile>
@@ -232,9 +232,6 @@
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\ObservableObjectPropertyChangedTest.cs">
       <Link>ObservableObjectPropertyChangedTest.cs</Link>
     </Compile>
-    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\ObservableObjectPropertyChangingTest.cs">
-      <Link>ObservableObjectPropertyChangingTest.cs</Link>
-    </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
@@ -286,9 +283,6 @@
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Stubs\TestViewModelWithBooleanSource.cs">
       <Link>Stubs\TestViewModelWithBooleanSource.cs</Link>
     </Compile>
-    <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\Threading\DispatcherHelperTest.cs">
-      <Link>Threading\DispatcherHelperTest.cs</Link>
-    </Compile>
     <Compile Include="..\GalaSoft.MvvmLight.Test %28NET35%29\ViewModelBaseTest.cs">
       <Link>ViewModelBaseTest.cs</Link>
     </Compile>
@@ -323,6 +317,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
@@ -336,14 +331,26 @@
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GalaSoft.MvvmLight %28WP71%29\GalaSoft.MvvmLight %28WP71%29.csproj">
-      <Project>{278602AC-0053-4EA4-BE56-C2F51C381F2D}</Project>
-      <Name>GalaSoft.MvvmLight %28WP71%29</Name>
+    <ProjectReference Include="..\Portable\GalaSoft.MvvmLight.Extras\GalaSoft.MvvmLight.Extras.csproj">
+      <Project>{C0B359A9-4985-435D-8CC1-C1FEC405BC2C}</Project>
+      <Name>GalaSoft.MvvmLight.Extras</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GalaSoft.MvvmLight.Extras %28WP71%29\GalaSoft.MvvmLight.Extras %28WP71%29.csproj">
-      <Project>{7B6403F8-D179-4EDE-B23F-2D3F87869543}</Project>
-      <Name>GalaSoft.MvvmLight.Extras %28WP71%29</Name>
+    <ProjectReference Include="..\Portable\GalaSoft.MvvmLight.Platforms.WP75\GalaSoft.MvvmLight.Platforms.WP75.csproj">
+      <Project>{CF41A730-7AA7-40B7-A15A-735EF782CB70}</Project>
+      <Name>GalaSoft.MvvmLight.Platforms.WP75</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Portable\GalaSoft.MvvmLight.TestHelpers\GalaSoft.MvvmLight.TestHelpers.csproj">
+      <Project>{A406E3C6-51E8-4C53-9039-0C7033738531}</Project>
+      <Name>GalaSoft.MvvmLight.TestHelpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Portable\GalaSoft.MvvmLight\GalaSoft.MvvmLight.csproj">
+      <Project>{FDFC16DC-929D-49DC-8C30-0C697DCD3860}</Project>
+      <Name>GalaSoft.MvvmLight</Name>
+      <Aliases>global, mvvm</Aliases>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Threading\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

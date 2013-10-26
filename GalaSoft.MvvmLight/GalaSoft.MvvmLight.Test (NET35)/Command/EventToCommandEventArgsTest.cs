@@ -1,13 +1,36 @@
 ﻿using System.Windows;
+
+using GalaSoft.MvvmLight.Command;
+using System.Windows.Input;
+using System;
+
+#if NETFX_CORE || WINDOWS_PHONE
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#else
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
+
+#if NETFX_CORE
+using Windows.UI.Xaml.Shapes;
+using Windows.UI.Interactivity;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml;
+#else
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Interactivity;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using GalaSoft.MvvmLight.Command;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Windows.Input;
-using System;
+#endif
+
+#if WINDOWS_PHONE
+using TestMethodAttribute = Microsoft.VisualStudio.TestPlatform.UnitTestFramework.UITestMethodAttribute;
+#endif
+
+#if NETFX_CORE
+using TestMethodAttribute = Microsoft.VisualStudio.TestPlatform.UnitTestFramework.AppContainer.UITestMethodAttribute;
+#endif
 
 namespace GalaSoft.MvvmLight.Test.Command
 {
@@ -42,7 +65,9 @@ namespace GalaSoft.MvvmLight.Test.Command
         }
 
         [TestMethod]
+#if !NETFX_CORE && !WINDOWS_PHONE
         [ExpectedException(typeof(InvalidCastException))]
+#endif
         public void TestInvokeParameterCommandWithEventArgs()
         {
             var trigger = new EventToCommandStub();
@@ -64,9 +89,18 @@ namespace GalaSoft.MvvmLight.Test.Command
 #endif
 
             var args = new StringEventArgs("StringEventArgs");
-            trigger.InvokeWithEventArgs(args);
-            Assert.IsTrue(vm.CommandExecuted);
-            Assert.AreEqual(args.Parameter, vm.ParameterReceived);
+
+#if NETFX_CORE || WINDOWS_PHONE 
+            Assert.ThrowsException<InvalidCastException>(
+                () =>
+                    {
+#endif
+                        trigger.InvokeWithEventArgs(args);
+                        Assert.IsTrue(vm.CommandExecuted);
+                        Assert.AreEqual(args.Parameter, vm.ParameterReceived);
+#if NETFX_CORE || WINDOWS_PHONE 
+                    });
+#endif
         }
 
         [TestMethod]

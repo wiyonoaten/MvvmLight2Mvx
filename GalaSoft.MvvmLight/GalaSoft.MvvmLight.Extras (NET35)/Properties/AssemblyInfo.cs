@@ -20,7 +20,7 @@ using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
 
-#if !NETFX_CORE
+#if !NETFX_CORE && !PORTABLE
 #if !XAMARIN
 using System.Windows.Markup;
 #endif
@@ -28,22 +28,12 @@ using System.Windows.Markup;
 
 [assembly: AssemblyTitle("GalaSoft.MvvmLight.Extras")]
 [assembly: AssemblyDescription("Extras components to implement Model-View-ViewModel applications in WPF, Silverlight and Windows Phone 7")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("GalaSoft Laurent Bugnion @ http://www.galasoft.ch")]
-[assembly: AssemblyProduct("GalaSoft.MvvmLight.Extras")]
-[assembly: AssemblyCopyright("Copyright © GalaSoft Laurent Bugnion 2009-2013")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
 
-#if !NETFX_CORE
+#if !NETFX_CORE && !PORTABLE
 #if !XAMARIN
 [assembly: XmlnsDefinition("http://www.galasoft.ch/mvvmlight", "GalaSoft.MvvmLight.Command")]
 #endif
 #endif
-
-[assembly: ComVisible(false)]
-[assembly: CLSCompliant(true)]
+#if !PORTABLE
 [assembly:NeutralResourcesLanguage("en-US")]
-
-[assembly: AssemblyVersion("4.2.30.*")]
-////[assembly: AssemblyFileVersion("4.2.30.0/BL0030")]
+#endif

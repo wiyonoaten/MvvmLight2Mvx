@@ -69,7 +69,11 @@ namespace GalaSoft.MvvmLight.Threading
         /// </summary>
         /// <param name="action">The action that will be executed on the UI
         /// thread.</param>
-        public static void CheckBeginInvokeOnUI(Action action)
+        public static
+#if NETFX_CORE
+            async
+#endif
+            void CheckBeginInvokeOnUI(Action action)
         {
             if (action == null)
             {
@@ -89,7 +93,7 @@ namespace GalaSoft.MvvmLight.Threading
             else
             {
 #if NETFX_CORE
-                UIDispatcher.RunAsync(CoreDispatcherPriority.Normal,  () => action());
+                await UIDispatcher.RunAsync(CoreDispatcherPriority.Normal,  () => action());
 #else
                 UIDispatcher.BeginInvoke(action);
 #endif

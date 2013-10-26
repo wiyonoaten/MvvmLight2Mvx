@@ -28,7 +28,7 @@ namespace GalaSoft.MvvmLight.Helpers
     ////[ClassInfo(typeof(WeakAction)]
     public class WeakFunc<TResult>
     {
-#if SILVERLIGHT
+#if SILVERLIGHT || PORTABLE
         private Func<TResult> _func;
 #endif
         private Func<TResult> _staticFunc;
@@ -50,9 +50,19 @@ namespace GalaSoft.MvvmLight.Helpers
         {
             get
             {
-#if SILVERLIGHT
-                return (_func != null && _func.Target == null)
-                    || _staticFunc != null;
+#if SILVERLIGHT || PORTABLE
+                
+#if PORTABLE
+                if (!FeatureDetection.IsPrivateReflectionSupported)
+                {
+#endif
+                    return (_func != null && _func.Target == null)
+                        || _staticFunc != null;    
+#if PORTABLE
+                }
+                return _staticFunc != null;
+#endif
+
 #else
                 return _staticFunc != null;
 #endif
@@ -75,18 +85,29 @@ namespace GalaSoft.MvvmLight.Helpers
 #endif
                 }
 
-#if SILVERLIGHT
-                if (_func != null)
+#if SILVERLIGHT || PORTABLE
+
+#if PORTABLE
+                if (!FeatureDetection.IsPrivateReflectionSupported)
                 {
-                    return _func.Method.Name;
+#endif
+                    if (_func != null)
+                    {
+                        return _func.Method.Name;
+                    }
+
+                    if (Method != null)
+                    {
+                        return Method.Name;
+                    }
+
+                    return string.Empty;
+#if PORTABLE
                 }
 
-                if (Method != null)
-                {
-                    return Method.Name;
-                }
+                return Method.Name;
+#endif
 
-                return string.Empty;
 #else
                 return Method.Name;
 #endif
@@ -163,30 +184,45 @@ namespace GalaSoft.MvvmLight.Helpers
                 return;
             }
 
-#if SILVERLIGHT
-            if (!func.Method.IsPublic
-                || (target != null
-                    && !target.GetType().IsPublic
-                    && !target.GetType().IsNestedPublic))
-            {
-                _func = func;
-            }
-            else
-            {
-                var name = func.Method.Name;
+#if SILVERLIGHT || PORTABLE
 
-                if (name.Contains("<")
-                    && name.Contains(">"))
+#if PORTABLE
+            if (!FeatureDetection.IsPrivateReflectionSupported)
+            {
+#endif
+
+                if (!func.Method.IsPublic
+                    || (func.Target != null
+                        && !func.Target.GetType().IsPublic
+                        && !func.Target.GetType().IsNestedPublic))
                 {
-                    // Anonymous method
                     _func = func;
                 }
                 else
                 {
-                    Method = func.Method;
-                    FuncReference = new WeakReference(func.Target);
+                    var name = func.Method.Name;
+
+                    if (name.Contains("<")
+                        && name.Contains(">"))
+                    {
+                        // Anonymous method
+                        _func = func;
+                    }
+                    else
+                    {
+                        Method = func.Method;
+                        FuncReference = new WeakReference(func.Target);
+                    }
                 }
+#if PORTABLE
             }
+            else
+            {
+                Method = func.Method;
+                FuncReference = new WeakReference(func.Target);
+            }
+#endif
+
 #else
 #if NETFX_CORE
             Method = func.GetMethodInfo();
@@ -286,11 +322,20 @@ namespace GalaSoft.MvvmLight.Helpers
                     return (TResult)Method.Invoke(funcTarget, null);
                 }
 
-#if SILVERLIGHT
-                if (_func != null)
+#if SILVERLIGHT || PORTABLE
+
+#if PORTABLE
+                if (!FeatureDetection.IsPrivateReflectionSupported)
                 {
-                    return _func();
+#endif
+                    if (_func != null)
+                    {
+                        return _func();
+                        
+                    }
+#if PORTABLE
                 }
+#endif
 #endif
             }
 
@@ -307,7 +352,7 @@ namespace GalaSoft.MvvmLight.Helpers
             Method = null;
             _staticFunc = null;
 
-#if SILVERLIGHT
+#if SILVERLIGHT || PORTABLE
             _func = null;
 #endif
         }

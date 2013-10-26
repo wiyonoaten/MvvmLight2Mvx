@@ -2,7 +2,16 @@
 using System.Threading;
 using System.Windows.Controls;
 using GalaSoft.MvvmLight.Threading;
+
+#if NETFX_CORE || WINDOWS_PHONE
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
+
+#if WINDOWS_PHONE
+using TestMethodAttribute = Microsoft.VisualStudio.TestPlatform.UnitTestFramework.UITestMethodAttribute;
+#endif
 
 namespace GalaSoft.MvvmLight.Test.Threading
 {

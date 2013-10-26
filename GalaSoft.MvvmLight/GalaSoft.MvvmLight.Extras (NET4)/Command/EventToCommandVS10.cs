@@ -14,9 +14,17 @@
 // ****************************************************************************
 
 using System;
-using System.Windows;
 using System.Windows.Input;
+
+#if !NETFX_CORE
+using System.Windows;
 using System.Windows.Interactivity;
+#else
+using Windows.UI.Interactivity;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+
+#endif
 
 #if SILVERLIGHT
 using System.Windows.Controls;
@@ -35,13 +43,18 @@ namespace GalaSoft.MvvmLight.Command
     /// <para>To access the EventArgs of the fired event, use a RelayCommand&lt;EventArgs&gt;
     /// and leave the CommandParameter and CommandParameterValue empty!</para>
     /// </summary>
-    ////[ClassInfo(typeof(EventToCommand),
+    //[ClassInfo(typeof(EventToCommand),
     ////  VersionString = "4.2.7",
     ////  DateString = "201309262235",
-    ////  Description = "A Trigger used to bind any event to an ICommand.",
-    ////  UrlContacts = "http://www.galasoft.ch/contact_en.html",
-    ////  Email = "laurent@galasoft.ch")]
-    public class EventToCommand : TriggerAction<DependencyObject>
+    //  Description = "A Trigger used to bind any event to an ICommand.",
+    //  UrlContacts = "http://www.galasoft.ch/contact_en.html",
+    //  Email = "laurent@galasoft.ch")]
+    public class EventToCommand : 
+#if !NETFX_CORE
+        TriggerAction<DependencyObject>
+#else
+        TriggerAction<Control>
+#endif
     {
         /// <summary>
         /// Identifies the <see cref="CommandParameter" /> dependency property
@@ -216,7 +229,7 @@ namespace GalaSoft.MvvmLight.Command
             EnableDisableElement();
         }
 
-#if SILVERLIGHT
+#if SILVERLIGHT || NETFX_CORE
         private Control GetAssociatedObject()
         {
             return AssociatedObject as Control;

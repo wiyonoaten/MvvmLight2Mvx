@@ -21,8 +21,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Helpers;
 
-#if NETFX_CORE
+#if NETFX_CORE || PORTABLE
 using System.Reflection;
+using GalaSoft.MvvmLight.Internal;
+
 #endif
 
 ////using GalaSoft.Utilities.Attributes;
@@ -42,6 +44,8 @@ namespace GalaSoft.MvvmLight.Command
         private readonly WeakAction<T> _execute;
 
         private readonly WeakFunc<T, bool> _canExecute;
+        private static readonly ICommandManagerHelper _commandManager = PlatformAdapter.Resolve<ICommandManagerHelper>(false);
+        private EventHandler _canExecuteChangedEvent;
 
         /// <summary>
         /// Initializes a new instance of the RelayCommand class that 
@@ -86,6 +90,34 @@ namespace GalaSoft.MvvmLight.Command
         /// Occurs when changes occur that affect whether the command should execute.
         /// </summary>
         public event EventHandler CanExecuteChanged;
+#elif PORTABLE
+        /// <summary>
+        /// Occurs when changes occur that affect whether the command should execute.
+        /// </summary>
+        public event EventHandler CanExecuteChanged
+        {
+            add
+            {
+                if (_canExecute != null)
+                {
+                    if (_commandManager != null)
+                        _commandManager.RequerySuggested += value;
+                    else
+                        _canExecuteChangedEvent += value;
+                }
+            }
+
+            remove
+            {
+                if (_canExecute != null)
+                {
+                    if (_commandManager != null)
+                        _commandManager.RequerySuggested -= value;
+                    else
+                        _canExecuteChangedEvent -= value;
+                }
+            }
+        }
 #else
 #if XAMARIN
         /// <summary>
@@ -144,6 +176,17 @@ namespace GalaSoft.MvvmLight.Command
             {
                 handler(this, EventArgs.Empty);
             }
+#elif PORTABLE
+            if (_commandManager != null)
+            {
+                _commandManager.InvalidateRequerySuggested();
+            }
+            else
+            {
+                var handler = _canExecuteChangedEvent;
+                if (handler != null)
+                    handler(this, EventArgs.Empty);
+            }
 #else
 #if XAMARIN
             var handler = CanExecuteChanged;
@@ -171,23 +214,67 @@ namespace GalaSoft.MvvmLight.Command
                 return true;
             }
 
+            bool matches;
+            var val = GetParameterForMethodFromValuePassedIn(parameter, out matches);
+            
+            if(matches)
+                return CanExecute(val);
+
+            return false;
+        }
+
+
+        private bool CanExecute(T parameter)
+        {
+            if (_canExecute == null)
+            {
+                return true;
+            }
+
             if (_canExecute.IsStatic || _canExecute.IsAlive)
             {
-                if (parameter == null
-#if NETFX_CORE
-                    && typeof(T).GetTypeInfo().IsValueType)
-#else
-                    && typeof(T).IsValueType)
-#endif
-                {
-                    return _canExecute.Execute(default(T));
-                }
-
-                return _canExecute.Execute((T) parameter);
+                return _canExecute.Execute(parameter);
             }
 
             return false;
         }
+
+        private static T GetParameterForMethodFromValuePassedIn(object parameter, out bool typeMatches)
+        {
+            var val = parameter;
+
+#if !NETFX_CORE
+
+            var underlying = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
+            if (parameter != null
+                && parameter.GetType() != typeof(T) && parameter.GetType() != underlying)
+            {
+
+                if (parameter is IConvertible)
+                {
+                    // internally, even the NetCore 4.5 version  will use IConvertible
+                    val = Convert.ChangeType(parameter, underlying, null);
+                }
+            }
+#endif
+            
+            if (val == null)
+            {
+                typeMatches = true;
+                return default(T);
+            }
+
+
+            // check to see if it's of the same type
+            typeMatches = val is T;
+
+            if(typeMatches)
+                return (T)val;
+
+            // Don't throw, just return default
+            return default(T); 
+        }
+
 
         /// <summary>
         /// Defines the method to be called when the command is invoked. 
@@ -196,43 +283,19 @@ namespace GalaSoft.MvvmLight.Command
         /// to be passed, this object can be set to a null reference</param>
         public virtual void Execute(object parameter)
         {
-            var val = parameter;
+            bool matches;
+            var val = GetParameterForMethodFromValuePassedIn(parameter, out matches);
+            
+            if (!matches)
+                throw new InvalidCastException("Cannot convert parameter to " + typeof(T));
 
-#if !NETFX_CORE
-            if (parameter != null
-                && parameter.GetType() != typeof(T))
-            {
-                if (parameter is IConvertible)
-                {
-                    val = Convert.ChangeType(parameter, typeof (T), null);
-                }
-            }
-#endif
-
-            if (CanExecute(val)
+            if (matches && CanExecute(val)
                 && _execute != null
                 && (_execute.IsStatic || _execute.IsAlive))
             {
-                if (val == null)
-                {
-#if NETFX_CORE
-                    if (typeof(T).GetTypeInfo().IsValueType)
-#else
-                    if (typeof(T).IsValueType)
-#endif
-                    {
-                        _execute.Execute(default(T));
-                    }
-                    else
-                    {
-                        _execute.Execute((T)val);
-                    }
-                }
-                else
-                {
-                    _execute.Execute((T)val);
-                }
+                _execute.Execute(val);
             }
+            
         }
     }
 }

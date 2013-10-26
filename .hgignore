@@ -25,11 +25,14 @@ syntax: glob
 *.sbr
 *.scc
 *.sdf
+*.orig
 [Bb]in
 [Dd]ebug*/
 obj/
 [Rr]elease*/
 _Resharper.*/
+**/TestResults/*
+**/_ReSharper*/*
 [Tt]est[Rr]esult*
 [Bb]uild[Ll]og.*
 *.[Pp]ublish.xml
@@ -65,3 +68,5 @@ Installer/StandardMSI/_ReSharper.Installer/
 Installer/StandardVSIX/_ReSharper.MvvmLight.VS10/
 Installer/StandardVSIX/_ReSharper.MvvmLight.VS11/
 GalaSoft.MvvmLight/Win8RP/_ReSharper.GalaSoft.MvvmLight.Win8/
+**/packages/*
+*.nupkg

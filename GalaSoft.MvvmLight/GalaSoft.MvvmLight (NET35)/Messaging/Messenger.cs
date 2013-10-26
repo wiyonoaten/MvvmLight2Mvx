@@ -24,7 +24,7 @@ using GalaSoft.MvvmLight.Helpers;
 
 #if SILVERLIGHT
 using System.Windows;
-#else
+#elif !PORTABLE
 #if !XAMARIN
 #if NETFX_CORE
 using Windows.UI.Xaml;
@@ -56,6 +56,9 @@ namespace GalaSoft.MvvmLight.Messaging
         private Dictionary<Type, List<WeakActionAndToken>> _recipientsOfSubclassesAction;
         private Dictionary<Type, List<WeakActionAndToken>> _recipientsStrictAction;
 
+#if PORTABLE
+        private readonly SynchronizationContext _context = SynchronizationContext.Current;
+#endif
         /// <summary>
         /// Gets the Messenger's default instance, allowing
         /// to register and send messages in a static manner.
@@ -536,7 +539,7 @@ namespace GalaSoft.MvvmLight.Messaging
 #if NETFX_CORE
                             || action.GetMethodInfo().Name == weakActionCasted.MethodName)
 #else
-                            || action.Method.Name == weakActionCasted.MethodName)
+                        || action.Method.Name == weakActionCasted.MethodName)
 #endif
                         && (token == null
                             || token.Equals(item.Token)))
@@ -567,7 +570,7 @@ namespace GalaSoft.MvvmLight.Messaging
 
 #if SILVERLIGHT
                 Deployment.Current.Dispatcher.BeginInvoke(cleanupAction);
-#else
+#elif !PORTABLE
 #if XAMARIN
                 // TODO ANDROID How to dispatch in order to use lower priority
                 cleanupAction();
@@ -590,6 +593,12 @@ namespace GalaSoft.MvvmLight.Messaging
                     cleanupAction,
                     DispatcherPriority.ApplicationIdle,
                     null);
+#else
+
+                if (_context != null)
+                    _context.Post(_ => cleanupAction(), null);
+                else
+                    cleanupAction(); // run inline w/o a context
 #endif
 #endif
 #endif
@@ -644,6 +653,7 @@ namespace GalaSoft.MvvmLight.Messaging
                             list = _recipientsOfSubclassesAction[type].Take(_recipientsOfSubclassesAction[type].Count()).ToList();
                         }
                     }
+
 
                     SendToList(message, list, messageTargetType, token);
                 }

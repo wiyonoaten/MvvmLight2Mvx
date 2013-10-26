@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Globalization;
-using System.Windows.Data;
 using GalaSoft.MvvmLight.Command;
 
 namespace GalaSoft.MvvmLight.Test.Command

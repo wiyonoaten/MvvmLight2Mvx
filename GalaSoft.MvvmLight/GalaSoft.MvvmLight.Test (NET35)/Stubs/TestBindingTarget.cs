@@ -1,4 +1,9 @@
-﻿using System.Windows;
+﻿
+#if !NETFX_CORE
+using System.Windows;
+#else
+using Windows.UI.Xaml;
+#endif
 
 namespace GalaSoft.MvvmLight.Test.Stubs
 {

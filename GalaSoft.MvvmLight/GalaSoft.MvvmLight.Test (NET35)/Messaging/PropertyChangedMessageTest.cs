@@ -1,7 +1,7 @@
 ﻿using System;
 using GalaSoft.MvvmLight.Messaging;
 
-#if NETFX_CORE
+#if NETFX_CORE || WINDOWS_PHONE
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -36,7 +36,7 @@ namespace GalaSoft.MvvmLight.Test.Messaging
 
             var messageWasReceived = false;
 
-            var testViewModel = new TestViewModel(previousDateTime, (InvalidOperationException) PreviousException);
+            var testViewModel = new PropertyChangedTestViewModel(previousDateTime, (InvalidOperationException) PreviousException);
 
             Messenger.Reset();
 
@@ -55,7 +55,7 @@ namespace GalaSoft.MvvmLight.Test.Messaging
                     if (exceptionMessage != null
                         &&
                         exceptionMessage.PropertyName
-                        == TestViewModel.MyExceptionPropertyName)
+                        == PropertyChangedTestViewModel.MyExceptionPropertyName)
                     {
                         receivedPreviousException =
                             exceptionMessage.OldValue;
@@ -68,7 +68,7 @@ namespace GalaSoft.MvvmLight.Test.Messaging
                         m as PropertyChangedMessage<DateTime>;
 
                     if (dateMessage != null
-                        && dateMessage.PropertyName == TestViewModel.MyDatePropertyName)
+                        && dateMessage.PropertyName == PropertyChangedTestViewModel.MyDatePropertyName)
                     {
                         receivedPreviousDateTime =
                             dateMessage.OldValue;
@@ -140,7 +140,7 @@ namespace GalaSoft.MvvmLight.Test.Messaging
 
             var messageWasReceived = false;
 
-            var testViewModel = new TestViewModel(previousDateTime, (InvalidOperationException) PreviousException);
+            var testViewModel = new PropertyChangedTestViewModel(previousDateTime, (InvalidOperationException) PreviousException);
 
             Messenger.Reset();
 
@@ -152,7 +152,7 @@ namespace GalaSoft.MvvmLight.Test.Messaging
                                                                              messageWasReceived = true;
 
                                                                              if (m.PropertyName
-                                                                                 == TestViewModel.MyDatePropertyName)
+                                                                                 == PropertyChangedTestViewModel.MyDatePropertyName)
                                                                              {
                                                                                  receivedPreviousDateTime = m.OldValue;
                                                                                  receivedCurrentDateTime = m.NewValue;
@@ -169,7 +169,7 @@ namespace GalaSoft.MvvmLight.Test.Messaging
 
                                                                                               if (m.PropertyName
                                                                                                   ==
-                                                                                                  TestViewModel.
+                                                                                                  PropertyChangedTestViewModel.
                                                                                                       MyExceptionPropertyName)
                                                                                               {
                                                                                                   receivedPreviousException
@@ -340,109 +340,109 @@ namespace GalaSoft.MvvmLight.Test.Messaging
             Assert.AreEqual(TestOldContent2, receivedOldContent2);
             Assert.AreEqual(TestNewContent2, receivedNewContent2);
         }
+    }
 
-        public class TestViewModel : ViewModelBase
+    public class PropertyChangedTestViewModel : ViewModelBase
+    {
+        /// <summary>
+        /// The <see cref="AnotherDate" /> property's name.
+        /// </summary>
+        public const string AnotherDatePropertyName = "AnotherDate";
+
+        /// <summary>
+        /// The <see cref="MyDate" /> property's name.
+        /// </summary>
+        public const string MyDatePropertyName = "MyDate";
+
+        /// <summary>
+        /// The <see cref="MyException" /> property's name.
+        /// </summary>
+        public const string MyExceptionPropertyName = "MyException";
+
+        private DateTime _anotherDate;
+
+        private DateTime _myDate;
+
+        private InvalidOperationException _myException;
+
+        public PropertyChangedTestViewModel(DateTime initialValueDateTime, InvalidOperationException initialValueException)
         {
-            /// <summary>
-            /// The <see cref="AnotherDate" /> property's name.
-            /// </summary>
-            public const string AnotherDatePropertyName = "AnotherDate";
+            _myDate = initialValueDateTime;
+            _myException = initialValueException;
+        }
 
-            /// <summary>
-            /// The <see cref="MyDate" /> property's name.
-            /// </summary>
-            public const string MyDatePropertyName = "MyDate";
-
-            /// <summary>
-            /// The <see cref="MyException" /> property's name.
-            /// </summary>
-            public const string MyExceptionPropertyName = "MyException";
-
-            private DateTime _anotherDate;
-
-            private DateTime _myDate;
-
-            private InvalidOperationException _myException;
-
-            public TestViewModel(DateTime initialValueDateTime, InvalidOperationException initialValueException)
+        /// <summary>
+        /// Gets the AnotherDate property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// This property's value is broadcasted by the Messenger's default instance when it changes.
+        /// </summary>
+        public DateTime AnotherDate
+        {
+            get
             {
-                _myDate = initialValueDateTime;
-                _myException = initialValueException;
+                return _anotherDate;
             }
 
-            /// <summary>
-            /// Gets the AnotherDate property.
-            /// Changes to that property's value raise the PropertyChanged event. 
-            /// This property's value is broadcasted by the Messenger's default instance when it changes.
-            /// </summary>
-            public DateTime AnotherDate
+            set
             {
-                get
+                if (_anotherDate == value)
                 {
-                    return _anotherDate;
+                    return;
                 }
 
-                set
-                {
-                    if (_anotherDate == value)
-                    {
-                        return;
-                    }
+                var oldValue = _anotherDate;
+                _anotherDate = value;
+                RaisePropertyChanged(AnotherDatePropertyName, oldValue, value, true);
+            }
+        }
 
-                    var oldValue = _anotherDate;
-                    _anotherDate = value;
-                    RaisePropertyChanged(AnotherDatePropertyName, oldValue, value, true);
-                }
+        /// <summary>
+        /// Gets the MyDate property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// This property's value is broadcasted by the Messenger's default instance when it changes.
+        /// </summary>
+        public DateTime MyDate
+        {
+            get
+            {
+                return _myDate;
             }
 
-            /// <summary>
-            /// Gets the MyDate property.
-            /// Changes to that property's value raise the PropertyChanged event. 
-            /// This property's value is broadcasted by the Messenger's default instance when it changes.
-            /// </summary>
-            public DateTime MyDate
+            set
             {
-                get
+                if (_myDate == value)
                 {
-                    return _myDate;
+                    return;
                 }
 
-                set
-                {
-                    if (_myDate == value)
-                    {
-                        return;
-                    }
+                var oldValue = _myDate;
+                _myDate = value;
+                RaisePropertyChanged(MyDatePropertyName, oldValue, value, true);
+            }
+        }
 
-                    var oldValue = _myDate;
-                    _myDate = value;
-                    RaisePropertyChanged(MyDatePropertyName, oldValue, value, true);
-                }
+        /// <summary>
+        /// Gets the MyException property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// This property's value is broadcasted by the Messenger's default instance when it changes.
+        /// </summary>
+        public InvalidOperationException MyException
+        {
+            get
+            {
+                return _myException;
             }
 
-            /// <summary>
-            /// Gets the MyException property.
-            /// Changes to that property's value raise the PropertyChanged event. 
-            /// This property's value is broadcasted by the Messenger's default instance when it changes.
-            /// </summary>
-            public InvalidOperationException MyException
+            set
             {
-                get
+                if (_myException == value)
                 {
-                    return _myException;
+                    return;
                 }
 
-                set
-                {
-                    if (_myException == value)
-                    {
-                        return;
-                    }
-
-                    var oldValue = _myException;
-                    _myException = value;
-                    RaisePropertyChanged(MyExceptionPropertyName, oldValue, value, true);
-                }
+                var oldValue = _myException;
+                _myException = value;
+                RaisePropertyChanged(MyExceptionPropertyName, oldValue, value, true);
             }
         }
     }

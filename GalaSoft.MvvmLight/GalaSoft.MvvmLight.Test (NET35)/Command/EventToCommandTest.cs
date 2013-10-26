@@ -1,10 +1,34 @@
 ﻿using System.Windows;
+
+using GalaSoft.MvvmLight.Command;
+#if NETFX_CORE || WINDOWS_PHONE
+using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+#else
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
+using System.Windows.Input;
+using System;
+
+#if WINDOWS_PHONE
+using TestMethodAttribute = Microsoft.VisualStudio.TestPlatform.UnitTestFramework.UITestMethodAttribute;
+#endif
+
+#if NETFX_CORE
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Shapes;
+using Windows.UI.Interactivity;
+using Windows.UI.Xaml.Data;
+
+using TestMethodAttribute = Microsoft.VisualStudio.TestPlatform.UnitTestFramework.AppContainer.UITestMethodAttribute;
+
+#else
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Interactivity;
 using System.Windows.Shapes;
-using GalaSoft.MvvmLight.Command;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+#endif
+
 
 namespace GalaSoft.MvvmLight.Test.Command
 {
@@ -257,7 +281,7 @@ namespace GalaSoft.MvvmLight.Test.Command
                 MustToggleIsEnabledValue = true
             };
 
-#if SILVERLIGHT
+#if SILVERLIGHT || PORTABLE
             var rectangle = new Rectangle();
 #else
             var rectangle = new Rectangle
@@ -282,7 +306,7 @@ namespace GalaSoft.MvvmLight.Test.Command
             BindingOperations.SetBinding(trigger, EventToCommand.CommandProperty, binding);
 #endif
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !PORTABLE
             Assert.IsTrue(rectangle.IsEnabled);
 #endif
             trigger.Invoke();
@@ -315,7 +339,7 @@ namespace GalaSoft.MvvmLight.Test.Command
             BindingOperations.SetBinding(trigger, EventToCommand.CommandProperty, binding);
 #endif
 
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !PORTABLE
             Assert.IsFalse(rectangle.IsEnabled);
 #endif
             trigger.Invoke();
@@ -401,7 +425,7 @@ namespace GalaSoft.MvvmLight.Test.Command
             textBox.Text = "Hello world";
 
 #if SILVERLIGHT
-            // Invoking CommandManager from unit tests fails in WPF
+    // Invoking CommandManager from unit tests fails in WPF
             Assert.IsTrue(button.IsEnabled);
             trigger.Invoke();
             Assert.IsTrue(vm.CommandExecuted);

@@ -27,13 +27,23 @@ using System.Runtime.CompilerServices;
 
 #endif
 
+#if NETFX_CORE
+using System.Reflection.RuntimeExtensions;
+#elif PORTABLE
+using JetBrains.Annotations;
+
+#endif
+
 namespace GalaSoft.MvvmLight
 {
     /// <summary>
     /// A base class for objects of which the properties must be observable.
     /// </summary>
     //// [ClassInfo(typeof(ViewModelBase))]
-    public class ObservableObject : INotifyPropertyChanged, INotifyPropertyChanging
+    public class ObservableObject : INotifyPropertyChanged
+#if !PORTABLE
+        , INotifyPropertyChanging
+#endif
     {
         /// <summary>
         /// Occurs after a property value changes.
@@ -50,7 +60,7 @@ namespace GalaSoft.MvvmLight
                 return PropertyChanged;
             }
         }
-
+#if !PORTABLE
         /// <summary>
         /// Occurs before a property value changes.
         /// </summary>
@@ -66,6 +76,7 @@ namespace GalaSoft.MvvmLight
                 return PropertyChanging;
             }
         }
+#endif
 
         /// <summary>
         /// Verifies that a property name exists in this ViewModel. This method
@@ -84,7 +95,7 @@ namespace GalaSoft.MvvmLight
 
 #if NETFX_CORE
             if (!string.IsNullOrEmpty(propertyName)
-                && myType.GetTypeInfo().GetDeclaredProperty(propertyName) == null)
+                && !myType.GetRuntimeProperties().Any(prop => prop.Name ==propertyName))
             {
                 throw new ArgumentException("Property not found", propertyName);
             }
@@ -92,7 +103,7 @@ namespace GalaSoft.MvvmLight
             if (!string.IsNullOrEmpty(propertyName)
                 && myType.GetProperty(propertyName) == null)
             {
-#if !SILVERLIGHT
+#if !SILVERLIGHT && !PORTABLE
                 var descriptor = this as ICustomTypeDescriptor;
 
                 if (descriptor != null)
@@ -145,11 +156,13 @@ namespace GalaSoft.MvvmLight
         {
             VerifyPropertyName(propertyName);
 
+#if !PORTABLE
             var handler = PropertyChanging;
             if (handler != null)
             {
                 handler(this, new PropertyChangingEventArgs(propertyName));
             }
+#endif
         }
 
 #if CMNATTR
@@ -211,12 +224,14 @@ namespace GalaSoft.MvvmLight
             Justification = "This syntax is more convenient than other alternatives.")]
         protected virtual void RaisePropertyChanging<T>(Expression<Func<T>> propertyExpression)
         {
+#if !PORTABLE
             var handler = PropertyChanging;
             if (handler != null)
             {
                 var propertyName = GetPropertyName(propertyExpression);
                 handler(this, new PropertyChangingEventArgs(propertyName));
             }
+#endif
         }
 
         /// <summary>
