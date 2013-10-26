@@ -1,4 +1,4 @@
-﻿// ****************************************************************************
+﻿// *************************************30*************************************
 // <copyright file="AssemblyInfo.cs" company="GalaSoft Laurent Bugnion">
 // Copyright © GalaSoft Laurent Bugnion 2009-2013
 // </copyright>
@@ -33,4 +33,7 @@ using System.Windows.Markup;
 #if !XAMARIN
 [assembly: XmlnsDefinition("http://www.galasoft.ch/mvvmlight", "GalaSoft.MvvmLight.Command")]
 #endif
+#endif
+#if !PORTABLE
+[assembly:NeutralResourcesLanguage("en-US")]
 #endif

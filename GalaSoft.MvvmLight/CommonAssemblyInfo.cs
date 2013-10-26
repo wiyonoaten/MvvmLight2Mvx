@@ -27,14 +27,14 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: NeutralResourcesLanguage("en")]
+[assembly: NeutralResourcesLanguage("en-US")]
 
 #if !PORTABLE
 [assembly: ComVisible(false)]
 #endif
 
 [assembly: CLSCompliant(true)]
-[assembly: AssemblyVersion("4.2.29.*")]
-////[assembly: AssemblyFileVersion("4.2.29.0/BL0029")]
+[assembly: AssemblyVersion("4.2.30.*")]
+////[assembly: AssemblyFileVersion("4.2.30.0/BL0030")]
 
 
