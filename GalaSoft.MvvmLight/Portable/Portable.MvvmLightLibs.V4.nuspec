@@ -2,10 +2,10 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>Portable.MvvmLightLibs</id>
-        <version>4.2.0-rc1</version>
+        <version>4.2.30</version>
         <title>MVVM Light libraries only (PCL)</title>
         <authors>Laurent Bugnion (GalaSoft),onovotny</authors>
-        <owners>onovotny</owners>
+        <owners>onovotny, lbugnion</owners>
         <licenseUrl>http://mvvmlight.codeplex.com/license</licenseUrl>
         <projectUrl>http://mvvmlight.codeplex.com/SourceControl/network/forks/onovotny/MvvmLightPortable</projectUrl>
         <iconUrl>http://www.galasoft.ch/mvvm/resources/Logo/icon_100x100_transparent.png</iconUrl>
