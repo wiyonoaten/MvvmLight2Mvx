@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>Portable.MvvmLightLibs</id>
-        <version>4.2.30</version>
+        <version>4.2.30.1</version>
         <title>MVVM Light libraries only (PCL)</title>
         <authors>Laurent Bugnion (GalaSoft),onovotny</authors>
         <owners>onovotny, lbugnion</owners>
@@ -73,12 +73,12 @@
 
 
       <!-- Win8.1 -->
-      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.dll" target="lib\win8\GalaSoft.MvvmLight.dll" />
-      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.pdb" target="lib\win8\GalaSoft.MvvmLight.pdb" />
-      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.xml" target="lib\win8\GalaSoft.MvvmLight.xml" />
-      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\win8\GalaSoft.MvvmLight.Extras.dll" />
-      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.pdb" target="lib\win8\GalaSoft.MvvmLight.Extras.pdb" />
-      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.xml" target="lib\win8\GalaSoft.MvvmLight.Extras.xml" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.dll" target="lib\win81\GalaSoft.MvvmLight.dll" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.pdb" target="lib\win81\GalaSoft.MvvmLight.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.xml" target="lib\win81\GalaSoft.MvvmLight.xml" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.dll" target="lib\win81\GalaSoft.MvvmLight.Extras.dll" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.pdb" target="lib\win81\GalaSoft.MvvmLight.Extras.pdb" />
+      <file src="GalaSoft.MvvmLight.Extras\bin\Release\GalaSoft.MvvmLight.Extras.xml" target="lib\win81\GalaSoft.MvvmLight.Extras.xml" />
       <file src="GalaSoft.MvvmLight.Platform.Win81\bin\Release\GalaSoft.MvvmLight.Platform.dll" target="lib\win81\GalaSoft.MvvmLight.Platform.dll" />
       <file src="GalaSoft.MvvmLight.Platform.Win81\bin\Release\GalaSoft.MvvmLight.Platform.pdb" target="lib\win81\GalaSoft.MvvmLight.Platform.pdb" />
       <file src="GalaSoft.MvvmLight.Platform.Win81\bin\Release\GalaSoft.MvvmLight.Platform.xml" target="lib\win81\GalaSoft.MvvmLight.Platform.xml" />
