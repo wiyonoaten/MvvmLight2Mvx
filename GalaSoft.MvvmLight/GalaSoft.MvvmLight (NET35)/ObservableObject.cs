@@ -30,9 +30,11 @@ using System.Runtime.CompilerServices;
 #if NETFX_CORE
 using System.Reflection.RuntimeExtensions;
 #elif PORTABLE
-using JetBrains.Annotations;
+//using JetBrains.Annotations;
 
 #endif
+
+using Cirrious.MvvmCross.ViewModels;
 
 namespace GalaSoft.MvvmLight
 {
@@ -40,26 +42,11 @@ namespace GalaSoft.MvvmLight
     /// A base class for objects of which the properties must be observable.
     /// </summary>
     //// [ClassInfo(typeof(ViewModelBase))]
-    public class ObservableObject : INotifyPropertyChanged
+    public class ObservableObject : MvxViewModel
 #if !PORTABLE
         , INotifyPropertyChanging
 #endif
     {
-        /// <summary>
-        /// Occurs after a property value changes.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Provides access to the PropertyChanged event handler to derived classes.
-        /// </summary>
-        protected PropertyChangedEventHandler PropertyChangedHandler
-        {
-            get
-            {
-                return PropertyChanged;
-            }
-        }
 #if !PORTABLE
         /// <summary>
         /// Occurs before a property value changes.
@@ -193,13 +180,13 @@ namespace GalaSoft.MvvmLight
             "Microsoft.Design", 
             "CA1030:UseEventsWhereAppropriate",
             Justification = "This cannot be an event")]
-        protected virtual void RaisePropertyChanged(
+		protected override void RaisePropertyChanged(
             string propertyName) 
 #endif
         {
             VerifyPropertyName(propertyName);
 
-            var handler = PropertyChanged;
+			var handler = PropertyChangedHandler;
             if (handler != null)
             {
                 handler(this, new PropertyChangedEventArgs(propertyName));
@@ -249,9 +236,9 @@ namespace GalaSoft.MvvmLight
             "Microsoft.Design",
             "CA1006:GenericMethodsShouldProvideTypeParameter",
             Justification = "This syntax is more convenient than other alternatives.")]
-        protected virtual void RaisePropertyChanged<T>(Expression<Func<T>> propertyExpression)
+		protected override void RaisePropertyChanged<T>(Expression<Func<T>> propertyExpression)
         {
-            var handler = PropertyChanged;
+			var handler = PropertyChangedHandler;
             if (handler != null)
             {
                 var propertyName = GetPropertyName(propertyExpression);

@@ -574,8 +574,7 @@ namespace GalaSoft.MvvmLight.Messaging
 #if XAMARIN
                 // TODO ANDROID How to dispatch in order to use lower priority
                 cleanupAction();
-#else
-#if NETFX_CORE
+#elif NETFX_CORE
                 if (Window.Current != null
                     && Window.Current.Dispatcher != null)
                 {
@@ -593,14 +592,13 @@ namespace GalaSoft.MvvmLight.Messaging
                     cleanupAction,
                     DispatcherPriority.ApplicationIdle,
                     null);
+#endif
 #else
 
                 if (_context != null)
                     _context.Post(_ => cleanupAction(), null);
                 else
                     cleanupAction(); // run inline w/o a context
-#endif
-#endif
 #endif
                 _isCleanupRegistered = true;
             }
