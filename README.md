@@ -4,7 +4,7 @@ Provides easy transition for existing codebase using MvvmLight to switch over to
 
 ## License
 
-Copyright 2015 Wiyono Aten
+Copyright 2013-2015 Wiyono Aten
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
